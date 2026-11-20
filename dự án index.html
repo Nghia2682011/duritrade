@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -243,8 +242,29 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label">Cam Kết Chất Lượng (BRIX & Tỷ Lệ Hàng A)</label>
+                        <label class="form-label">Cam Kết Chất Lượng Tổng Quan (BRIX & Tỷ Lệ Hàng A)</label>
                         <input type="text" id="post-brix" class="form-input" placeholder="VD: BRIX ≥ 33° (Hàng A > 85%)" value="BRIX ≥ 33° (Hàng A > 85%)" required>
+                    </div>
+
+                    <div class="form-group" style="background: #e8f5e9; padding: 10px; border-radius: 8px; border: 1px solid #c8e6c9;">
+                        <label class="form-label" style="font-weight: 700; color: #1b5e20; margin-bottom: 6px;">📅 Lịch Cắt Nông Sản & Cam Kết Chất Lượng Chi Tiết Theo Dao:</label>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; font-size: 11px;">
+                            <div>
+                                <label style="font-weight: bold; color: #1b5e20;">🔪 Dao 1 (30% SL):</label>
+                                <input type="text" id="post-dao1-date" class="form-input" style="font-size: 11px; padding: 4px; margin-top: 2px;" value="25/05/2026" required>
+                                <input type="text" id="post-dao1-quality" class="form-input" style="font-size: 11px; padding: 4px; margin-top: 2px;" value="BRIX ≥ 33° | Hàng A ≥ 85%" required>
+                            </div>
+                            <div>
+                                <label style="font-weight: bold; color: #1b5e20;">🔪 Dao 2 (50% SL):</label>
+                                <input type="text" id="post-dao2-date" class="form-input" style="font-size: 11px; padding: 4px; margin-top: 2px;" value="05/06/2026" required>
+                                <input type="text" id="post-dao2-quality" class="form-input" style="font-size: 11px; padding: 4px; margin-top: 2px;" value="BRIX ≥ 31° | Hàng A ≥ 80%" required>
+                            </div>
+                            <div>
+                                <label style="font-weight: bold; color: #1b5e20;">🔪 Dao 3 (20% SL):</label>
+                                <input type="text" id="post-dao3-date" class="form-input" style="font-size: 11px; padding: 4px; margin-top: 2px;" value="15/06/2026" required>
+                                <input type="text" id="post-dao3-quality" class="form-input" style="font-size: 11px; padding: 4px; margin-top: 2px;" value="Hàng B/Dạt (Giảm 15% giá)" required>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="form-group">
@@ -317,6 +337,22 @@
                     <p><strong>Tiền cọc an toàn (10% Escrow):</strong> <span id="contract-deposit-val" style="color: var(--primary); font-weight: 700;">82.500.000 VNĐ</span></p>
                     <p><strong>Tọa độ GPS vườn:</strong> <span id="contract-gps">12.6853° N, 108.2142° E</span> (Đã xác minh)</p>
                     <p><strong>📅 Lịch Cắt Nông Sản (Dự Kiến):</strong> <span id="contract-harvest-schedule" style="color: #1b5e20; font-weight: 700;">Dao 1: 25/05 | Dao 2: 05/06 | Dao 3: 15/06</span></p>
+                    
+                    <div style="margin-top: 6px; padding: 8px; background: #e8f5e9; border-radius: 6px; border: 1px solid #c8e6c9;">
+                        <div style="font-weight: 700; color: #1b5e20; font-size: 11px; margin-bottom: 4px;">🌾 CAM KẾT CHẤT LƯỢNG CHI TIẾT THEO DAO CẮT:</div>
+                        <div style="font-size: 11px; line-height: 1.5; color: #2e7d32;">
+                            • 🔪 <strong>Dao 1 (30% SL - Cắt bói):</strong> <span id="contract-quality-dao1" style="font-weight: bold;">BRIX ≥ 33° | Hàng A ≥ 85%</span><br>
+                            • 🔪 <strong>Dao 2 (50% SL - Cắt rộ):</strong> <span id="contract-quality-dao2" style="font-weight: bold;">BRIX ≥ 31° | Hàng A ≥ 80%</span><br>
+                            • 🔪 <strong>Dao 3 (20% SL - Cắt vét):</strong> <span id="contract-quality-dao3" style="font-weight: bold;">Hàng B / Dạt cho phép (Giảm 15% giá)</span>
+                        </div>
+                    </div>
+
+                    <!-- CONTROL BUTTONS FOR CUT DATE & WEATHER DELAY -->
+                    <div style="display: flex; gap: 6px; margin-top: 8px;">
+                        <button id="btn-weather-delay" class="btn btn-outline" style="border-color: #0288d1; color: #0288d1; font-weight: bold; flex: 1; font-size: 11px; padding: 6px;" onclick="openWeatherDelayModal()">🌧️ Dời Lịch Cắt (Thời Tiết Xấu)</button>
+                        <button id="btn-late-cut-report" class="btn btn-outline" style="border-color: #d32f2f; color: #d32f2f; font-weight: bold; flex: 1; font-size: 11px; padding: 6px;" onclick="reportLateCut24h()">⏰ Phạt Trễ Hạn Cắt 24h (Bố Trí Trễ)</button>
+                    </div>
+                    <div id="weather-delay-status-badge" style="display: none; margin-top: 6px; font-size: 11px; color: #0288d1; background: #e1f5fe; padding: 6px; border-radius: 4px; border: 1px solid #81d4fa; text-align: center; font-weight: bold;"></div>
                     <p><strong>Trọng tài BRIX P2P:</strong> <span id="contract-arbitrator" style="color: var(--primary); font-weight: 700;">Ban Quản Trị DuriTrade (Chỉ cử trọng tài khi có tranh chấp)</span></p>
                 </div>
 
@@ -578,6 +614,52 @@
     </div>
 
 
+    <!-- MODAL 6: DỜI LỊCH CẮT DO THỜI TIẾT BẤT KHẢ KHÁNG -->
+    <div id="modal-weather-delay" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-header">
+                <div class="modal-title">🌧️ Đề Xuất Dời Lịch Cắt (Do Thời Tiết Xấu)</div>
+                <button class="btn-close" onclick="closeModal('modal-weather-delay')">✕</button>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Chọn Đợt Cắt Cần Gia Hạn Dời Lịch</label>
+                <select id="weather-delay-dao-select" class="form-select">
+                    <option value="Dao 1">🔪 Dao 1 (Đợt cắt bói 30% SL)</option>
+                    <option value="Dao 2">🔪 Dao 2 (Đợt cắt rộ 50% SL)</option>
+                    <option value="Dao 3">🔪 Dao 3 (Đợt cắt vét 20% SL)</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Lý Do Thời Tiết Bất Khả Kháng</label>
+                <select id="weather-delay-reason-select" class="form-select">
+                    <option value="Mưa dầm kéo dài khiến sầu chưa đủ độ già BRIX">🌧️ Mưa dầm kéo dài khiến sầu chưa đủ độ già BRIX</option>
+                    <option value="Áp thấp / Mưa lớn xe container không vào được vườn">⛈️ Áp thấp / Mưa lớn xe container không vào được vườn</option>
+                    <option value="Thời tiết biến động bất thường khiến sầu chậm chín">🌡️ Thời tiết biến động bất thường khiến sầu chậm chín</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Số Ngày Xin Gia Hạn Dời Lịch</label>
+                <select id="weather-delay-days-select" class="form-select">
+                    <option value="2">Gia hạn dời thêm +2 ngày</option>
+                    <option value="3" selected>Gia hạn dời thêm +3 ngày</option>
+                    <option value="5">Gia hạn dời thêm +5 ngày</option>
+                </select>
+            </div>
+
+            <div style="font-size: 11px; color: #0288d1; margin-bottom: 12px; background: #e1f5fe; padding: 8px; border-radius: 6px; border: 1px solid #81d4fa;">
+                <label style="display: flex; align-items: center; gap: 6px; cursor: pointer;">
+                    <input type="checkbox" id="chk-weather-confirm" checked>
+                    <span><strong>Xác nhận:</strong> Cả 2 bên (Nông dân & Thương lái) đồng thuận dời lịch do thời tiết xấu (Không phạt cọc Escrow).</span>
+                </label>
+            </div>
+
+            <button class="btn btn-primary" style="background: #0288d1; border-color: #0288d1;" onclick="submitWeatherDelay()">✅ Xác Nhận Dời Lịch Cắt & Cập Nhật Hợp Đồng</button>
+        </div>
+    </div>
+
     <!-- MODAL 5: HỦY CỌC HỢP ĐỒNG & PHẠT PHÁP LÝ ESCROW (KHI ĐÃ NỘP CỌC) -->
     <div id="modal-cancel-deposit" class="modal-overlay">
         <div class="modal-card">
@@ -750,7 +832,11 @@
                 totalVal: 825000000,
                 depositVal: 82500000,
                 gps: '12.6853° N, 108.2142° E',
-                harvestSchedule: 'Dao 1: 25/05 (30%) | Dao 2: 05/06 (50%) | Dao 3: 15/06 (20%)',
+                harvestSchedule: 'Dao 1: 25/05/2026 (30%) | Dao 2: 05/06/2026 (50%) | Dao 3: 15/06/2026 (20%)',
+                qualityDao1: 'BRIX ≥ 33° | Hàng A ≥ 85%',
+                qualityDao2: 'BRIX ≥ 31° | Hàng A ≥ 80%',
+                qualityDao3: 'Hàng B / Dạt cho phép (Giảm 15% giá)',
+                weatherDelayNote: null,
                 status: 'locked_deposit',
                 isSigned: true,
                 isFinalized: false,
@@ -830,7 +916,11 @@
                 totalVal: totalVal,
                 depositVal: depositVal,
                 gps: item.gps || '12.6853° N, 108.2142° E',
-                harvestSchedule: item.harvestSchedule || 'Dao 1: 25/05 (30%) | Dao 2: 05/06 (50%) | Dao 3: 15/06 (20%)',
+                harvestSchedule: item.harvestSchedule || 'Dao 1: 25/05/2026 (30%) | Dao 2: 05/06/2026 (50%) | Dao 3: 15/06/2026 (20%)',
+                qualityDao1: item.qualityDao1 || 'BRIX ≥ 33° | Hàng A ≥ 85%',
+                qualityDao2: item.qualityDao2 || 'BRIX ≥ 31° | Hàng A ≥ 80%',
+                qualityDao3: item.qualityDao3 || 'Hàng B / Dạt cho phép (Giảm 15% giá)',
+                weatherDelayNote: null,
                 status: 'draft',
                 isSigned: false,
                 isFinalized: false,
@@ -907,7 +997,24 @@
         document.getElementById('contract-deposit-val').innerText = `${Number(contract.depositVal).toLocaleString('vi-VN')} VNĐ`;
         document.getElementById('contract-gps').innerText = contract.gps;
         const elSchedule = document.getElementById('contract-harvest-schedule');
-        if (elSchedule) elSchedule.innerText = contract.harvestSchedule || 'Dao 1: 25/05 (30%) | Dao 2: 05/06 (50%) | Dao 3: 15/06 (20%)';
+        if (elSchedule) elSchedule.innerText = contract.harvestSchedule || 'Dao 1: 25/05/2026 (30%) | Dao 2: 05/06/2026 (50%) | Dao 3: 15/06/2026 (20%)';
+
+        const q1 = document.getElementById('contract-quality-dao1');
+        const q2 = document.getElementById('contract-quality-dao2');
+        const q3 = document.getElementById('contract-quality-dao3');
+        if (q1) q1.innerText = contract.qualityDao1 || 'BRIX ≥ 33° | Hàng A ≥ 85%';
+        if (q2) q2.innerText = contract.qualityDao2 || 'BRIX ≥ 31° | Hàng A ≥ 80%';
+        if (q3) q3.innerText = contract.qualityDao3 || 'Hàng B / Dạt cho phép (Giảm 15% giá)';
+
+        const wBadge = document.getElementById('weather-delay-status-badge');
+        if (wBadge) {
+            if (contract.weatherDelayNote) {
+                wBadge.style.display = 'block';
+                wBadge.innerText = contract.weatherDelayNote;
+            } else {
+                wBadge.style.display = 'none';
+            }
+        }
 
         // UI element locks according to active contract state
         const btnClear = document.getElementById('btn-clear-sig');
@@ -1021,6 +1128,16 @@
         const brix = document.getElementById('post-brix').value;
         const gps = document.getElementById('post-gps').value || '12.6853° N, 108.2142° E';
         
+        const dao1Date = document.getElementById('post-dao1-date').value || '25/05/2026';
+        const dao2Date = document.getElementById('post-dao2-date').value || '05/06/2026';
+        const dao3Date = document.getElementById('post-dao3-date').value || '15/06/2026';
+
+        const dao1Qual = document.getElementById('post-dao1-quality').value || 'BRIX ≥ 33° | Hàng A ≥ 85%';
+        const dao2Qual = document.getElementById('post-dao2-quality').value || 'BRIX ≥ 31° | Hàng A ≥ 80%';
+        const dao3Qual = document.getElementById('post-dao3-quality').value || 'Hàng B/Dạt (Giảm 15% giá)';
+
+        const harvestSched = `Dao 1: ${dao1Date} (30%) | Dao 2: ${dao2Date} (50%) | Dao 3: ${dao3Date} (20%)`;
+
         const newListing = {
             id: Date.now(),
             role: role,
@@ -1030,6 +1147,10 @@
             price: Number(price),
             brix: brix,
             gps: gps,
+            harvestSchedule: harvestSched,
+            qualityDao1: dao1Qual,
+            qualityDao2: dao2Qual,
+            qualityDao3: dao3Qual,
             image: currentCompressedImageData || SVG_DURIAN_PLACEHOLDER
         };
 
@@ -1382,6 +1503,72 @@ Biên bản phán quyết đã được niêm phong vĩnh viễn trên Hợp đ�
     }
 
     
+
+    // WEATHER DELAY & LATE CUT FUNCTIONS (NEW IN V29)
+    function openWeatherDelayModal() {
+        const contract = userContracts.find(c => c.id === currentContractId);
+        if (!contract) return;
+
+        if (contract.status === 'cancelled_deposit') {
+            alert('🔒 Hợp đồng này đã bị hủy cọc/xử lý vi phạm trước đó!');
+            return;
+        }
+        document.getElementById('modal-weather-delay').style.display = 'flex';
+    }
+
+    function submitWeatherDelay() {
+        const chk = document.getElementById('chk-weather-confirm');
+        if (!chk || !chk.checked) {
+            alert('⚠️ Vui lòng tích chọn ô xác nhận đồng thuận dời lịch do thời tiết!');
+            return;
+        }
+
+        const dao = document.getElementById('weather-delay-dao-select').value;
+        const reason = document.getElementById('weather-delay-reason-select').value;
+        const days = document.getElementById('weather-delay-days-select').value;
+
+        const contract = userContracts.find(c => c.id === currentContractId);
+        if (contract) {
+            contract.weatherDelayNote = `🌧️ ĐÃ DỜI LỊCH CẮT ${dao.toUpperCase()} THÊM +${days} NGÀY (${reason}) - Không phạt cọc Escrow`;
+            localStorage.setItem('duritrade_user_contracts', JSON.stringify(userContracts));
+        }
+
+        closeModal('modal-weather-delay');
+        renderActiveContractUI();
+
+        alert(`🎉 DỜI LỊCH CẮT THÀNH CÔNG!\n\nLịch cắt ${dao} đã được dời thêm +${days} ngày do thời tiết xấu.\n\nThông tin đã được niêm phong vào Hợp đồng mà không bị phạt cọc Escrow!`);
+    }
+
+    function reportLateCut24h() {
+        const contract = userContracts.find(c => c.id === currentContractId);
+        if (!contract) return;
+
+        if (contract.status === 'cancelled_deposit') {
+            alert('🔒 Hợp đồng này đã bị hủy cọc/xử lý vi phạm trước đó!');
+            return;
+        }
+
+        const confirmLate = confirm(`⚠️ BÁO CÁO VI PHẠM TRỄ HẠN CẮT 24H:\n\nĐã quá 24h kể từ ngày cắt cam kết nhưng Thương lái không đến cắt và không dời lịch do thời tiết?\n\nChế tài Escrow MBBank:\n- TỊCH THU 100% CỌC ESCROW (82.500.000 VNĐ) GIẢI NGÂN TRỰC TIẾP CHO NÔNG DÂN đền bù phạt cọc do Thương lái trễ cắt sầu riêng!\n\nBạn có chắc chắn muốn kích hoạt phán quyết vi phạm?`);
+
+        if (!confirmLate) return;
+
+        const now = new Date();
+        const timeStr = `${now.getDate()}/${now.getMonth()+1}/${now.getFullYear()} lúc ${now.getHours()}:${now.getMinutes()<10?'0':''}${now.getMinutes()}`;
+
+        contract.status = 'cancelled_deposit';
+        contract.cancelDepositInfo = {
+            party: '💼 Bên Mua (Thương Lái) Vi Phạm Trễ Hạn Cắt 24h',
+            reason: 'Đã quá 24h kể từ ngày cắt cam kết nhưng không đến cắt sầu riêng và không dời lịch do thời tiết',
+            flow: 'TỊCH THU 100% CỌC ESCROW MBBANK (82.500.000 VNĐ) GIẢI NGÂN CHO NÔNG DÂN ĐỀN BÙ PHẠT CỌC (Điều 328 BLDS)',
+            time: timeStr
+        };
+
+        localStorage.setItem('duritrade_user_contracts', JSON.stringify(userContracts));
+
+        renderActiveContractUI();
+        alert(`🚨 ĐÃ XỬ LÝ VI PHẠM TRỄ HẠN CẮT 24H THÀNH CÔNG!\n\nTiền cọc Escrow 82.500.000 VNĐ đã được chuyển giải ngân đền bù cho Nông dân.`);
+    }
+
     function openCancelDepositModal() {
         const contract = userContracts.find(c => c.id === currentContractId);
         if (!contract) return;
