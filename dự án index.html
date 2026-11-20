@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>DuriTrade - B2B Durian Escrow Platform</title>
+    <title>DuriTrade v25 - B2B Durian Escrow Platform</title>
     <style>
         :root {
             --primary: #1b5e20;
@@ -339,6 +339,11 @@
                 <!-- FINALIZATION AREA -->
                 <div id="finalization-container" style="margin-top: 16px; padding-top: 12px; border-top: 2px dashed var(--primary);">
                     <button id="btn-finalize-contract" class="btn btn-primary" style="background: linear-gradient(135deg, #1b5e20, #2e7d32); font-size: 14px; padding: 12px; width: 100%; font-weight: bold; box-shadow: 0 4px 12px rgba(27,94,32,0.3);" onclick="finalizeContract()">🚀 CHỐT & GỬI HỢP ĐỒNG CHÍNH THỨC (KHÓA 100%)</button>
+                </div>
+
+                <!-- CANCEL DRAFT CONTRACT CONTAINER (ANTI-HANGING FEATURE IN V25) -->
+                <div id="cancel-draft-container" style="margin-top: 10px;">
+                    <button id="btn-cancel-draft-contract" class="btn btn-outline" style="border-color: #d32f2f; color: #d32f2f; font-weight: bold; width: 100%; font-size: 13px;" onclick="cancelDraftContract()">❌ HỦY DỰ THẢO HỢP ĐỒNG NÀY & GIẢI PHÓNG BÀI ĐĂNG TRÊN SÀN</button>
                 </div>
 
                 <!-- FINALIZED SUMMARY CARD -->
@@ -795,6 +800,31 @@
     }
 
     function renderActiveContractUI() {
+        const btnCancelDraft = document.getElementById('btn-cancel-draft-contract');
+        const btnFinalizeContainer = document.getElementById('finalization-container');
+
+        if (userContracts.length === 0) {
+            document.getElementById('contract-code-title').innerText = '📄 Hợp Đồng Điện Tử (Trống)';
+            const badge = document.getElementById('contract-status-badge');
+            if (badge) {
+                badge.className = 'badge badge-outline';
+                badge.innerText = 'ℹ️ CHƯA CHỌN BÀI ĐĂNG NÀO';
+            }
+            document.getElementById('contract-seller').innerText = 'Chưa chọn';
+            document.getElementById('contract-buyer').innerText = 'Chưa chọn';
+            document.getElementById('contract-qty').innerText = '0 Tấn';
+            document.getElementById('contract-price').innerText = '0đ/kg';
+            document.getElementById('contract-total-val').innerText = '0 VNĐ';
+            document.getElementById('contract-deposit-val').innerText = '0 VNĐ';
+            document.getElementById('contract-gps').innerText = 'Chưa xác định';
+            
+            if (btnCancelDraft) btnCancelDraft.style.display = 'none';
+            if (btnFinalizeContainer) btnFinalizeContainer.style.display = 'none';
+            return;
+        }
+
+        if (btnFinalizeContainer) btnFinalizeContainer.style.display = 'block';
+
         const contract = userContracts.find(c => c.id === currentContractId) || userContracts[0];
         if (!contract) return;
 
@@ -837,6 +867,7 @@
                 btnFinalize.style.background = '#555';
             }
             if (summaryCard) summaryCard.style.display = 'block';
+            if (btnCancelDraft) btnCancelDraft.style.display = 'none';
         } else {
             if (btnClear) { btnClear.disabled = false; btnClear.style.opacity = '1'; }
             if (btnSaveSig) { btnSaveSig.disabled = false; btnSaveSig.innerText = '✍️ Lưu & Ký Hợp Đồng'; btnSaveSig.style.opacity = '1'; }
@@ -846,6 +877,7 @@
                 btnFinalize.style.background = 'linear-gradient(135deg, #1b5e20, #2e7d32)';
             }
             if (summaryCard) summaryCard.style.display = 'none';
+            if (btnCancelDraft) btnCancelDraft.style.display = 'block';
         }
 
         applyReportState();
@@ -1286,6 +1318,39 @@ Biên bản phán quyết đã được niêm phong vĩnh viễn trên Hợp đ�
         isSignatureSaved = true;
         localStorage.setItem('duritrade_sig_saved', 'true');
         alert('✍️ Chữ ký điện tử của bạn đã được ghi nhận vào hợp đồng!');
+    }
+
+    function cancelDraftContract() {
+        const contract = userContracts.find(c => c.id === currentContractId);
+        if (!contract) return;
+
+        if (contract.isFinalized) {
+            alert('🔒 Hợp đồng này đã CHỐT HOÀN TẤT & KHÓA PHÁP LÝ! Không thể hủy dự thảo.');
+            return;
+        }
+
+        const confirmCancel = confirm(`⚠️ XÁC NHẬN HỦY DỰ THẢO HỢP ĐỒNG #DT-${contract.id.toString().slice(-4)}:\n\nBạn có chắc chắn muốn HỦY DỰ THẢO hợp đồng này?\n\n- Bài đăng "${contract.title}" sẽ được GIẢI PHÓNG ngay lập tức trên Sàn DuriTrade.\n- Tránh tình trạng bài bị "treo" chờ xử lý làm ảnh hưởng giao dịch của Nông dân/Thương lái.`);
+
+        if (!confirmCancel) return;
+
+        userContracts = userContracts.filter(c => c.id !== currentContractId);
+
+        if (userContracts.length === 0) {
+            currentContractId = null;
+        } else {
+            currentContractId = userContracts[0].id;
+        }
+
+        localStorage.setItem('duritrade_user_contracts', JSON.stringify(userContracts));
+
+        initUserContracts();
+        renderMarketList();
+
+        alert('✅ ĐÃ HỦY DỰ THẢO HỢP ĐỒNG THÀNH CÔNG!\n\nBài đăng đã được giải phóng tự do trên Sàn Giao Dịch DuriTrade.');
+
+        if (userContracts.length === 0) {
+            switchTab(0, document.querySelectorAll('.nav-item')[0]);
+        }
     }
 
     function finalizeContract() {
