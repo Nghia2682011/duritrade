@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -315,6 +316,7 @@
                     <p><strong>Tổng giá trị đơn hàng:</strong> <span id="contract-total-val" style="color: var(--danger); font-weight: 700;">825.000.000 VNĐ</span></p>
                     <p><strong>Tiền cọc an toàn (10% Escrow):</strong> <span id="contract-deposit-val" style="color: var(--primary); font-weight: 700;">82.500.000 VNĐ</span></p>
                     <p><strong>Tọa độ GPS vườn:</strong> <span id="contract-gps">12.6853° N, 108.2142° E</span> (Đã xác minh)</p>
+                    <p><strong>📅 Lịch Cắt Nông Sản (Dự Kiến):</strong> <span id="contract-harvest-schedule" style="color: #1b5e20; font-weight: 700;">Dao 1: 25/05 | Dao 2: 05/06 | Dao 3: 15/06</span></p>
                     <p><strong>Trọng tài BRIX P2P:</strong> <span id="contract-arbitrator" style="color: var(--primary); font-weight: 700;">Ban Quản Trị DuriTrade (Chỉ cử trọng tài khi có tranh chấp)</span></p>
                 </div>
 
@@ -546,10 +548,11 @@
             </div>
 
             <div class="form-group">
-                <label class="form-label">🚨 Xác Định Bên Vi Phạm Hợp Đồng</label>
+                <label class="form-label">🚨 Xác Định Nguyên Nhân / Bên Vi Phạm Hợp Đồng</label>
                 <select id="admin-violating-party-select" class="form-select">
                     <option value="farmer">🌾 Bên Bán (Nhà Vườn / Nông Dân) Vi Phạm -> Hoàn Cọc Về Bên Mua</option>
-                    <option value="buyer">💼 Bên Mua (Thương Lái / Vựa XNK) Vi Phạm -> Giải Ngân Cọc Cho Bên Bán</option>
+                    <option value="buyer">💼 Bên Mua (Thương Lái / Vựa XNK) Vi Phạm -> Tịch Thu Cọc Đền Bù Cho Nhà Vườn (Điều 328 BLDS)</option>
+                    <option value="force_majeure">🌧️ Thiên Tai / Thời Tiết Bất Khả Kháng (Mưa dầm / BRIX giảm) -> Hoàn 100% Cọc Cho Bên Mua & Miễn Phạt Cho Nhà Vườn</option>
                 </select>
             </div>
 
@@ -627,6 +630,7 @@
             price: 55000,
             brix: 'BRIX ≥ 33° (Hàng A > 85%)',
             gps: '12.6853° N, 108.2142° E',
+                harvestSchedule: 'Dao 1: 25/05 (30%) | Dao 2: 05/06 (50%) | Dao 3: 15/06 (20%)',
             image: SVG_DURIAN_PLACEHOLDER
         },
         {
@@ -746,6 +750,7 @@
                 totalVal: 825000000,
                 depositVal: 82500000,
                 gps: '12.6853° N, 108.2142° E',
+                harvestSchedule: 'Dao 1: 25/05 (30%) | Dao 2: 05/06 (50%) | Dao 3: 15/06 (20%)',
                 status: 'locked_deposit',
                 isSigned: true,
                 isFinalized: false,
@@ -825,6 +830,7 @@
                 totalVal: totalVal,
                 depositVal: depositVal,
                 gps: item.gps || '12.6853° N, 108.2142° E',
+                harvestSchedule: item.harvestSchedule || 'Dao 1: 25/05 (30%) | Dao 2: 05/06 (50%) | Dao 3: 15/06 (20%)',
                 status: 'draft',
                 isSigned: false,
                 isFinalized: false,
@@ -900,6 +906,8 @@
         document.getElementById('contract-total-val').innerText = `${Number(contract.totalVal).toLocaleString('vi-VN')} VNĐ`;
         document.getElementById('contract-deposit-val').innerText = `${Number(contract.depositVal).toLocaleString('vi-VN')} VNĐ`;
         document.getElementById('contract-gps').innerText = contract.gps;
+        const elSchedule = document.getElementById('contract-harvest-schedule');
+        if (elSchedule) elSchedule.innerText = contract.harvestSchedule || 'Dao 1: 25/05 (30%) | Dao 2: 05/06 (50%) | Dao 3: 15/06 (20%)';
 
         // UI element locks according to active contract state
         const btnClear = document.getElementById('btn-clear-sig');
@@ -1208,13 +1216,17 @@ Thông báo phản hồi của Admin đã được cập nhật trực tiếp l�
         const deductedVal = originalDeposit * rateVal;
         const remainingVal = originalDeposit - deductedVal;
 
-        const partyText = partyVal === 'farmer' ? '🌾 Bên Bán (Nhà Vườn / Nông Dân)' : '💼 Bên Mua (Thương Lái / Vựa XNK)';
-        
+        let partyText = '';
         let flowText = '';
         if (partyVal === 'farmer') {
-            flowText = `💳 Hoàn tiền cọc ${deductedVal.toLocaleString('vi-VN')} VNĐ từ Ví Escrow MBBank VỀ CHO BÊN MUA (Thương lái) đền bù do Nhà vườn vi phạm chất lượng/bẻ cọc.`;
+            partyText = '🌾 Bên Bán (Nhà Vườn / Nông Dân) Vi Phạm Chất Lượng / Bẻ Cọc';
+            flowText = `💳 Hoàn tiền cọc ${deductedVal.toLocaleString('vi-VN')} VNĐ từ Ví Escrow MBBank VỀ CHO BÊN MUA (Thương lái) đền bù do Nhà vườn vi phạm tiêu chuẩn BRIX / Hàng A.`;
+        } else if (partyVal === 'buyer') {
+            partyText = '💼 Bên Mua (Thương Lái / Vựa XNK) Trễ Hạn Cắt Sầu / Tự Ý Bỏ Cọc';
+            flowText = `💳 Tịch thu 100% cọc Escrow (${deductedVal.toLocaleString('vi-VN')} VNĐ) từ Ví Escrow MBBank GIẢI NGÂN CHO BÊN BÁN (Nhà vườn) đền bù phạt cọc theo Điều 328 BLDS 2015.`;
         } else {
-            flowText = `💳 Tịch thu cọc Escrow ${deductedVal.toLocaleString('vi-VN')} VNĐ từ Ví Escrow MBBank GIẢI NGÂN CHO BÊN BÁN (Nhà vườn) đền bù phạt cọc do Thương lái bỏ hàng/trễ cắt sầu.`;
+            partyText = '🌧️ Sự Cố Thiên Tai / Thời Tiết Bất Khả Kháng (BRIX giảm do mưa dầm)';
+            flowText = `💳 HOÀN TRẢ 100% TIỀN CỌC ESCROW (${originalDeposit.toLocaleString('vi-VN')} VNĐ) VỀ BÊN MUA (Thương lái) & MIỄN PHẠT CHO BÊN BÁN (Nhà vườn) do sự cố thời tiết bất khả kháng.`;
         }
 
         const now = new Date();
