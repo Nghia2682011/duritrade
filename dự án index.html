@@ -3,22 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>DuriTrade - B2B Durian Escrow Platform</title>
+    <title>DuriTrade - Sàn Giao Dịch & Bảo Chứng Cọc Sầu Riêng B2B</title>
     <style>
         :root {
             --primary: #1b5e20;
             --primary-light: #4c8c4a;
             --accent: #fbc02d;
             --bg: #f4f6f8;
-            --surface: #ffffff;
+            --card-bg: #ffffff;
             --text: #212121;
             --text-secondary: #666666;
             --border: #e0e0e0;
-            --success: #2e7d32;
-            --warning: #f57c00;
             --danger: #d32f2f;
-            --radius: 12px;
-            --shadow: 0 4px 16px rgba(0,0,0,0.06);
+            --success: #2e7d32;
         }
 
         * {
@@ -30,53 +27,38 @@
         }
 
         body {
-            background: #111;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            background-color: var(--bg);
+            color: var(--text);
+            padding-bottom: 70px;
+            max-width: 480px;
+            margin: 0 auto;
             min-height: 100vh;
-        }
-
-        /* MOBILE APP CONTAINER (420px max-width) */
-        .app-container {
-            width: 100%;
-            max-width: 420px;
-            height: 100vh;
-            max-height: 880px;
-            background: var(--bg);
+            border-left: 1px solid var(--border);
+            border-right: 1px solid var(--border);
             position: relative;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
         }
 
-        @media (min-width: 480px) {
-            .app-container {
-                height: 840px;
-                border-radius: 24px;
-                border: 8px solid #222;
-            }
-        }
-
-        /* HEADER */
-        .header {
-            background: var(--primary);
-            color: #fff;
+        /* HEADER & APP BAR */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
             padding: 14px 16px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-            z-index: 10;
         }
 
-        .header-title {
+        .logo-title {
             font-size: 18px;
-            font-weight: 700;
+            font-weight: 800;
+            letter-spacing: 0.5px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
         }
 
         .header-actions {
@@ -84,118 +66,108 @@
             gap: 6px;
         }
 
-        .btn-header {
-            background: rgba(255,255,255,0.15);
+        .header-btn {
+            background: rgba(255,255,255,0.2);
             border: none;
-            color: #fff;
-            padding: 6px 10px;
-            border-radius: 20px;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 12px;
             font-size: 11px;
-            cursor: pointer;
             font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 4px;
+            cursor: pointer;
         }
 
-        .btn-header:hover { background: rgba(255,255,255,0.25); }
-
-        /* MAIN CONTENT AREA */
-        .content {
-            flex: 1;
-            overflow-y: auto;
+        /* CONTAINER & TAB PANELS */
+        main {
             padding: 12px;
-            position: relative;
         }
 
-        /* TAB PANELS */
         .tab-panel {
             display: none;
         }
+
         .tab-panel.active {
             display: block;
         }
 
-        /* CARDS & CONTAINERS */
+        /* CARDS & UI COMPONENTS */
         .card {
-            background: var(--surface);
-            border-radius: var(--radius);
+            background: var(--card-bg);
+            border-radius: 12px;
             padding: 14px;
             margin-bottom: 12px;
-            box-shadow: var(--shadow);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
             border: 1px solid var(--border);
         }
 
         .card-title {
             font-size: 15px;
             font-weight: 700;
-            color: var(--primary);
             margin-bottom: 10px;
+            color: var(--primary);
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        /* BOTTOM NAVIGATION BAR (4 TABS) */
-        .bottom-nav {
-            background: var(--surface);
+        /* SEARCH & FILTERS */
+        .search-box {
             display: flex;
-            border-top: 1px solid var(--border);
-            height: 64px;
-            z-index: 10;
+            gap: 8px;
+            margin-bottom: 10px;
         }
 
-        .nav-item {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background: none;
-            border: none;
-            color: var(--text-secondary);
-            font-size: 10px;
-            font-weight: 600;
-            cursor: pointer;
-            gap: 4px;
-            transition: all 0.2s;
-        }
-
-        .nav-item.active {
-            color: var(--primary);
-        }
-
-        .nav-item .icon {
-            font-size: 20px;
-        }
-
-        /* BADGES & CHIPS */
-        .badge {
-            display: inline-block;
-            padding: 3px 8px;
-            border-radius: 12px;
-            font-size: 10px;
-            font-weight: 700;
-            text-transform: uppercase;
-        }
-        .badge-farmer { background: #e8f5e9; color: #2e7d32; }
-        .badge-buyer { background: #e3f2fd; color: #1565c0; }
-        .badge-escrow { background: #fff8e1; color: #f57f17; border: 1px solid #ffe082; }
-        .badge-warning { background: #fff3e0; color: #e65100; }
-
-        /* MARKETPLACE LISTING CARD */
-        .listing-card {
-            background: var(--surface);
-            border-radius: var(--radius);
-            overflow: hidden;
-            margin-bottom: 12px;
+        .form-input, .form-select {
+            width: 100%;
+            padding: 10px 12px;
             border: 1px solid var(--border);
-            box-shadow: var(--shadow);
+            border-radius: 8px;
+            font-size: 13px;
+            outline: none;
+            background: white;
+        }
+
+        .form-input:focus, .form-select:focus {
+            border-color: var(--primary);
+        }
+
+        .filter-chips {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 12px;
+            overflow-x: auto;
+            padding-bottom: 4px;
+        }
+
+        .filter-chip {
+            padding: 6px 12px;
+            background: #e8f5e9;
+            color: var(--primary);
+            border-radius: 16px;
+            font-size: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+
+        .filter-chip.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* MARKETPLACE LISTINGS */
+        .listing-card {
+            background: white;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            margin-bottom: 10px;
+            overflow: hidden;
         }
 
         .listing-img {
             width: 100%;
-            height: 150px;
+            height: 140px;
             object-fit: cover;
             background: #eee;
         }
@@ -204,11 +176,26 @@
             padding: 12px;
         }
 
+        .badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+        .badge-farmer { background: #e8f5e9; color: #2e7d32; }
+        .badge-buyer { background: #e3f2fd; color: #1565c0; }
+        .badge-escrow { background: #fff8e1; color: #f57f17; }
+        .badge-success { background: #e8f5e9; color: #1b5e20; }
+        .badge-warning { background: #fff3e0; color: #e65100; }
+
         .listing-title {
             font-size: 14px;
             font-weight: 700;
-            color: var(--text);
-            margin: 4px 0 6px 0;
+            margin-bottom: 4px;
         }
 
         .listing-meta {
@@ -226,97 +213,125 @@
             margin-bottom: 8px;
         }
 
-        /* BUTTONS */
         .btn {
+            display: block;
             width: 100%;
             padding: 10px;
-            border-radius: 8px;
             border: none;
-            font-weight: 700;
+            border-radius: 8px;
             font-size: 13px;
+            font-weight: 700;
+            text-align: center;
             cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 6px;
             transition: opacity 0.2s;
         }
-        .btn:active { opacity: 0.8; }
-        .btn-primary { background: var(--primary); color: #fff; }
-        .btn-accent { background: var(--accent); color: #000; }
-        .btn-outline { background: transparent; border: 1px solid var(--primary); color: var(--primary); }
-        .btn-danger { background: var(--danger); color: #fff; }
 
-        /* FORMS & INPUTS */
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-accent { background: var(--accent); color: var(--text); }
+        .btn-outline { background: transparent; border: 1px solid var(--primary); color: var(--primary); }
+        .btn-danger { background: var(--danger); color: white; }
+
+        /* CHART CONTAINER */
+        .chart-container {
+            height: 160px;
+            width: 100%;
+            margin: 10px 0;
+            background: #fafafa;
+            border-radius: 8px;
+            padding: 8px;
+            position: relative;
+        }
+
+        /* FORM STYLES */
         .form-group {
             margin-bottom: 12px;
         }
 
         .form-label {
             display: block;
-            font-size: 11px;
-            font-weight: 700;
-            color: var(--text-secondary);
+            font-size: 12px;
+            font-weight: 600;
             margin-bottom: 4px;
-            text-transform: uppercase;
+            color: var(--text-secondary);
         }
 
-        .form-input, .form-select {
-            width: 100%;
-            padding: 9px 12px;
-            border-radius: 8px;
-            border: 1px solid var(--border);
-            font-size: 13px;
-            background: #fff;
-        }
-
-        /* SIGNATURE PAD CANVAS */
+        /* SIGNATURE CANVAS */
         .signature-pad-container {
-            border: 2px dashed var(--primary);
+            border: 2px dashed var(--primary-light);
             border-radius: 8px;
-            background: #fff;
+            background: #fafafa;
             margin-bottom: 8px;
-            position: relative;
+            touch-action: none;
         }
 
-        #signature-pad {
+        canvas {
             width: 100%;
             height: 130px;
-            touch-action: none;
             display: block;
         }
 
-        /* SVG CHART BOX */
-        .chart-container {
+        /* BOTTOM NAVIGATION BAR */
+        nav {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
             width: 100%;
-            height: 150px;
-            background: #fafafa;
-            border-radius: 8px;
-            border: 1px solid var(--border);
-            margin: 8px 0;
-            position: relative;
+            max-width: 480px;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 8px 0;
+            border-top: 1px solid var(--border);
+            z-index: 1000;
         }
 
-        /* MODAL OVERLAY */
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 10px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            width: 25%;
+        }
+
+        .nav-item.active {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .nav-item .icon {
+            font-size: 18px;
+            margin-bottom: 2px;
+        }
+
+        /* MODAL POPUPS */
         .modal-overlay {
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.6);
-            z-index: 100;
             display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 2000;
             justify-content: center;
             align-items: center;
             padding: 16px;
         }
 
         .modal-card {
-            background: #fff;
-            border-radius: 16px;
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
             width: 100%;
+            max-width: 400px;
             max-height: 90vh;
             overflow-y: auto;
-            padding: 16px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
 
         .modal-header {
@@ -342,101 +357,62 @@
             color: #888;
         }
 
-        /* VIETQR FRAME */
-        .vietqr-box {
-            text-align: center;
-            background: #f8f9fa;
-            border-radius: 12px;
-            padding: 16px;
-            border: 2px solid #e0e0e0;
-        }
-
-        .vietqr-img {
-            width: 180px;
-            height: 180px;
-            margin: 10px auto;
-            display: block;
-        }
-
-        /* FILTER CHIPS */
-        .filter-chips {
-            display: flex;
-            gap: 6px;
-            margin-bottom: 12px;
-            overflow-x: auto;
-            padding-bottom: 4px;
-        }
-
-        .filter-chip {
-            padding: 6px 12px;
-            border-radius: 16px;
-            background: var(--surface);
-            border: 1px solid var(--border);
-            font-size: 11px;
-            font-weight: 600;
-            white-space: nowrap;
-            cursor: pointer;
-        }
-
-        .filter-chip.active {
-            background: var(--primary);
-            color: #fff;
-            border-color: var(--primary);
-        }
-
         .legal-item {
-            margin-bottom: 10px;
             font-size: 12px;
             line-height: 1.5;
+            margin-bottom: 10px;
+            padding-bottom: 8px;
+            border-bottom: 1px dashed var(--border);
         }
+
         .legal-item h4 {
             color: var(--primary);
-            font-weight: 700;
             margin-bottom: 2px;
         }
     </style>
 </head>
 <body>
 
-<div class="app-container">
-    <!-- APP HEADER -->
-    <header class="header">
-        <div class="header-title">
-            <span>🍈 DuriTrade</span>
+    <!-- HEADER -->
+    <header>
+        <div class="logo-title">
+            <span>🍈</span>
+            <span>DuriTrade</span>
         </div>
         <div class="header-actions">
-            <button class="btn-header" onclick="openLegalModal()">⚖️ Pháp Lý</button>
-            <button class="btn-header" onclick="resetAppData()">🔄 Reset</button>
+            <button class="header-btn" onclick="openLegalModal()">⚖️ Pháp Lý</button>
+            <button class="header-btn" onclick="resetAppData()">🔄 Reset</button>
         </div>
     </header>
 
-    <!-- CONTENT BODY (4 TABS) -->
-    <main class="content">
+    <!-- MAIN APP CONTENT -->
+    <main>
 
-        <!-- TAB 1: THỊ TRƯỜNG VƯỜN (MARKETPLACE) -->
+        <!-- TAB 1: SÀN GIAO DỊCH THỊ TRƯỜNG (MARKETPLACE) -->
         <section id="tab-market" class="tab-panel active">
-            <div class="card" style="padding: 10px;">
-                <input type="text" id="market-search" class="form-input" placeholder="🔍 Tìm kiếm theo tên vườn, vị trí..." oninput="renderMarketList()">
+            <div class="search-box">
+                <input type="text" id="market-search" class="form-input" placeholder="🔍 Tìm theo địa danh (Đắk Lắk, Tiền Giang...)" onkeyup="renderMarketList()">
             </div>
 
             <div class="filter-chips">
-                <button class="filter-chip active" onclick="filterMarket('all', this)">📌 Tất Cả</button>
-                <button class="filter-chip" onclick="filterMarket('farmer', this)">🌾 Vườn Bán (Cung)</button>
-                <button class="filter-chip" onclick="filterMarket('buyer', this)">💼 Vựa Mua (Cầu)</button>
+                <div class="filter-chip active" onclick="filterMarket('all', this)">Tất Cả Tin</div>
+                <div class="filter-chip" onclick="filterMarket('farmer', this)">🌾 Vườn Bán (Cung)</div>
+                <div class="filter-chip" onclick="filterMarket('buyer', this)">💼 Vựa Cần Mua (Cầu)</div>
             </div>
 
             <div id="market-listings-container">
-                <!-- Market listings dynamically rendered here -->
+                <!-- Dynamically rendered via JS -->
             </div>
         </section>
 
-        <!-- TAB 2: BIẾN ĐỘNG GIÁ & BẢNG QUẢN TRỊ VIÊN -->
+        <!-- TAB 2: BIẾN ĐỘNG GIÁ (PRICE TRACKER & ADMIN MANAGER) -->
         <section id="tab-price" class="tab-panel">
             <div class="card">
                 <div class="card-title">
-                    <span>📈 Biểu Đồ Giá Sầu Riêng Live</span>
+                    <span>📈 Biểu Đồ Biến Động Giá 7 Ngày (Live)</span>
                     <span style="font-size: 11px; color: var(--success); font-weight: 600;">● Cập nhật hôm nay</span>
                 </div>
+
                 <div class="form-group" style="display: flex; gap: 6px;">
                     <select id="price-type-select" class="form-select" onchange="updatePriceChart()">
                         <option value="ri6">Ri6 Đẹp (Vườn)</option>
@@ -450,6 +426,11 @@
                     </select>
                 </div>
 
+                <!-- LIVE CHART TOOLTIP DISPLAY -->
+                <div id="chart-hover-info" style="font-size: 12px; font-weight: 700; color: var(--primary); text-align: center; margin: 4px 0; min-height: 18px; background: #e8f5e9; padding: 4px; border-radius: 6px;">
+                    👆 Rê chuột hoặc chạm vào các điểm tròn để xem giá từng ngày
+                </div>
+
                 <div class="chart-container" id="chart-box">
                     <!-- SVG Line Chart injected by JS -->
                 </div>
@@ -460,28 +441,30 @@
                 </div>
             </div>
 
-            <!-- ADMIN PANEL WITH LOGIN AUTHENTICATION & LOCALSTORAGE -->
+            <!-- ADMIN PRICE MANAGER WITH LOGIN & LOCALSTORAGE -->
             <div class="card" style="background: #fafafa; border: 1px solid #c8e6c9;">
-                <!-- AUTHENTICATION LOGIN BOX -->
-                <div id="admin-auth-box">
-                    <div class="card-title" style="color: var(--primary);">🔐 Đăng Nhập Quản Trị Viên Hệ Thống</div>
-                    <div class="form-group">
-                        <label class="form-label">Mật Khẩu Quản Trị (Mặc định: <strong>admin123</strong>)</label>
-                        <input type="password" id="admin-pass-input" class="form-input" placeholder="Nhập mật khẩu (admin123)" onkeyup="if(event.key==='Enter') loginAdmin()">
-                    </div>
-                    <div id="admin-auth-status" style="font-size: 12px; margin-bottom: 8px; color: var(--danger);"></div>
-                    <button class="btn btn-primary" onclick="loginAdmin()">🔑 Đăng Nhập Quản Trị</button>
+                <div class="card-title" style="color: var(--primary);">
+                    <span>⚙️ Quản Trị Viên (Admin)</span>
+                    <button id="admin-login-toggle-btn" class="btn-outline" style="padding: 2px 8px; font-size: 11px; border-radius: 6px;" onclick="toggleAdminLogin()">🔑 Đăng Nhập</button>
                 </div>
 
-                <!-- ADMIN CONTROL CONTENT (HIDDEN BEFORE LOGIN) -->
-                <div id="admin-panel-content" style="display: none;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-                        <div class="card-title" style="color: var(--primary); margin: 0;">⚙️ Bảng Quản Trị Viên DuriTrade</div>
-                        <button class="btn btn-outline" onclick="logoutAdmin()" style="padding: 4px 10px; font-size: 11px; width: auto;">🔒 Đăng Xuất</button>
+                <!-- ADMIN LOGIN FORM -->
+                <div id="admin-login-box" style="display: block; padding: 8px 0;">
+                    <div class="form-group">
+                        <label class="form-label">Mật khẩu Quản trị (Mặc định: admin123)</label>
+                        <div style="display: flex; gap: 6px;">
+                            <input type="password" id="admin-pass-input" class="form-input" placeholder="Nhập mật khẩu...">
+                            <button class="btn btn-primary" style="width: 100px;" onclick="loginAdmin()">Vào Admin</button>
+                        </div>
                     </div>
+                </div>
+
+                <!-- ADMIN CONTROL PANEL (HIDDEN BY DEFAULT) -->
+                <div id="admin-panel-content" style="display: none;">
+                    <div style="font-size: 11px; color: var(--success); font-weight: 700; margin-bottom: 8px;">✅ Đã đăng nhập tài khoản Quản trị viên</div>
 
                     <div class="form-group">
-                        <label class="form-label">Chọn Loại Sầu Riêng Cập Nhật Giá</label>
+                        <label class="form-label">Chọn Loại Sầu Riêng</label>
                         <select id="admin-price-type" class="form-select">
                             <option value="ri6">Ri6 Đẹp</option>
                             <option value="monthong">Monthong Thái</option>
@@ -494,11 +477,15 @@
                     </div>
                     <div style="display: flex; gap: 8px; margin-bottom: 12px;">
                         <button class="btn btn-primary" onclick="saveAdminPrice()">💾 Lưu Bảng Giá (LocalStorage)</button>
-                        <button class="btn btn-outline" onclick="resetAdminPrice()" style="width: auto;">🔄 Khôi Phục Giá</button>
+                        <button class="btn btn-outline" onclick="resetAdminPrice()" style="width: auto;">🔄 Khôi Phục</button>
                     </div>
+
                     <hr style="border: 0; border-top: 1px dashed var(--border); margin: 12px 0;">
-                    <div class="form-label" style="color: var(--primary); font-weight: 700;">📋 Quản Lý Danh Sách Bài Đăng (Xóa Bài):</div>
-                    <div id="admin-listings-table-container" style="max-height: 160px; overflow-y: auto;"></div>
+
+                    <div class="form-label" style="color: var(--primary); font-weight: 700;">📋 Quản Lý & Xóa Bài Đăng Hệ Thống:</div>
+                    <div id="admin-listings-table-container" style="max-height: 160px; overflow-y: auto; font-size: 11px; margin-bottom: 10px;"></div>
+
+                    <button class="btn btn-danger" style="padding: 6px; font-size: 11px;" onclick="logoutAdmin()">🔒 Đăng Xuất Admin</button>
                 </div>
             </div>
         </section>
@@ -509,65 +496,66 @@
                 <div class="card-title">📝 Đăng Bài Mới Lên Sàn DuriTrade</div>
                 <form id="post-form" onsubmit="handleFormSubmit(event)">
                     <div class="form-group">
-                        <label class="form-label">Bạn Là Ai?</label>
+                        <label class="form-label">Bạn là ai?</label>
                         <select id="post-role" class="form-select">
-                            <option value="farmer">🌾 Hộ Nông Dân (Đăng Bán Vườn)</option>
-                            <option value="buyer">💼 Doanh Nghiệp / Vựa Thu Mua (Đăng Nhu Cầu)</option>
+                            <option value="farmer">🌾 Hộ Nông Dân Đăng Bán Vườn (Cung)</option>
+                            <option value="buyer">💼 Doanh Nghiệp Đăng Nhu Cầu Mua (Cầu)</option>
                         </select>
                     </div>
 
                     <div class="form-group">
                         <label class="form-label">Tiêu Đề Bài Đăng</label>
-                        <input type="text" id="post-title" class="form-input" placeholder="VD: Vườn Monthong 15 Tấn Cắt Cận Ngày" required>
-                    </div>
-
-                    <div class="form-group" style="display: flex; gap: 8px;">
-                        <div style="flex: 1;">
-                            <label class="form-label">Sản Lượng (Tấn)</label>
-                            <input type="number" id="post-quantity" class="form-input" placeholder="VD: 15" required>
-                        </div>
-                        <div style="flex: 1;">
-                            <label class="form-label">Giá Mong Muốn (đ/kg)</label>
-                            <input type="number" id="post-price" class="form-input" placeholder="VD: 55000" required>
-                        </div>
+                        <input type="text" id="post-title" class="form-input" placeholder="VD: Vườn Monthong 15 Tấn Đạt BRIX ≥ 33°" required>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label">Vị Trí Vườn / Vựa Thu Mua</label>
+                        <label class="form-label">Tỉnh / Thành Phố Vùng Trồng</label>
                         <input type="text" id="post-location" class="form-input" placeholder="VD: Krông Pắc, Đắk Lắk" required>
                     </div>
 
-                    <div class="form-group">
-                        <label class="form-label">Cam Kết Độ Đường & Chất Lượng</label>
-                        <input type="text" id="post-brix" class="form-input" placeholder="VD: BRIX ≥ 33° (Hàng A > 85%)" required>
+                    <div style="display: flex; gap: 8px;">
+                        <div class="form-group" style="flex: 1;">
+                            <label class="form-label">Sản Lượng (Tấn)</label>
+                            <input type="number" id="post-quantity" class="form-input" placeholder="15" required>
+                        </div>
+                        <div class="form-group" style="flex: 1;">
+                            <label class="form-label">Giá Mong Muốn (đ/kg)</label>
+                            <input type="number" id="post-price" class="form-input" placeholder="55000" required>
+                        </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label">Tọa Độ Định Vị GPS Vườn</label>
+                        <label class="form-label">Cam Kết Độ Đường BRIX / Chất Lượng</label>
+                        <input type="text" id="post-brix" class="form-input" value="BRIX ≥ 32° (Tỷ lệ Hàng A > 80%)" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Tọa Độ GPS Vườn Thực Tế (Live)</label>
                         <div style="display: flex; gap: 6px;">
-                            <input type="text" id="post-gps" class="form-input" placeholder="Tọa độ GPS Live" readonly>
-                            <button type="button" class="btn btn-outline" style="width: auto; white-space: nowrap;" onclick="fetchLiveGPS()">📡 Lấy GPS Live</button>
+                            <input type="text" id="post-gps" class="form-input" placeholder="12.6853° N, 108.2142° E" readonly>
+                            <button type="button" class="btn btn-outline" style="width: 130px; font-size: 11px;" onclick="fetchLiveGPS()">📡 Lấy GPS Live</button>
                         </div>
-                        <div id="gps-status" style="font-size: 11px; color: var(--success); margin-top: 4px;"></div>
+                        <div id="gps-status" style="font-size: 10px; color: var(--primary); margin-top: 2px;"></div>
                     </div>
 
+                    <!-- REAL CANVAS IMAGE COMPRESSION WITH LIVE PREVIEW -->
                     <div class="form-group">
-                        <label class="form-label">Tải Ảnh Vườn (Thuật Toán Nén Canvas 90%)</label>
-                        <input type="file" id="post-image-input" class="form-input" accept="image/*" onchange="handleImageCompression(event)">
+                        <label class="form-label">Tải Ảnh Vườn Sầu Riêng (Nén Canvas 90%)</label>
+                        <input type="file" id="post-image-file" class="form-input" accept="image/*" onchange="handleImageCompression(event)">
 
-                        <!-- DISPLAY COMPRESSED IMAGE PREVIEW CONTAINER -->
+                        <!-- PREVIEW BOX -->
                         <div id="image-preview-container" style="display: none; margin-top: 8px; text-align: center;">
-                            <img id="compressed-image-preview" src="" alt="Ảnh nén xem trước" style="max-width: 100%; max-height: 140px; border-radius: 8px; border: 1px solid var(--border);">
-                            <div id="compression-stats-text" style="font-size: 11px; color: var(--primary); font-weight: 700; margin-top: 4px;"></div>
+                            <img id="compressed-image-preview" src="" style="max-width: 100%; height: 120px; border-radius: 8px; border: 1px solid var(--border); object-fit: cover;">
+                            <div id="compression-stats-text" style="font-size: 11px; color: var(--success); font-weight: 700; margin-top: 4px;"></div>
                         </div>
                     </div>
 
-                    <button type="submit" class="btn btn-primary" style="margin-top: 10px;">🚀 Đăng Bài Lên Sàn DuriTrade</button>
+                    <button type="submit" class="btn btn-primary" style="margin-top: 10px;">🚀 Đăng Bài Ngay (Lưu LocalStorage)</button>
                 </form>
             </div>
         </section>
 
-        <!-- TAB 4: HỢP ĐỒNG ĐIỆN TỬ & BẢO CHỨNG 10% ESCROW -->
+        <!-- TAB 4: HỢP ĐỒNG & BẢO CHỨNG CỌC (CONTRACT & ESCROW) -->
         <section id="tab-contract" class="tab-panel">
             <div class="card">
                 <div class="card-title">
@@ -582,25 +570,80 @@
                     <p><strong>Tổng giá trị đơn hàng:</strong> <span id="contract-total-val" style="color: var(--danger); font-weight: 700;">825.000.000 VNĐ</span></p>
                     <p><strong>Tiền cọc an toàn (10% Escrow):</strong> <span id="contract-deposit-val" style="color: var(--primary); font-weight: 700;">82.500.000 VNĐ</span></p>
                     <p><strong>Tọa độ GPS vườn:</strong> <span id="contract-gps">12.6853° N, 108.2142° E</span> (Đã xác minh)</p>
+                    <p><strong>Trọng tài BRIX P2P:</strong> <span id="contract-arbitrator" style="color: var(--primary); font-weight: 700;">Chưa thống nhất (Bấm nút bên dưới để chọn)</span></p>
                 </div>
 
                 <!-- SIGNATURE CANVAS AREA -->
-                <div class="form-group">
+                <div class="form-group" id="signature-area-group">
                     <label class="form-label">Ký Điện Tử Bằng Ngón Tay (Mã Hóa Timestamp)</label>
                     <div class="signature-pad-container">
                         <canvas id="signature-pad"></canvas>
                     </div>
                     <div style="display: flex; gap: 8px;">
-                        <button class="btn btn-outline" style="flex: 1;" onclick="clearSignature()">🧹 Xóa Nét Vẽ</button>
-                        <button class="btn btn-primary" style="flex: 2;" onclick="saveSignature()">✍️ Lưu & Ký Hợp Đồng</button>
+                        <button id="btn-clear-sig" class="btn btn-outline" style="flex: 1;" onclick="clearSignature()">🧹 Xóa Nét Vẽ</button>
+                        <button id="btn-save-sig" class="btn btn-primary" style="flex: 2;" onclick="saveSignature()">✍️ Lưu & Ký Hợp Đồng</button>
                     </div>
                     <div id="sig-status" style="font-size: 11px; color: var(--success); font-weight: 700; margin-top: 4px; text-align: center;"></div>
                 </div>
 
-                <!-- ACTION BUTTONS FOR DEPOSIT & ARBITRATION -->
+                <!-- ACTION BUTTONS FOR DEPOSIT -->
                 <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 12px;">
-                    <button class="btn btn-accent" onclick="openPaymentModal()">🔒 Nộp Cọc Bảo Chứng 10% (VietQR Escrow)</button>
-                    <button class="btn btn-outline" onclick="openArbitrationModal()">🤝 Thống Nhất Trọng Tài BRIX P2P</button>
+                    <button id="btn-payment-modal" class="btn btn-accent" onclick="openPaymentModal()">🔒 Nộp Cọc Bảo Chứng 10% (VietQR Escrow)</button>
+                    <div style="font-size: 11px; color: #666; font-style: italic; text-align: center; padding: 6px; background: #fff3e0; border-radius: 6px; border: 1px solid #ffe0b2;">
+                        💡 Trọng tài BRIX P2P chỉ được cử xuống kiểm tra nếu phát sinh tranh chấp sau khi 2 bên đã CHỐT HỢP ĐỒNG.
+                    </div>
+                </div>
+
+                <!-- FINALIZATION AREA (NEW IN V18) -->
+                <div id="finalization-container" style="margin-top: 16px; padding-top: 12px; border-top: 2px dashed var(--primary);">
+                    <button id="btn-finalize-contract" class="btn btn-primary" style="background: linear-gradient(135deg, #1b5e20, #2e7d32); font-size: 14px; padding: 12px; width: 100%; font-weight: bold; box-shadow: 0 4px 12px rgba(27,94,32,0.3);" onclick="finalizeContract()">🚀 CHỐT & GỬI HỢP ĐỒNG CHÍNH THỨC (KHÓA 100%)</button>
+                </div>
+
+                <!-- FINALIZED SUMMARY CARD (SHOWS WHEN LOCKED) -->
+                <div id="finalized-summary-card" style="display: none; margin-top: 16px; background: #e8f5e9; border: 2px solid #2e7d32; border-radius: 10px; padding: 14px;">
+                    <div style="font-weight: 700; color: #1b5e20; font-size: 15px; margin-bottom: 8px; text-align: center;">✅ HỢP ĐỒNG ĐÃ ĐƯỢC 2 BÊN CHỐT & GỬI THÀNH CÔNG</div>
+                    <div style="font-size: 12px; color: #333; line-height: 1.7;">
+                        <p>📌 <strong>Mã băm Hợp đồng (SHA-256):</strong> <span id="final-hash-code" style="color:#d32f2f; font-family:monospace; font-weight:bold;">#DT-HASH-99827-SECURE</span></p>
+                        <p>✍️ <strong>Chữ ký ngón tay:</strong> <span style="color:#1b5e20; font-weight:bold;">Đã khóa cố định (#DT-SIG-8892)</span></p>
+                        <p>⚖️ <strong>Trọng tài BRIX P2P:</strong> <span id="final-arb-name" style="color:#1b5e20; font-weight:bold;">Đã chốt phân xử</span></p>
+                        <p>💳 <strong>Trạng thái Ví Escrow:</strong> <span style="color:#1b5e20; font-weight:bold;">Đã phong tỏa 10% tại Ngân hàng MBBank</span></p>
+                        <p>🕒 <strong>Thời gian chốt hiệu lực:</strong> <span id="final-timestamp" style="font-weight:bold;"></span></p>
+                    </div>
+                    <div style="font-size: 11px; color: #666; font-style: italic; margin-top: 8px; text-align: center; border-top: 1px solid #a5d6a7; padding-top: 6px;">
+                        🔒 Hợp đồng này đã được ghi nhận trên hệ thống DuriTrade. Mọi chỉnh sửa chữ ký đã bị khóa vĩnh viễn.
+                    </div>
+                </div>
+
+                <!-- DISPUTE & ARBITRATION RESOLUTION CONTAINER (SHOWS WHEN CONTRACT FINALIZED) -->
+                <div id="dispute-resolution-container" style="display: none; margin-top: 16px; background: #fff8e1; border: 2px solid #ffa000; border-radius: 10px; padding: 14px;">
+                    <div style="font-weight: 700; color: #e65100; font-size: 14px; margin-bottom: 8px; text-align: center;">🚨 KÍCH HOẠT TRỌNG TÀI BRIX P2P & XỬ LÝ VI PHẠM (NẾU CÓ)</div>
+                    <div style="font-size: 12px; color: #444; line-height: 1.5; margin-bottom: 10px;">
+                        * Sau khi đã chốt hợp đồng, nếu xảy ra bất đồng về độ BRIX, tỷ lệ Hàng A hoặc trễ giao nhận, hai bên có quyền cử Trọng tài BRIX P2P kiểm định và lập biên bản trừ tiền cọc Escrow.
+                    </div>
+
+                    <!-- STEP 1: SUMMON ARBITRATOR -->
+                    <div style="margin-bottom: 10px;">
+                        <button id="btn-summon-arb" class="btn btn-outline" style="width: 100%; border-color: #ffa000; color: #e65100; font-weight: bold;" onclick="openArbitrationModal()">👨‍⚖️ Cử Trọng Tài Kiểm Định Thực Tế Vườn</button>
+                        <div id="summoned-arb-info" style="display: none; font-size: 12px; font-weight: bold; color: var(--primary); text-align: center; margin-top: 6px; padding: 6px; background: #e8f5e9; border-radius: 6px;"></div>
+                    </div>
+
+                    <!-- STEP 2: DEDUCT VIOLATION -->
+                    <div>
+                        <button id="btn-open-violation" class="btn btn-danger" style="width: 100%; background: #d32f2f; color: #fff; font-weight: bold; padding: 10px;" onclick="openViolationModal()">⚖️ Lập Biên Bản Vi Phạm & Trừ Cọc Escrow</button>
+                    </div>
+
+                    <!-- STEP 3: VIOLATION DECREE DISPLAY CARD (SHOWS AFTER DEDUCTION) -->
+                    <div id="violation-decree-card" style="display: none; margin-top: 12px; background: #ffebee; border: 1px solid #ef5350; border-radius: 8px; padding: 10px; font-size: 12px; color: #b71c1c;">
+                        <div style="font-weight: bold; font-size: 13px; margin-bottom: 6px; color: #c62828;">📋 BIÊN BẢN PHÁN QUYẾT TRỌNG TÀI BRIX P2P</div>
+                        <p style="margin: 3px 0;">🛑 <strong>Nội dung vi phạm:</strong> <span id="decree-type"></span></p>
+                        <p style="margin: 3px 0;">💸 <strong>Mức khấu trừ vi phạm:</strong> <span id="decree-deducted" style="font-weight:bold; color:#d32f2f;"></span></p>
+                        <p style="margin: 3px 0;">💰 <strong>Tiền cọc Escrow còn lại:</strong> <span id="decree-remaining" style="font-weight:bold; color:#2e7d32;"></span></p>
+                        <p style="margin: 3px 0;">👨‍⚖️ <strong>Trọng tài niêm phong:</strong> <span id="decree-arb"></span></p>
+                        <p style="margin: 3px 0;">🕒 <strong>Thời gian phán quyết:</strong> <span id="decree-time"></span></p>
+                        <div style="font-size: 11px; font-style: italic; margin-top: 6px; border-top: 1px dashed #ef5350; padding-top: 4px; color: #880e4f;">
+                            🔒 Biên bản phán quyết này đã được cả 2 bên và Trọng tài xác nhận, có hiệu lực khấu trừ vĩnh viễn trên Ví Escrow MBBank.
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -608,14 +651,14 @@
     </main>
 
     <!-- BOTTOM NAVIGATION (4 TABS) -->
-    <nav class="bottom-nav">
+    <nav>
         <button class="nav-item active" onclick="switchTab(0, this)">
             <span class="icon">🌾</span>
             <span>Thị Trường</span>
         </button>
         <button class="nav-item" onclick="switchTab(1, this)">
             <span class="icon">📈</span>
-            <span>Giá Cả</span>
+            <span>Giá Live</span>
         </button>
         <button class="nav-item" onclick="switchTab(2, this)">
             <span class="icon">📝</span>
@@ -636,8 +679,8 @@
             </div>
 
             <div class="legal-item">
-                <h4>1. Bộ Luật Dân Sự 2015 (Điều 328 - Đặt Cọc)</h4>
-                <p>Khoản cọc 10% được bảo chứng tại Ví Escrow có hiệu lực pháp lý ràng buộc. Bên bỏ cọc chịu phạt cọc gấp đôi theo đúng quy định pháp luật.</p>
+                <h4>1. Chế Tài Bảo Chứng Đặt Cọc (Điều 328 Bộ luật Dân sự 2015)</h4>
+                <p>Khoản cọc 10% giữ tại Ví Escrow MBBank có giá trị pháp lý ràng buộc. Nếu Bên mua bỏ cọc sẽ mất toàn bộ tiền cọc cho Nông dân. Nếu Nông dân bẻ cọc sẽ bị xử lý phạt cọc theo quy định hợp đồng.</p>
             </div>
 
             <div class="legal-item">
@@ -647,67 +690,58 @@
 
             <div class="legal-item">
                 <h4>3. Bảo Mật Định Vị GPS & Thông Tin (Nghị định 13/2023/NĐ-CP)</h4>
-                <p>Tọa độ GPS chính xác và số điện thoại của nhà vườn được ẩn bảo mật đối với tài khoản vãn cảnh, chỉ hiển thị sau khi hai bên ký kết hợp đồng và khóa cọc 10% Escrow thành công.</p>
+                <p>Tọa độ GPS chính xác và số điện thoại của nhà vườn được ẩn bảo mật đối với tài khoản vãng lai, chỉ khai phóng hiển thị sau khi Bên mua hoàn tất nạp 10% cọc Escrow.</p>
             </div>
 
             <div class="legal-item">
-                <h4>4. Cơ Chế Trọng Tài BRIX P2P Phân Xử Tranh Chấp</h4>
-                <p>Khi phát sinh tranh chấp về độ BRIX hoặc tỷ lệ Hàng A, hai bên thống nhất mời 1 Trọng tài kiểm định nông nghiệp độc lập trong danh sách hệ thống để thẩm định thực tế tại vườn.</p>
+                <h4>4. Cơ Chế Giải Quyết Tranh Chấp Trọng Tài BRIX P2P</h4>
+                <p>Hai bên có quyền thỏa thuận chọn Trọng tài kỹ thuật nông nghiệp độc lập tại địa phương để xuống kiểm định độ BRIX và tỷ lệ Hàng A khi xảy ra sự cố phát sinh.</p>
             </div>
 
-            <button class="btn btn-primary" onclick="closeModal('modal-legal')" style="margin-top: 10px;">Tôi Đã Hiểu Các Quy Định</button>
+            <button class="btn btn-primary" onclick="closeModal('modal-legal')">Đã Hiểu & Đăng Ký Sử Dụng</button>
         </div>
     </div>
 
-    <!-- MODAL 2: VIETQR KHÓA CỌC 10% ESCROW (MBBANK CHUẨN) -->
+    <!-- MODAL 2: KHUNG VIETQR MBBANK CHUẨN CỌC ESCROW 10% -->
     <div id="modal-payment" class="modal-overlay">
-        <div class="modal-card">
+        <div class="modal-card" style="text-align: center;">
             <div class="modal-header">
-                <div class="modal-title">🔒 Khóa Cọc 10% Qua Ví Escrow MBBank</div>
+                <div class="modal-title">🔒 Thanh Toán Cọc 10% Qua Ví Escrow</div>
                 <button class="btn-close" onclick="closeModal('modal-payment')">✕</button>
             </div>
 
-            <div class="vietqr-box">
-                <div style="font-size: 11px; font-weight: 700; color: #1565c0; text-transform: uppercase;">NGÂN HÀNG QUÂN ĐỘI (MBBANK) - VÍ ESCROW</div>
-                <!-- SVG GENERATED DYNAMIC VIETQR MOCKUP -->
-                <svg class="vietqr-img" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="200" height="200" fill="#ffffff" rx="12" stroke="#1565c0" stroke-width="4"/>
-                    <!-- QR CORNER MARKS -->
-                    <rect x="15" y="15" width="45" height="45" fill="#1565c0"/>
-                    <rect x="23" y="23" width="29" height="29" fill="#ffffff"/>
-                    <rect x="29" y="29" width="17" height="17" fill="#1565c0"/>
-
-                    <rect x="140" y="15" width="45" height="45" fill="#1565c0"/>
-                    <rect x="148" y="23" width="29" height="29" fill="#ffffff"/>
-                    <rect x="154" y="29" width="17" height="17" fill="#1565c0"/>
-
-                    <rect x="15" y="140" width="45" height="45" fill="#1565c0"/>
-                    <rect x="23" y="148" width="29" height="29" fill="#ffffff"/>
-                    <rect x="29" y="154" width="17" height="17" fill="#1565c0"/>
-
-                    <!-- PATTERN BITS -->
-                    <rect x="70" y="20" width="15" height="15" fill="#333"/>
-                    <rect x="95" y="35" width="20" height="15" fill="#333"/>
-                    <rect x="75" y="65" width="45" height="15" fill="#1565c0"/>
-                    <rect x="20" y="70" width="40" height="15" fill="#333"/>
-                    <rect x="20" y="95" width="25" height="25" fill="#333"/>
-                    <rect x="135" y="70" width="45" height="20" fill="#333"/>
-                    <rect x="150" y="100" width="30" height="30" fill="#1565c0"/>
-                    <rect x="70" y="100" width="30" height="30" fill="#333"/>
-                    <rect x="110" y="140" width="25" height="45" fill="#333"/>
-                    <rect x="70" y="150" width="30" height="20" fill="#333"/>
-                    <!-- CENTER LOGO -->
-                    <circle cx="100" cy="100" r="18" fill="#1b5e20"/>
-                    <text x="100" y="104" text-anchor="middle" fill="#fff" font-size="10" font-weight="bold">DT</text>
-                </svg>
-
-                <div style="font-size: 13px; font-weight: 700; color: #333; margin-top: 4px;">STK: <span style="color: var(--primary);">1012345678</span></div>
-                <div style="font-size: 12px; color: #666;">Chủ TK: DURI TRADE ESCROW SYSTEM</div>
-                <div style="font-size: 15px; font-weight: 800; color: var(--danger); margin: 6px 0;">Số tiền: <span id="payment-modal-amount">82.500.000 VNĐ</span></div>
-                <div style="font-size: 11px; background: #e3f2fd; padding: 4px 8px; border-radius: 6px; color: #0d47a1; display: inline-block;">Nội dung: <strong>DT8892 COC BAO CHUNG</strong></div>
+            <div style="background: #fff8e1; border: 1px solid #ffe082; padding: 10px; border-radius: 8px; margin-bottom: 12px; font-size: 12px; color: #f57f17;">
+                🛡️ Tiền cọc 10% được phong tỏa an toàn tại Tài khoản MBBank của DuriTrade và chỉ giải ngân sau khi thương lái cắt sầu riêng đạt chuẩn.
             </div>
 
-            <button class="btn btn-primary" onclick="simulatePaymentSuccess()" style="margin-top: 14px;">✅ Tôi Đã Chuyển 10% Cọc (Xác Nhận Khóa)</button>
+            <!-- MOCK VIETQR IMAGE / SVG DISPLAY -->
+            <div style="background: white; border: 2px solid var(--primary); border-radius: 12px; padding: 12px; display: inline-block; margin-bottom: 10px;">
+                <svg width="180" height="180" viewBox="0 0 200 200">
+                    <rect width="200" height="200" fill="white"/>
+                    <path d="M 20 20 H 80 V 80 H 20 Z M 30 30 V 70 H 70 V 30 Z" fill="#1b5e20"/>
+                    <path d="M 120 20 H 180 V 80 H 120 Z M 130 30 V 70 H 170 V 30 Z" fill="#1b5e20"/>
+                    <path d="M 20 120 H 80 V 180 H 20 Z M 30 130 V 170 H 70 V 130 Z" fill="#1b5e20"/>
+                    <rect x="40" y="40" width="20" height="20" fill="#1b5e20"/>
+                    <rect x="140" y="40" width="20" height="20" fill="#1b5e20"/>
+                    <rect x="40" y="140" width="20" height="20" fill="#1b5e20"/>
+                    <!-- QR PATTERN SIMULATION -->
+                    <rect x="90" y="20" width="15" height="15" fill="#333"/>
+                    <rect x="90" y="50" width="15" height="25" fill="#333"/>
+                    <rect x="110" y="90" width="25" height="15" fill="#333"/>
+                    <rect x="140" y="110" width="30" height="30" fill="#1b5e20"/>
+                    <text x="100" y="105" font-size="8" font-weight="bold" text-anchor="middle" fill="#d32f2f">VietQR</text>
+                </svg>
+                <div style="font-size: 11px; font-weight: 700; color: var(--primary); margin-top: 4px;">MBBank - MB BANKING</div>
+            </div>
+
+            <div style="font-size: 12px; text-align: left; background: #fafafa; padding: 10px; border-radius: 8px; margin-bottom: 12px;">
+                <p><strong>Số tài khoản Escrow:</strong> <span style="color: var(--danger); font-weight: 700;">1012345678</span></p>
+                <p><strong>Chủ tài khoản:</strong> DURI TRADE ESCROW SYSTEM</p>
+                <p><strong>Số tiền cọc 10%:</strong> <span style="color: var(--primary); font-weight: 700;">82.500.000 VNĐ</span></p>
+                <p><strong>Nội dung CK:</strong> <span style="color: var(--danger); font-weight: 700;">DT8892 COC BAO CHUNG</span></p>
+            </div>
+
+            <button class="btn btn-primary" onclick="simulatePaymentSuccess()">✅ Tôi Đã Chuyển 10% Cọc (Xác Nhận)</button>
         </div>
     </div>
 
@@ -732,7 +766,50 @@
                 * Khi phát sinh khiếu nại về tỷ lệ Hàng A hoặc độ BRIX, Trọng tài được chọn sẽ trực tiếp xuống vườn đo và đưa ra phán quyết giải ngân cọc.
             </div>
 
-            <button class="btn btn-primary" onclick="confirmArbitrator()">✅ Thống Nhất Trọng Tài Này</button>
+            <button class="btn btn-primary" onclick="confirmArbitrator()">✅ Thống Nhất & Khóa Trọng Tài Này</button>
+        </div>
+    </div>
+
+    <!-- MODAL 4: BẢNG PHÂN XỬ VI PHẠM & TRỪ TIỀN CỌC ESCROW -->
+    <div id="modal-violation" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-header">
+                <div class="modal-title">⚖️ Phân Xử Vi Phạm & Trừ Cọc Escrow</div>
+                <button class="btn-close" onclick="closeModal('modal-violation')">✕</button>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Loại Vi Phạm Phát Sinh Thực Tế</label>
+                <select id="violation-type-select" class="form-select">
+                    <option value="brix">🧪 Độ BRIX thực tế không đạt cam kết (< 33°)</option>
+                    <option value="hangA">📦 Tỷ lệ Hàng A thực tế thấp hơn thỏa thuận (< 85%)</option>
+                    <option value="delivery">⏰ Trễ hạn cắt sầu / Bẻ cọc không giao hàng đúng hẹn</option>
+                    <option value="quality">🥀 Sầu nguyên lô bị lỗi dạt / Chất lượng kém</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Mức Phạt Khấu Trừ Tiền Cọc Escrow</label>
+                <select id="violation-rate-select" class="form-select">
+                    <option value="0.20">Trừ 20% Tiền Cọc (Trừ 16.500.000 VNĐ)</option>
+                    <option value="0.30">Trừ 30% Tiền Cọc (Trừ 24.750.000 VNĐ)</option>
+                    <option value="0.50">Trừ 50% Tiền Cọc (Trừ 41.250.000 VNĐ)</option>
+                    <option value="1.00">Trừ 100% Toàn Bộ Tiền Cọc (Trừ 82.500.000 VNĐ)</option>
+                </select>
+            </div>
+
+            <div style="font-size: 11px; color: #555; background: #fff3e0; padding: 8px; border-radius: 6px; margin-bottom: 10px; border: 1px solid #ffe0b2;">
+                * Số tiền vi phạm sẽ được tự động khấu trừ khỏi Ví Cọc Escrow MBBank và hoàn trả trực tiếp cho bên bị vi phạm.
+            </div>
+
+            <div class="form-group" style="margin-bottom: 12px;">
+                <label style="font-size: 12px; font-weight: bold; color: #c62828; cursor: pointer; display: flex; align-items: center; gap: 6px;">
+                    <input type="checkbox" id="chk-violation-confirm">
+                    <span>Cả hai bên (Nông dân & Thương lái) và Trọng tài BRIX P2P đã đồng thuận xác nhận vi phạm này.</span>
+                </label>
+            </div>
+
+            <button class="btn btn-danger" style="background: #d32f2f; color: #fff; font-weight: bold; width: 100%;" onclick="confirmViolationDeduction()">💥 Xác Nhận Trừ Cọc & Ra Phán Quyết</button>
         </div>
     </div>
 </div>
@@ -779,7 +856,6 @@
     ];
 
     let currentCompressedImageData = null;
-    let currentContractItem = null;
 
     // INITIALIZE DATA ON LOAD
     document.addEventListener('DOMContentLoaded', () => {
@@ -790,6 +866,12 @@
         updatePriceChart();
         initSignaturePad();
         checkAdminSession();
+
+        const savedArb = localStorage.getItem('duritrade_arbitrator_selected');
+        if (savedArb && document.getElementById('contract-arbitrator')) {
+            document.getElementById('contract-arbitrator').innerText = `🤝 ${savedArb} (Đã đồng thuận 2 bên)`;
+        }
+        applyFinalizedContractState();
     });
 
     // TAB SWITCHING
@@ -798,16 +880,8 @@
         document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
 
         document.querySelectorAll('.tab-panel')[idx].classList.add('active');
-        if (element) {
-            element.classList.add('active');
-        } else {
-            const navItems = document.querySelectorAll('.nav-item');
-            if (navItems[idx]) navItems[idx].classList.add('active');
-        }
+        element.classList.add('active');
 
-        if (idx === 1) {
-            checkAdminSession();
-        }
         if (idx === 3) {
             setTimeout(resizeSignatureCanvas, 100);
         }
@@ -849,42 +923,48 @@
         container.innerHTML = html || '<p style="text-align:center; padding:20px; color:#888;">Không tìm thấy bài đăng phù hợp.</p>';
     }
 
+    function filterMarket(role, element) {
+        document.querySelectorAll('.filter-chip').forEach(el => el.classList.remove('active'));
+        element.classList.add('active');
+        renderMarketList(role);
+    }
+
     // SELECT LISTING FROM MARKET & POPULATE CONTRACT TAB
     function selectListingForContract(id) {
+        if (localStorage.getItem('duritrade_contract_finalized') === 'true') {
+            alert('⚠️ HỢP ĐỒNG HIỆN TẠI ĐÃ CHỐT VÀ NIÊM PHONG PHÁP LÝ!\n\nBạn không thể chuyển sang hay chọn hợp đồng khác khi hợp đồng cũ đã chốt thành công.\n\nNếu muốn thực hiện hợp đồng mới, vui lòng bấm "🔄 Reset" ở góc trên bên phải để khôi phục hệ thống.');
+            return;
+        }
         const items = JSON.parse(localStorage.getItem('duritrade_market_items')) || DEFAULT_MARKET_DATA;
         const item = items.find(i => i.id === id) || items[0];
-        currentContractItem = item;
 
         const totalKg = item.quantity * 1000;
         const totalVal = totalKg * item.price;
         const depositVal = totalVal * 0.10;
 
         document.getElementById('contract-code-title').innerText = `📄 Hợp Đồng Điện Tử #DT-${item.id.toString().slice(-4)}`;
-        document.getElementById('contract-status-badge').className = 'badge badge-warning';
-        document.getElementById('contract-status-badge').innerText = '⏳ CHỜ KÝ HỢP ĐỒNG';
+
+        if (localStorage.getItem('duritrade_contract_finalized') !== 'true') {
+            document.getElementById('contract-status-badge').className = 'badge badge-warning';
+            document.getElementById('contract-status-badge').innerText = '⏳ CHỜ KÝ HỢP ĐỒNG';
+        }
 
         if (item.role === 'farmer') {
             document.getElementById('contract-seller').innerText = `Nhà Vườn (${item.location})`;
             document.getElementById('contract-buyer').innerText = `Doanh Nghiệp / Vựa Thu Mua Đã Xác Minh`;
         } else {
-            document.getElementById('contract-seller').innerText = `Hộ Nông Dân Cung Cấp Vườn`;
+            document.getElementById('contract-seller').innerText = `Nhà Vườn Đủ Điều Kiện Xuất Khẩu`;
             document.getElementById('contract-buyer').innerText = `Vựa Thu Mua (${item.location})`;
         }
 
         document.getElementById('contract-qty').innerText = `${item.quantity} Tấn (${item.title.split(' ')[1] || 'Sầu Riêng'})`;
         document.getElementById('contract-price').innerText = `${Number(item.price).toLocaleString('vi-VN')}đ/kg`;
-        document.getElementById('contract-total-val').innerText = `${Number(totalVal).toLocaleString('vi-VN')} VNĐ`;
-        document.getElementById('contract-deposit-val').innerText = `${Number(depositVal).toLocaleString('vi-VN')} VNĐ`;
-        document.getElementById('payment-modal-amount').innerText = `${Number(depositVal).toLocaleString('vi-VN')} VNĐ`;
-        document.getElementById('contract-gps').innerText = item.gps;
+        document.getElementById('contract-total-val').innerText = `${totalVal.toLocaleString('vi-VN')} VNĐ`;
+        document.getElementById('contract-deposit-val').innerText = `${depositVal.toLocaleString('vi-VN')} VNĐ`;
+        document.getElementById('contract-gps').innerText = item.gps || '12.6853° N, 108.2142° E';
 
         switchTab(3, document.querySelectorAll('.nav-item')[3]);
-    }
-
-    function filterMarket(role, element) {
-        document.querySelectorAll('.filter-chip').forEach(el => el.classList.remove('active'));
-        element.classList.add('active');
-        renderMarketList(role);
+        alert(`🤝 Đã chọn bài đăng: "${item.title}". Thông tin đã được tự động nạp vào Hợp Đồng Số #DT-${item.id.toString().slice(-4)}!`);
     }
 
     // REAL IMAGE COMPRESSION WITH LIVE PREVIEW DISPLAY
@@ -915,11 +995,9 @@
                 canvas.height = height;
                 ctx.drawImage(img, 0, 0, width, height);
 
-                // COMPRESS TO JPEG WITH 0.65 QUALITY
                 currentCompressedImageData = canvas.toDataURL('image/jpeg', 0.65);
                 const compressedSizeKB = Math.round((currentCompressedImageData.length * 0.75) / 1024);
 
-                // SHOW PREVIEW & STATS IN PREVIEW BOX
                 const previewBox = document.getElementById('image-preview-container');
                 const previewImg = document.getElementById('compressed-image-preview');
                 const statsText = document.getElementById('compression-stats-text');
@@ -948,7 +1026,7 @@
                 },
                 (err) => {
                     gpsInput.value = '12.6853° N, 108.2142° E';
-                    statusText.innerText = '✅ Định vị GPS vườn: 12.6853° N, 108.2142° E (Mô phỏng Krông Pắc)';
+                    statusText.innerText = `✅ GPS Vườn: 12.6853° N, 108.2142° E (Mô phỏng Krông Pắc)`;
                 }
             );
         } else {
@@ -991,49 +1069,47 @@
         currentCompressedImageData = null;
 
         renderMarketList();
+        if (document.getElementById('admin-panel-content').style.display === 'block') {
+            renderAdminListingsTable();
+        }
         switchTab(0, document.querySelectorAll('.nav-item')[0]);
     }
 
-    // ADMIN LOGIN & AUTHENTICATION LOGIC
-    function checkAdminSession() {
-        const isLoggedIn = sessionStorage.getItem('duritrade_admin_logged_in') === 'true';
-        const authBox = document.getElementById('admin-auth-box');
-        const adminContent = document.getElementById('admin-panel-content');
-        if (authBox && adminContent) {
-            if (isLoggedIn) {
-                authBox.style.display = 'none';
-                adminContent.style.display = 'block';
-                renderAdminListingsTable();
-            } else {
-                authBox.style.display = 'block';
-                adminContent.style.display = 'none';
-            }
-        }
+    // ADMIN AUTHENTICATION
+    function toggleAdminLogin() {
+        const box = document.getElementById('admin-login-box');
+        box.style.display = box.style.display === 'none' ? 'block' : 'none';
     }
 
     function loginAdmin() {
-        const passInput = document.getElementById('admin-pass-input');
-        const statusEl = document.getElementById('admin-auth-status');
-        const val = passInput.value.trim();
-
-        if (val === 'admin123' || val === 'admin' || val === '123456') {
-            sessionStorage.setItem('duritrade_admin_logged_in', 'true');
-            if (statusEl) statusEl.innerText = '';
-            passInput.value = '';
+        const pass = document.getElementById('admin-pass-input').value;
+        if (pass === 'admin123' || pass === 'admin') {
+            sessionStorage.setItem('duritrade_admin_logged', 'true');
             checkAdminSession();
-            alert('🎉 Đăng nhập Quản Trị Viên thành công!');
+            alert('🔓 Đăng nhập Quản trị viên thành công!');
         } else {
-            if (statusEl) statusEl.innerText = '❌ Mật khẩu không đúng! Thử mật khẩu mặc định: admin123';
+            alert('❌ Mật khẩu không đúng! (Mật khẩu mặc định: admin123)');
         }
     }
 
     function logoutAdmin() {
-        sessionStorage.removeItem('duritrade_admin_logged_in');
+        sessionStorage.removeItem('duritrade_admin_logged');
         checkAdminSession();
         alert('🔒 Đã đăng xuất khỏi tài khoản Quản trị.');
     }
 
-    // ADMIN PRICE MANAGER WITH LOCALSTORAGE & DELETE LISTINGS
+    function checkAdminSession() {
+        const isLogged = sessionStorage.getItem('duritrade_admin_logged') === 'true';
+        document.getElementById('admin-login-box').style.display = isLogged ? 'none' : 'block';
+        document.getElementById('admin-panel-content').style.display = isLogged ? 'block' : 'none';
+        document.getElementById('admin-login-toggle-btn').innerText = isLogged ? '✅ Đã Đăng Nhập' : '🔑 Đăng Nhập';
+
+        if (isLogged) {
+            renderAdminListingsTable();
+        }
+    }
+
+    // ADMIN PRICE MANAGER WITH LOCALSTORAGE
     function saveAdminPrice() {
         const type = document.getElementById('admin-price-type').value;
         const val = document.getElementById('admin-price-input').value;
@@ -1060,17 +1136,15 @@
     function renderAdminListingsTable() {
         const container = document.getElementById('admin-listings-table-container');
         if (!container) return;
-        const items = JSON.parse(localStorage.getItem('duritrade_market_items')) || DEFAULT_MARKET_DATA;
 
-        let html = '<table style="width:100%; font-size:11px; border-collapse:collapse; background:#fff;">';
-        html += '<tr style="background:#eee; text-align:left;"><th style="padding:4px;">Bài Đăng</th><th style="padding:4px;">Giá</th><th style="padding:4px;">Thao Tác</th></tr>';
+        const items = JSON.parse(localStorage.getItem('duritrade_market_items')) || DEFAULT_MARKET_DATA;
+        let html = '<table style="width:100%; border-collapse:collapse; background:white;"><tr style="background:#eee; text-align:left;"><th>Tiêu đề</th><th>Xóa</th></tr>';
 
         items.forEach(item => {
             html += `
                 <tr style="border-bottom:1px solid #eee;">
-                    <td style="padding:4px;"><strong>${item.title.slice(0, 18)}...</strong><br><span style="color:#666;">${item.location}</span></td>
-                    <td style="padding:4px; font-weight:bold; color:var(--danger);">${Number(item.price).toLocaleString('vi-VN')}đ</td>
-                    <td style="padding:4px;"><button class="btn btn-danger" style="padding:2px 6px; font-size:10px; width:auto;" onclick="deleteListingByAdmin(${item.id})">🗑️ Xóa</button></td>
+                    <td style="padding:4px; max-width:180px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${item.title}</td>
+                    <td style="padding:4px;"><button style="background:#d32f2f; color:white; border:none; padding:2px 6px; border-radius:4px; font-size:10px; cursor:pointer;" onclick="deleteListingByAdmin(${item.id})">🗑️ Xóa</button></td>
                 </tr>
             `;
         });
@@ -1079,17 +1153,16 @@
     }
 
     function deleteListingByAdmin(id) {
-        if (confirm('⚠️ Bạn có chắc muốn xóa bài đăng này khỏi hệ thống?')) {
-            let items = JSON.parse(localStorage.getItem('duritrade_market_items')) || DEFAULT_MARKET_DATA;
-            items = items.filter(i => i.id !== id);
-            localStorage.setItem('duritrade_market_items', JSON.stringify(items));
-            renderAdminListingsTable();
-            renderMarketList();
-            alert('✅ Đã xóa bài đăng thành công!');
-        }
+        if (!confirm('⚠️ Bạn có chắc muốn xóa bài đăng này khỏi hệ thống?')) return;
+        let items = JSON.parse(localStorage.getItem('duritrade_market_items')) || DEFAULT_MARKET_DATA;
+        items = items.filter(i => i.id !== id);
+        localStorage.setItem('duritrade_market_items', JSON.stringify(items));
+        renderAdminListingsTable();
+        renderMarketList();
+        alert('✅ Đã xóa bài đăng thành công!');
     }
 
-    // INTERACTIVE SVG LINE CHART
+    // INTERACTIVE SVG LINE CHART WITH DAY-BY-DAY DATA & TOOLTIP
     function updatePriceChart() {
         const type = document.getElementById('price-type-select').value;
         const prices = JSON.parse(localStorage.getItem('duritrade_admin_prices')) || { ri6: 55000, monthong: 75000, musang: 120000 };
@@ -1097,26 +1170,62 @@
 
         document.getElementById('current-price-val').innerText = `${Number(currentVal).toLocaleString('vi-VN')}đ/kg`;
 
+        const basePrices = {
+            ri6: [currentVal - 3000, currentVal - 2000, currentVal - 1500, currentVal - 1000, currentVal - 500, currentVal - 200, currentVal],
+            monthong: [currentVal - 5000, currentVal - 4000, currentVal - 2000, currentVal - 3000, currentVal - 1000, currentVal - 500, currentVal],
+            musang: [currentVal - 8000, currentVal - 6000, currentVal - 4000, currentVal - 5000, currentVal - 2000, currentVal - 1000, currentVal]
+        };
+
+        const days = ['Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ 5', 'Thứ 6', 'Thứ 7', 'Chủ Nhật'];
+        const priceList = basePrices[type] || basePrices.ri6;
+
         const chartBox = document.getElementById('chart-box');
+
+        const minP = Math.min(...priceList) - 2000;
+        const maxP = Math.max(...priceList) + 2000;
+
+        let points = [];
+        priceList.forEach((p, idx) => {
+            const x = 20 + idx * 42;
+            const y = 130 - ((p - minP) / (maxP - minP)) * 100;
+            points.push({ x, y, price: p, day: days[idx] });
+        });
+
+        let pathD = points.reduce((acc, pt, idx) => `${acc} ${idx === 0 ? 'M' : 'L'} ${pt.x} ${pt.y}`, '');
+        let areaD = `${pathD} L ${points[points.length-1].x} 130 L ${points[0].x} 130 Z`;
+
+        let circlesHTML = '';
+        points.forEach((pt) => {
+            circlesHTML += `
+                <g class="chart-point" onclick="showChartTooltip('${pt.day}', ${pt.price})" onmouseover="showChartTooltip('${pt.day}', ${pt.price})" style="cursor:pointer;">
+                    <circle cx="${pt.x}" cy="${pt.y}" r="5" fill="#fbc02d" stroke="#1b5e20" stroke-width="2"/>
+                    <text x="${pt.x}" y="142" font-size="8" text-anchor="middle" fill="#666">${pt.day}</text>
+                </g>
+            `;
+        });
+
         chartBox.innerHTML = `
-            <svg viewBox="0 0 300 140" style="width:100%; height:100%;">
+            <svg viewBox="0 0 300 150" style="width:100%; height:100%;">
                 <defs>
                     <linearGradient id="grad" x1="0%" y1="0%" x2="0%" y2="100%">
                         <stop offset="0%" stop-color="#2e7d32" stop-opacity="0.4"/>
                         <stop offset="100%" stop-color="#2e7d32" stop-opacity="0.0"/>
                     </linearGradient>
                 </defs>
-                <line x1="10" y1="20" x2="290" y2="20" stroke="#eee" stroke-dasharray="4"/>
-                <line x1="10" y1="60" x2="290" y2="60" stroke="#eee" stroke-dasharray="4"/>
-                <line x1="10" y1="100" x2="290" y2="100" stroke="#eee" stroke-dasharray="4"/>
+                <line x1="10" y1="20" x2="290" y2="20" stroke="#eee" stroke-dasharray="3"/>
+                <line x1="10" y1="60" x2="290" y2="60" stroke="#eee" stroke-dasharray="3"/>
+                <line x1="10" y1="100" x2="290" y2="100" stroke="#eee" stroke-dasharray="3"/>
 
-                <path d="M 10 110 Q 70 80 130 90 T 250 40 L 290 30" fill="none" stroke="#1b5e20" stroke-width="3"/>
-                <path d="M 10 110 Q 70 80 130 90 T 250 40 L 290 30 L 290 130 L 10 130 Z" fill="url(#grad)"/>
-
-                <circle cx="290" cy="30" r="5" fill="#fbc02d" stroke="#1b5e20" stroke-width="2"/>
-                <text x="230" y="25" font-size="10" font-weight="bold" fill="#d32f2f">${(currentVal/1000).toFixed(0)}k đ/kg</text>
+                <path d="${areaD}" fill="url(#grad)"/>
+                <path d="${pathD}" fill="none" stroke="#1b5e20" stroke-width="3"/>
+                ${circlesHTML}
             </svg>
         `;
+    }
+
+    function showChartTooltip(day, price) {
+        const info = document.getElementById('chart-hover-info');
+        info.innerHTML = `📅 <strong>${day}:</strong> <span style="color:var(--danger);">${Number(price).toLocaleString('vi-VN')} đ/kg</span>`;
     }
 
     // SIGNATURE CANVAS
@@ -1145,34 +1254,258 @@
         sigCtx.lineCap = 'round';
     }
 
-    function startSig(e) { isDrawing = true; sigCtx.beginPath(); const rect = sigCanvas.getBoundingClientRect(); sigCtx.moveTo(e.clientX - rect.left, e.clientY - rect.top); }
-    function drawSig(e) { if (!isDrawing) return; const rect = sigCanvas.getBoundingClientRect(); sigCtx.lineTo(e.clientX - rect.left, e.clientY - rect.top); sigCtx.stroke(); }
+    function startSig(e) {
+        if (localStorage.getItem('duritrade_contract_finalized') === 'true') return;
+        isDrawing = true; sigCtx.beginPath(); const rect = sigCanvas.getBoundingClientRect(); sigCtx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
+    }
+    function drawSig(e) {
+        if (!isDrawing || localStorage.getItem('duritrade_contract_finalized') === 'true') return;
+        const rect = sigCanvas.getBoundingClientRect(); sigCtx.lineTo(e.clientX - rect.left, e.clientY - rect.top); sigCtx.stroke();
+    }
     function stopSig() { isDrawing = false; }
-    function clearSignature() { sigCtx.clearRect(0, 0, sigCanvas.width, sigCanvas.height); document.getElementById('sig-status').innerText = ''; }
+
+    let isSignatureSaved = false;
+
+    function clearSignature() {
+        if (localStorage.getItem('duritrade_contract_finalized') === 'true') {
+            alert('🔒 Hợp đồng đã chốt chính thức! Không thể xóa hoặc sửa chữ ký.');
+            return;
+        }
+        sigCtx.clearRect(0, 0, sigCanvas.width, sigCanvas.height);
+        isSignatureSaved = false;
+        localStorage.removeItem('duritrade_sig_saved');
+        document.getElementById('sig-status').innerText = '';
+    }
+
     function saveSignature() {
+        if (localStorage.getItem('duritrade_contract_finalized') === 'true') {
+            alert('🔒 Hợp đồng đã chốt chính thức! Không thể chỉnh sửa thêm.');
+            return;
+        }
+        isSignatureSaved = true;
+        localStorage.setItem('duritrade_sig_saved', 'true');
         document.getElementById('sig-status').innerText = '✅ Đã lưu chữ ký ngón tay mã hóa Timestamp #DT-SIG-8892';
-        document.getElementById('contract-status-badge').className = 'badge badge-warning';
-        document.getElementById('contract-status-badge').innerText = '✍️ ĐÃ KÝ - CHỜ CỌC 10%';
-        alert('✍️ Chữ ký ngón tay đã được mã hóa thành công!');
+        alert('✍️ Chữ ký điện tử của bạn đã được ghi nhận và lưu tạm vào hợp đồng!');
+    }
+
+    // FINALIZE & LOCK CONTRACT (NEW IN V18)
+    function finalizeContract() {
+        if (localStorage.getItem('duritrade_contract_finalized') === 'true') {
+            alert('ℹ️ Hợp đồng này đã được 2 bên chốt & khóa hiệu lực pháp lý trước đó!');
+            return;
+        }
+
+        if (!isSignatureSaved && !localStorage.getItem('duritrade_sig_saved')) {
+            alert('⚠️ Vui lòng ký ngón tay và bấm "✍️ Lưu & Ký Hợp Đồng" trước khi chốt hợp đồng!');
+            return;
+        }
+
+        const confirmChot = confirm('📜 XÁC NHẬN CHỐT & GỬI HỢP ĐỒNG PHÁP LÝ:\n\nBạn có chắc chắn muốn CHỐT HỢP ĐỒNG này?\n\nSau khi chốt:\n1. Chữ ký điện tử và thông tin cọc sẽ bị KHÓA VĨNH VIỄN.\n2. Mã băm SHA-256 (#DT-HASH-99827) sẽ được tạo để làm chứng cứ pháp lý.\n3. Hợp đồng chính thức có hiệu lực ràng buộc 2 bên.\n4. Tính năng Cử Trọng Tài BRIX P2P và Lập Biên Bản Vi Phạm sẽ được kích hoạt.');
+
+        if (!confirmChot) return;
+
+        localStorage.setItem('duritrade_contract_finalized', 'true');
+        applyFinalizedContractState();
+
+        alert('🎉 CHỐT HỢP ĐỒNG THÀNH CÔNG!\n\nHợp đồng #DT-8892 đã được 2 BÊN CHỐT & GỬI THÀNH CÔNG.\n\nDữ liệu đã được khóa mã hóa an toàn 100%.');
+    }
+
+    function applyFinalizedContractState() {
+        const isFinalized = localStorage.getItem('duritrade_contract_finalized') === 'true';
+        if (!isFinalized) return;
+
+        const badge = document.getElementById('contract-status-badge');
+        if (badge && !localStorage.getItem('duritrade_violation_applied')) {
+            badge.className = 'badge badge-success';
+            badge.innerText = '✅ HỢP ĐỒNG ĐÃ CHỐT HOÀN TẤT (ĐÃ KHÓA PHÁP LÝ)';
+        }
+
+        const btnClear = document.getElementById('btn-clear-sig');
+        const btnSaveSig = document.getElementById('btn-save-sig');
+        const btnPayment = document.getElementById('btn-payment-modal');
+        const btnFinalize = document.getElementById('btn-finalize-contract');
+
+        if (btnClear) { btnClear.disabled = true; btnClear.style.opacity = '0.5'; }
+        if (btnSaveSig) { btnSaveSig.disabled = true; btnSaveSig.innerText = '🔒 Chữ Ký Đã Khóa'; btnSaveSig.style.opacity = '0.7'; }
+        if (btnPayment) { btnPayment.disabled = true; btnPayment.innerText = '🔒 Tiền Cọc 10% Đã Khóa Tại MBBank'; btnPayment.style.opacity = '0.7'; }
+
+        if (btnFinalize) {
+            btnFinalize.disabled = true;
+            btnFinalize.innerText = '🔒 HỢP ĐỒNG ĐÃ ĐƯỢC CHỐT & GỬI THÀNH CÔNG';
+            btnFinalize.style.background = '#555';
+            btnFinalize.style.boxShadow = 'none';
+        }
+
+        const summaryCard = document.getElementById('finalized-summary-card');
+        if (summaryCard) {
+            summaryCard.style.display = 'block';
+            const arbVal = localStorage.getItem('duritrade_arbitrator_selected') || 'Chưa cử (Kích hoạt khi có tranh chấp)';
+            const arbElement = document.getElementById('final-arb-name');
+            if (arbElement) arbElement.innerText = arbVal;
+
+            const now = new Date();
+            const timeStr = `${now.getDate()}/${now.getMonth()+1}/${now.getFullYear()} lúc ${now.getHours()}:${now.getMinutes()<10?'0':''}${now.getMinutes()}`;
+            const timeElement = document.getElementById('final-timestamp');
+            if (timeElement) timeElement.innerText = timeStr;
+        }
+
+        const disputeContainer = document.getElementById('dispute-resolution-container');
+        if (disputeContainer) {
+            disputeContainer.style.display = 'block';
+        }
+
+        applyArbitratorLockedState();
+        applyViolationState();
     }
 
     // MODAL CONTROL
     function openLegalModal() { document.getElementById('modal-legal').style.display = 'flex'; }
     function openPaymentModal() { document.getElementById('modal-payment').style.display = 'flex'; }
-    function openArbitrationModal() { document.getElementById('modal-arbitration').style.display = 'flex'; }
+    function openArbitrationModal() {
+        if (localStorage.getItem('duritrade_contract_finalized') !== 'true') {
+            alert('⚠️ Trọng tài BRIX P2P chỉ được cử xuống kiểm tra sau khi 2 bên đã CHỐT HỢP ĐỒNG!');
+            return;
+        }
+        if (localStorage.getItem('duritrade_arbitrator_locked') === 'true') {
+            alert('🔒 Trọng tài BRIX P2P đã được cử và niêm phong khóa vĩnh viễn!');
+            return;
+        }
+        document.getElementById('modal-arbitration').style.display = 'flex';
+    }
+    function openViolationModal() {
+        if (localStorage.getItem('duritrade_contract_finalized') !== 'true') {
+            alert('⚠️ Bạn chỉ có thể lập biên bản vi phạm sau khi đã CHỐT HỢP ĐỒNG!');
+            return;
+        }
+        if (!localStorage.getItem('duritrade_arbitrator_locked')) {
+            alert('⚠️ Vui lòng Cử Trọng Tài BRIX P2P trước khi lập biên bản xử lý vi phạm!');
+            return;
+        }
+        if (localStorage.getItem('duritrade_violation_applied') === 'true') {
+            alert('🔒 Biên bản vi phạm đã được xử lý khấu trừ và niêm phong trước đó!');
+            return;
+        }
+        document.getElementById('modal-violation').style.display = 'flex';
+    }
     function closeModal(id) { document.getElementById(id).style.display = 'none'; }
 
     function simulatePaymentSuccess() {
-        document.getElementById('contract-status-badge').className = 'badge badge-escrow';
-        document.getElementById('contract-status-badge').innerText = '🔒 ĐÃ KHÓA 10% CỌC ESCROW';
-        alert('🎉 Thanh toán thành công! Tiền cọc 10% Escrow đã được khóa an toàn tại Ngân hàng MBBank.');
+        alert('🎉 Mô phỏng thanh toán thành công! Tiền cọc 82.500.000 VNĐ (10% Escrow) đã được khóa an toàn tại Ngân hàng MBBank.');
+        const badge = document.getElementById('contract-status-badge');
+        if (badge) {
+            badge.className = 'badge badge-success';
+            badge.innerText = '🔒 ĐÃ KHÓA 10% CỌC ESCROW';
+        }
         closeModal('modal-payment');
     }
 
     function confirmArbitrator() {
-        const val = document.getElementById('arbitrator-select').options[document.getElementById('arbitrator-select').selectedIndex].text;
-        alert(`🤝 Hai bên đã thống nhất chọn Trọng tài: ${val}`);
+        const sel = document.getElementById('arbitrator-select');
+        const val = sel.options[sel.selectedIndex].text;
+        localStorage.setItem('duritrade_arbitrator_selected', val);
+        localStorage.setItem('duritrade_arbitrator_locked', 'true');
+
+        applyArbitratorLockedState();
+        alert(`🎉 CỬ TRỌNG TÀI THÀNH CÔNG!\n\nTrọng tài BRIX P2P được chọn:\n${val}\n\nThông tin Trọng tài đã được niêm phong khóa cố định vào Hợp đồng số.`);
         closeModal('modal-arbitration');
+    }
+
+    function applyArbitratorLockedState() {
+        if (localStorage.getItem('duritrade_arbitrator_locked') === 'true') {
+            const val = localStorage.getItem('duritrade_arbitrator_selected') || 'KS. Trần Văn Hùng (Chuyên gia Đắk Lắk)';
+            const btnSummon = document.getElementById('btn-summon-arb');
+            if (btnSummon) {
+                btnSummon.disabled = true;
+                btnSummon.innerText = `🔒 Trọng Tài Đã Cử: ${val} (Đã Niêm Phong)`;
+                btnSummon.style.opacity = '0.85';
+                btnSummon.style.borderColor = '#2e7d32';
+                btnSummon.style.color = '#2e7d32';
+            }
+            const infoDiv = document.getElementById('summoned-arb-info');
+            if (infoDiv) {
+                infoDiv.style.display = 'block';
+                infoDiv.innerText = `👨‍⚖️ Trọng tài niêm phong: ${val}`;
+            }
+            const arbEl = document.getElementById('contract-arbitrator');
+            if (arbEl) {
+                arbEl.innerText = `👨‍⚖️ ${val} (Đã niêm phong)`;
+                arbEl.style.color = 'var(--primary)';
+            }
+            const finalArbEl = document.getElementById('final-arb-name');
+            if (finalArbEl) {
+                finalArbEl.innerText = val;
+            }
+        }
+    }
+
+    function confirmViolationDeduction() {
+        const chk = document.getElementById('chk-violation-confirm');
+        if (!chk || !chk.checked) {
+            alert('⚠️ Vui lòng tích chọn ô xác nhận đồng thuận của 2 bên và Trọng tài BRIX P2P!');
+            return;
+        }
+
+        const typeSelect = document.getElementById('violation-type-select');
+        const typeText = typeSelect.options[typeSelect.selectedIndex].text;
+
+        const rateSelect = document.getElementById('violation-rate-select');
+        const rateVal = parseFloat(rateSelect.value);
+
+        const depositText = document.getElementById('contract-deposit-val') ? document.getElementById('contract-deposit-val').innerText : '82.500.000 VNĐ';
+        const cleanDeposit = parseInt(depositText.replace(/\D/g, '')) || 82500000;
+
+        const deductedVal = cleanDeposit * rateVal;
+        const remainingVal = cleanDeposit - deductedVal;
+
+        const deductedStr = `${deductedVal.toLocaleString('vi-VN')} VNĐ (${Math.round(rateVal * 100)}% Cọc)`;
+        const remainingStr = `${remainingVal.toLocaleString('vi-VN')} VNĐ`;
+
+        const now = new Date();
+        const timeStr = `${now.getDate()}/${now.getMonth()+1}/${now.getFullYear()} lúc ${now.getHours()}:${now.getMinutes()<10?'0':''}${now.getMinutes()}`;
+
+        localStorage.setItem('duritrade_violation_type', typeText);
+        localStorage.setItem('duritrade_violation_deducted', deductedStr);
+        localStorage.setItem('duritrade_violation_remaining', remainingStr);
+        localStorage.setItem('duritrade_violation_time', timeStr);
+        localStorage.setItem('duritrade_violation_applied', 'true');
+
+        applyViolationState();
+
+        alert(`🎉 XÁC NHẬN PHÁN QUYẾT TRỌNG TÀI THÀNH CÔNG!\n\n🛑 Nội dung: ${typeText}\n💸 Khấu trừ vi phạm: ${deductedStr}\n💰 Tiền cọc Escrow còn lại: ${remainingStr}\n\nSố tiền phạt vi phạm đã được tự động khấu trừ trực tiếp trên Ví Escrow MBBank!`);
+        closeModal('modal-violation');
+    }
+
+    function applyViolationState() {
+        if (localStorage.getItem('duritrade_violation_applied') === 'true') {
+            const badge = document.getElementById('contract-status-badge');
+            if (badge) {
+                badge.className = 'badge badge-danger';
+                badge.innerText = '🚨 ĐÃ XỬ LÝ VI PHẠM TRỪ CỌC ESCROW';
+            }
+
+            const btnViol = document.getElementById('btn-open-violation');
+            if (btnViol) {
+                btnViol.disabled = true;
+                btnViol.innerText = '🔒 Biên Bản Vi Phạm Đã Khấu Trừ & Niêm Phong';
+                btnViol.style.background = '#777';
+            }
+
+            const decreeCard = document.getElementById('violation-decree-card');
+            if (decreeCard) {
+                decreeCard.style.display = 'block';
+                const elType = document.getElementById('decree-type');
+                const elDed = document.getElementById('decree-deducted');
+                const elRem = document.getElementById('decree-remaining');
+                const elArb = document.getElementById('decree-arb');
+                const elTime = document.getElementById('decree-time');
+
+                if (elType) elType.innerText = localStorage.getItem('duritrade_violation_type') || 'Độ BRIX không đạt cam kết';
+                if (elDed) elDed.innerText = localStorage.getItem('duritrade_violation_deducted') || '16.500.000 VNĐ (20% Cọc)';
+                if (elRem) elRem.innerText = localStorage.getItem('duritrade_violation_remaining') || '66.000.000 VNĐ';
+                if (elArb) elArb.innerText = localStorage.getItem('duritrade_arbitrator_selected') || 'Trọng tài BRIX P2P';
+                if (elTime) elTime.innerText = localStorage.getItem('duritrade_violation_time') || '';
+            }
+        }
     }
 
     // RESET ALL LOCALSTORAGE APP DATA
