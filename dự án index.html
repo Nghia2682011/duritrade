@@ -270,8 +270,38 @@
             </div>
         </section>
 
-        <!-- TAB 4: HỢP ĐỒNG SỐ & ESCROW (CONTRACT & DISPUTE) -->
+        <!-- TAB 4: HỢP ĐỒNG ĐIỆN TỬ & DANH MỤC ĐẦU TƯ (PORTFOLIO & CONTRACTS) -->
         <section id="tab-contract" class="tab-panel">
+            <!-- KHUNG TỔNG QUAN DANH MỤC ĐẦU TƯ CHO NHÀ ĐẦU TƯ / VỰA MUA -->
+            <div class="card" style="background: linear-gradient(135deg, #1b5e20, #2e7d32); color: #fff; padding: 12px; margin-bottom: 12px;">
+                <div style="font-weight: 700; font-size: 14px; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center;">
+                    <span>💼 DANH MỤC ĐẦU TƯ / BAO TIÊU SẦU RIÊNG</span>
+                    <span class="badge" style="background: #fbc02d; color: #1b5e20; font-weight: 700;">MULTIPLE DEALS</span>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; font-size: 11px; text-align: center; background: rgba(255,255,255,0.12); padding: 8px; border-radius: 6px;">
+                    <div>
+                        <div style="opacity: 0.8;">Số Vườn Đã Cọc</div>
+                        <div id="portfolio-total-gardens" style="font-size: 15px; font-weight: 700; color: #fff;">1 Vườn</div>
+                    </div>
+                    <div>
+                        <div style="opacity: 0.8;">Tổng Sản Lượng</div>
+                        <div id="portfolio-total-qty" style="font-size: 15px; font-weight: 700; color: #fbc02d;">15 Tấn</div>
+                    </div>
+                    <div>
+                        <div style="opacity: 0.8;">Tổng Escrow MBBank</div>
+                        <div id="portfolio-total-escrow" style="font-size: 15px; font-weight: 700; color: #fff;">82.5 Tr đ</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- THANH CHỌN HỢP ĐỒNG TRONG DANH MỤC -->
+            <div class="card" style="padding: 10px; margin-bottom: 12px; background: #fafafa; border: 1px solid var(--border);">
+                <label class="form-label" style="font-weight: 700; color: var(--primary); margin-bottom: 4px;">📂 Danh Mục Hợp Đồng Của Tôi (Nhà Đầu Tư / Vựa Mua):</label>
+                <select id="contract-select-dropdown" class="form-select" onchange="switchActiveContract(this.value)" style="font-weight: 600; color: #1b5e20;">
+                    <!-- Dynamically populated contracts -->
+                </select>
+            </div>
+
             <div class="card">
                 <div class="card-title">
                     <span id="contract-code-title">📄 Hợp Đồng Điện Tử #DT-8892</span>
@@ -336,11 +366,13 @@
                     <!-- ADMIN ARBITRATION RESULT CARD -->
                     <div id="violation-result-card" style="display: none; margin-top: 12px; background: #ffebee; border: 2px solid #c62828; border-radius: 8px; padding: 10px; font-size: 12px; color: #b71c1c;">
                         <div style="font-weight: 700; font-size: 13px; margin-bottom: 6px; text-align: center;">📋 BIÊN BẢN PHÁN QUYẾT TRỌNG TÀI BRIX P2P</div>
+                        <p>🚨 <strong>Bên vi phạm hợp đồng:</strong> <span id="violation-party-text" style="font-weight:bold; color:#d32f2f;"></span></p>
                         <p>❌ <strong>Nội dung vi phạm:</strong> <span id="violation-reason-text"></span></p>
                         <p>💸 <strong>Số tiền phạt trừ cọc:</strong> <span id="violation-deduct-text" style="font-weight:bold; color:#d32f2f;"></span></p>
+                        <p>🔄 <strong>Hướng giải ngân Ví Escrow MBBank:</strong> <span id="violation-flow-text" style="font-weight:bold; color:#1b5e20;"></span></p>
                         <p>💰 <strong>Tiền cọc an toàn còn lại:</strong> <span id="violation-remaining-text" style="font-weight:bold; color:#2e7d32;"></span></p>
                         <p>👨‍⚖️ <strong>Trọng tài xác nhận:</strong> <span id="violation-arb-text" style="font-weight:bold;"></span></p>
-                        <p>🕒 <strong>Thời điểm phán quyết:</strong> <span id="violation-time-text"></span></p>
+                        <p>🕒 <strong>Thời điểm lập biên bản:</strong> <span id="violation-time-text"></span></p>
                     </div>
 
                     <div style="font-size: 11px; color: #666; font-style: italic; margin-top: 8px; text-align: center; border-top: 1px solid #a5d6a7; padding-top: 6px;">
@@ -480,11 +512,11 @@
         </div>
     </div>
 
-    <!-- MODAL 4: ADMIN CỬ TRỌNG TÀI & PHÁN QUYẾT TRỪ CỌC (CHO ADMIN) -->
+    <!-- MODAL 4: ADMIN CỬ TRỌNG TÀI & PHÁN QUYẾT TRỪ CỌC HAI CHIỀU (CHO ADMIN) -->
     <div id="modal-admin-arbitrate" class="modal-overlay">
         <div class="modal-card">
             <div class="modal-header">
-                <div class="modal-title">👨‍⚖️ Admin Cử Trọng Tài & Trừ Cọc Escrow</div>
+                <div class="modal-title">👨‍⚖️ Phán Quyết Trọng Tài & Xử Lý Dòng Tiền Escrow</div>
                 <button class="btn-close" onclick="closeModal('modal-admin-arbitrate')">✕</button>
             </div>
             
@@ -498,19 +530,27 @@
             </div>
 
             <div class="form-group">
+                <label class="form-label">🚨 Xác Định Bên Vi Phạm Hợp Đồng</label>
+                <select id="admin-violating-party-select" class="form-select">
+                    <option value="farmer">🌾 Bên Bán (Nhà Vườn / Nông Dân) Vi Phạm -> Hoàn Cọc Về Bên Mua</option>
+                    <option value="buyer">💼 Bên Mua (Thương Lái / Vựa XNK) Vi Phạm -> Giải Ngân Cọc Cho Bên Bán</option>
+                </select>
+            </div>
+
+            <div class="form-group">
                 <label class="form-label">Mức Phạt Khấu Trừ Tiền Cọc Escrow MBBank</label>
                 <select id="admin-deduct-rate-select" class="form-select">
                     <option value="0.20">Khấu trừ 20% cọc (16.500.000 VNĐ)</option>
                     <option value="0.30">Khấu trừ 30% cọc (24.750.000 VNĐ)</option>
                     <option value="0.50">Khấu trừ 50% cọc (41.250.000 VNĐ)</option>
-                    <option value="1.00">Khấu trừ 100% cọc (82.500.000 VNĐ - Bẻ cọc/Vi phạm nặng)</option>
+                    <option value="1.00">Khấu trừ 100% toàn bộ cọc (82.500.000 VNĐ)</option>
                 </select>
             </div>
 
             <div style="font-size: 11px; color: #666; margin-bottom: 12px; background: #fff3e0; padding: 8px; border-radius: 6px; border: 1px solid #ffe0b2;">
                 <label style="display: flex; align-items: center; gap: 6px; cursor: pointer;">
                     <input type="checkbox" id="chk-admin-confirm" checked>
-                    <span><strong>Xác nhận:</strong> Trọng tài BRIX P2P đã kiểm định thực tế và ra biên bản phán quyết.</span>
+                    <span><strong>Xác nhận:</strong> Trọng tài BRIX P2P đã kiểm định thực tế và đồng thuận phán quyết 3 bên.</span>
                 </label>
             </div>
 
@@ -571,6 +611,7 @@
         updatePriceChart();
         initSignaturePad();
         checkAdminSession();
+        initUserContracts();
         applyFinalizedContractState();
         applyViolationState();
         applyAdminEmailResponseState();
@@ -631,42 +672,184 @@
         renderMarketList(role);
     }
 
-    // SELECT LISTING FROM MARKET & POPULATE CONTRACT TAB
-    function selectListingForContract(id) {
-        if (localStorage.getItem('duritrade_contract_finalized') === 'true') {
-            alert(`⚠️ HỢP ĐỒNG HIỆN TẠI ĐÃ CHỐT VÀ NIÊM PHONG PHÁP LÝ!
+    // MULTI-CONTRACT MANAGEMENT FOR INVESTORS & TRADERS (V23)
+    let userContracts = [];
+    let currentContractId = null;
 
-Bạn không thể chuyển sang hay chọn hợp đồng khác khi hợp đồng cũ đã chốt thành công. Vui lòng bấm nút "🔄 Reset" nếu muốn khởi tạo hệ thống mới.`);
-            return;
+    function initUserContracts() {
+        const stored = localStorage.getItem('duritrade_user_contracts');
+        if (stored) {
+            userContracts = JSON.parse(stored);
+        } else {
+            // Initial default contract
+            userContracts = [{
+                id: 8892,
+                title: '🌾 Vườn Monthong Thái 15 Tấn Đạt Chuẩn Xuất Khẩu',
+                seller: 'Nguyễn Văn A (Krông Pắc, Đắk Lắk)',
+                buyer: 'Vựa Sầu Riêng Xuất Nhập Khẩu B',
+                quantity: 15,
+                price: 55000,
+                totalVal: 825000000,
+                depositVal: 82500000,
+                gps: '12.6853° N, 108.2142° E',
+                status: 'locked_deposit',
+                isSigned: true,
+                isFinalized: false,
+                incidentReport: null,
+                violationResult: null
+            }];
+            localStorage.setItem('duritrade_user_contracts', JSON.stringify(userContracts));
         }
 
+        if (!currentContractId && userContracts.length > 0) {
+            currentContractId = userContracts[0].id;
+        }
+
+        updateContractDropdown();
+        updatePortfolioSummary();
+        renderActiveContractUI();
+    }
+
+    function updateContractDropdown() {
+        const select = document.getElementById('contract-select-dropdown');
+        if (!select) return;
+
+        let html = '';
+        userContracts.forEach(c => {
+            const statusLabel = c.isFinalized ? '✅ Đã Chốt' : (c.status === 'locked_deposit' ? '🔒 Đã Cọc 10%' : '⏳ Đang Xử Lý');
+            html += `<option value="${c.id}" ${c.id === currentContractId ? 'selected' : ''}>📄 Hợp Đồng #DT-${c.id.toString().slice(-4)} - ${c.quantity} Tấn (${statusLabel})</option>`;
+        });
+
+        select.innerHTML = html;
+    }
+
+    function updatePortfolioSummary() {
+        const totalGardens = userContracts.length;
+        let totalQty = 0;
+        let totalEscrow = 0;
+
+        userContracts.forEach(c => {
+            totalQty += Number(c.quantity) || 0;
+            totalEscrow += Number(c.depositVal) || 0;
+        });
+
+        const elGardens = document.getElementById('portfolio-total-gardens');
+        const elQty = document.getElementById('portfolio-total-qty');
+        const elEscrow = document.getElementById('portfolio-total-escrow');
+
+        if (elGardens) elGardens.innerText = `${totalGardens} Vườn`;
+        if (elQty) elQty.innerText = `${totalQty} Tấn`;
+        if (elEscrow) elEscrow.innerText = `${(totalEscrow / 1000000).toFixed(1)} Tr đ`;
+    }
+
+    function switchActiveContract(contractId) {
+        currentContractId = Number(contractId);
+        updateContractDropdown();
+        renderActiveContractUI();
+    }
+
+    // SELECT LISTING FROM MARKET & POPULATE OR CREATE CONTRACT IN PORTFOLIO
+    function selectListingForContract(id) {
         const items = JSON.parse(localStorage.getItem('duritrade_market_items')) || DEFAULT_MARKET_DATA;
         const item = items.find(i => i.id === id) || items[0];
 
-        const totalKg = item.quantity * 1000;
-        const totalVal = totalKg * item.price;
-        const depositVal = totalVal * 0.10;
+        // Check if contract already exists in investor portfolio
+        let contract = userContracts.find(c => c.id === item.id);
 
-        document.getElementById('contract-code-title').innerText = `📄 Hợp Đồng Điện Tử #DT-${item.id.toString().slice(-4)}`;
-        document.getElementById('contract-status-badge').className = 'badge badge-warning';
-        document.getElementById('contract-status-badge').innerText = '⏳ CHỜ KÝ HỢP ĐỒNG';
+        if (!contract) {
+            const totalKg = item.quantity * 1000;
+            const totalVal = totalKg * item.price;
+            const depositVal = totalVal * 0.10;
 
-        if (item.role === 'farmer') {
-            document.getElementById('contract-seller').innerText = `Nhà Vườn (${item.location})`;
-            document.getElementById('contract-buyer').innerText = `Doanh Nghiệp / Vựa Thu Mua Đã Xác Minh`;
+            contract = {
+                id: item.id,
+                title: item.title,
+                seller: item.role === 'farmer' ? `Nhà Vườn (${item.location})` : 'Nhà Vườn Đủ Điều Kiện Xuất Khẩu',
+                buyer: item.role === 'farmer' ? 'Doanh Nghiệp / Vựa Thu Mua Đã Xác Minh' : `Vựa Thu Mua (${item.location})`,
+                quantity: item.quantity,
+                price: item.price,
+                totalVal: totalVal,
+                depositVal: depositVal,
+                gps: item.gps || '12.6853° N, 108.2142° E',
+                status: 'draft',
+                isSigned: false,
+                isFinalized: false,
+                incidentReport: null,
+                violationResult: null
+            };
+
+            userContracts.push(contract);
+            localStorage.setItem('duritrade_user_contracts', JSON.stringify(userContracts));
+            alert(`🎉 NHÀ ĐẦU TƯ THÊM HỢP ĐỒNG THÀNH CÔNG!\n\nĐã khởi tạo Hợp đồng mới #DT-${contract.id.toString().slice(-4)} cho dự án: "${item.title}".\n\nHợp đồng đã được thêm vào Danh mục Đầu tư của bạn!`);
         } else {
-            document.getElementById('contract-seller').innerText = `Nhà Vườn Đủ Điều Kiện Xuất Khẩu`;
-            document.getElementById('contract-buyer').innerText = `Vựa Thu Mua (${item.location})`;
+            alert(`📂 Đã chuyển sang Hợp đồng #DT-${contract.id.toString().slice(-4)} trong Danh mục Đầu tư của bạn!`);
         }
 
-        document.getElementById('contract-qty').innerText = `${item.quantity} Tấn (${item.title.split(' ')[1] || 'Sầu Riêng'})`;
-        document.getElementById('contract-price').innerText = `${Number(item.price).toLocaleString('vi-VN')}đ/kg`;
-        document.getElementById('contract-total-val').innerText = `${totalVal.toLocaleString('vi-VN')} VNĐ`;
-        document.getElementById('contract-deposit-val').innerText = `${depositVal.toLocaleString('vi-VN')} VNĐ`;
-        document.getElementById('contract-gps').innerText = item.gps || '12.6853° N, 108.2142° E';
+        currentContractId = contract.id;
+        updateContractDropdown();
+        updatePortfolioSummary();
+        renderActiveContractUI();
 
+        // SWITCH TO CONTRACT TAB
         switchTab(3, document.querySelectorAll('.nav-item')[3]);
-        alert(`🤝 Đã chọn bài đăng: "${item.title}". Thông tin đã được tự động nạp vào Hợp Đồng Số #DT-${item.id.toString().slice(-4)}!`);
+    }
+
+    function renderActiveContractUI() {
+        const contract = userContracts.find(c => c.id === currentContractId) || userContracts[0];
+        if (!contract) return;
+
+        document.getElementById('contract-code-title').innerText = `📄 Hợp Đồng Điện Tử #DT-${contract.id.toString().slice(-4)}`;
+        
+        const badge = document.getElementById('contract-status-badge');
+        if (badge) {
+            if (contract.isFinalized) {
+                badge.className = 'badge badge-success';
+                badge.innerText = '✅ HỢP ĐỒNG ĐÃ CHỐT HOÀN TẤT';
+            } else if (contract.status === 'locked_deposit') {
+                badge.className = 'badge badge-success';
+                badge.innerText = '🔒 ĐÃ KHÓA 10% CỌC ESCROW';
+            } else {
+                badge.className = 'badge badge-warning';
+                badge.innerText = '⏳ CHỜ KÝ & NỘP CỌC';
+            }
+        }
+
+        document.getElementById('contract-seller').innerText = contract.seller;
+        document.getElementById('contract-buyer').innerText = contract.buyer;
+        document.getElementById('contract-qty').innerText = `${contract.quantity} Tấn (${contract.title.split(' ')[1] || 'Sầu Riêng'})`;
+        document.getElementById('contract-price').innerText = `${Number(contract.price).toLocaleString('vi-VN')}đ/kg`;
+        document.getElementById('contract-total-val').innerText = `${Number(contract.totalVal).toLocaleString('vi-VN')} VNĐ`;
+        document.getElementById('contract-deposit-val').innerText = `${Number(contract.depositVal).toLocaleString('vi-VN')} VNĐ`;
+        document.getElementById('contract-gps').innerText = contract.gps;
+
+        // UI element locks according to active contract state
+        const btnClear = document.getElementById('btn-clear-sig');
+        const btnSaveSig = document.getElementById('btn-save-sig');
+        const btnFinalize = document.getElementById('btn-finalize-contract');
+        const summaryCard = document.getElementById('finalized-summary-card');
+
+        if (contract.isFinalized) {
+            if (btnClear) { btnClear.disabled = true; btnClear.style.opacity = '0.5'; }
+            if (btnSaveSig) { btnSaveSig.disabled = true; btnSaveSig.innerText = '🔒 Chữ Ký Đã Khóa'; btnSaveSig.style.opacity = '0.7'; }
+            if (btnFinalize) {
+                btnFinalize.disabled = true;
+                btnFinalize.innerText = '🔒 HỢP ĐỒNG ĐÃ ĐƯỢC CHỐT & GỬI THÀNH CÔNG';
+                btnFinalize.style.background = '#555';
+            }
+            if (summaryCard) summaryCard.style.display = 'block';
+        } else {
+            if (btnClear) { btnClear.disabled = false; btnClear.style.opacity = '1'; }
+            if (btnSaveSig) { btnSaveSig.disabled = false; btnSaveSig.innerText = '✍️ Lưu & Ký Hợp Đồng'; btnSaveSig.style.opacity = '1'; }
+            if (btnFinalize) {
+                btnFinalize.disabled = false;
+                btnFinalize.innerText = '🚀 CHỐT & GỬI HỢP ĐỒNG CHÍNH THỨC (KHÓA 100%)';
+                btnFinalize.style.background = 'linear-gradient(135deg, #1b5e20, #2e7d32)';
+            }
+            if (summaryCard) summaryCard.style.display = 'none';
+        }
+
+        applyReportState();
+        applyViolationState();
     }
 
     // REAL IMAGE COMPRESSION WITH LIVE PREVIEW DISPLAY
@@ -937,17 +1120,29 @@ Thông báo phản hồi của Admin đã được cập nhật trực tiếp l�
         }
 
         const arbVal = document.getElementById('admin-arbitrator-select').value;
+        const partyVal = document.getElementById('admin-violating-party-select').value;
         const rateVal = parseFloat(document.getElementById('admin-deduct-rate-select').value);
         
         const originalDeposit = 82500000;
         const deductedVal = originalDeposit * rateVal;
         const remainingVal = originalDeposit - deductedVal;
 
+        const partyText = partyVal === 'farmer' ? '🌾 Bên Bán (Nhà Vườn / Nông Dân)' : '💼 Bên Mua (Thương Lái / Vựa XNK)';
+        
+        let flowText = '';
+        if (partyVal === 'farmer') {
+            flowText = `💳 Hoàn tiền cọc ${deductedVal.toLocaleString('vi-VN')} VNĐ từ Ví Escrow MBBank VỀ CHO BÊN MUA (Thương lái) đền bù do Nhà vườn vi phạm chất lượng/bẻ cọc.`;
+        } else {
+            flowText = `💳 Tịch thu cọc Escrow ${deductedVal.toLocaleString('vi-VN')} VNĐ từ Ví Escrow MBBank GIẢI NGÂN CHO BÊN BÁN (Nhà vườn) đền bù phạt cọc do Thương lái bỏ hàng/trễ cắt sầu.`;
+        }
+
         const now = new Date();
         const timeStr = `${now.getDate()}/${now.getMonth()+1}/${now.getFullYear()} lúc ${now.getHours()}:${now.getMinutes()<10?'0':''}${now.getMinutes()}`;
 
         localStorage.setItem('duritrade_violation_applied', 'true');
-        localStorage.setItem('duritrade_violation_reason', 'Admin ra phán quyết vi phạm theo kết quả kiểm định thực tế của Trọng tài');
+        localStorage.setItem('duritrade_violation_party', partyText);
+        localStorage.setItem('duritrade_violation_flow', flowText);
+        localStorage.setItem('duritrade_violation_reason', 'Ban Quản Trị Admin ra phán quyết vi phạm thực tế theo kết quả kiểm định của Trọng tài BRIX P2P');
         localStorage.setItem('duritrade_violation_deduct', deductedVal.toString());
         localStorage.setItem('duritrade_violation_remaining', remainingVal.toString());
         localStorage.setItem('duritrade_violation_time', timeStr);
@@ -956,13 +1151,14 @@ Thông báo phản hồi của Admin đã được cập nhật trực tiếp l�
         applyViolationState();
         closeModal('modal-admin-arbitrate');
 
-        alert(`⚖️ ADMIN RA PHÁN QUYẾT THÀNH CÔNG!
+        alert(`⚖️ ADMIN RA PHÁN QUYẾT VI PHẠM THÀNH CÔNG!
 
+🚨 Bên vi phạm: ${partyText}
 👨‍⚖️ Trọng tài cử: ${arbVal}
-💸 Khấu trừ cọc Escrow: ${deductedVal.toLocaleString('vi-VN')} VNĐ
-💰 Cọc an toàn còn lại: ${remainingVal.toLocaleString('vi-VN')} VNĐ
+💸 Tiền phạt khấu trừ: ${deductedVal.toLocaleString('vi-VN')} VNĐ
+🔄 Hướng dòng tiền Escrow: ${flowText}
 
-Biên bản phán quyết đã niêm phong vĩnh viễn trên Hợp đồng.`);
+Biên bản phán quyết đã được niêm phong vĩnh viễn trên Hợp đồng.`);
     }
 
     // INTERACTIVE SVG LINE CHART WITH DAY TOOLTIPS
@@ -1195,6 +1391,8 @@ Ban Quản Trị DuriTrade sẽ xem xét, gửi Email phản hồi và điều �
     function applyViolationState() {
         if (localStorage.getItem('duritrade_violation_applied') !== 'true') return;
 
+        const partyText = localStorage.getItem('duritrade_violation_party') || '🌾 Bên Bán (Nhà Vườn / Nông Dân)';
+        const flowText = localStorage.getItem('duritrade_violation_flow') || 'Hoàn cọc / Giải ngân đền bù Escrow';
         const reason = localStorage.getItem('duritrade_violation_reason') || 'Ban Quản Trị Admin ra phán quyết vi phạm thực tế';
         const deductVal = parseFloat(localStorage.getItem('duritrade_violation_deduct') || '16500000');
         const remVal = parseFloat(localStorage.getItem('duritrade_violation_remaining') || '66000000');
@@ -1211,11 +1409,13 @@ Ban Quản Trị DuriTrade sẽ xem xét, gửi Email phản hồi và điều �
         const vCard = document.getElementById('violation-result-card');
         if (vCard) {
             vCard.style.display = 'block';
-            document.getElementById('violation-reason-text').innerText = reason;
-            document.getElementById('violation-deduct-text').innerText = `- ${deductVal.toLocaleString('vi-VN')} VNĐ`;
-            document.getElementById('violation-remaining-text').innerText = `${remVal.toLocaleString('vi-VN')} VNĐ`;
-            document.getElementById('violation-arb-text').innerText = arbName;
-            document.getElementById('violation-time-text').innerText = timeStr;
+            if (document.getElementById('violation-party-text')) document.getElementById('violation-party-text').innerText = partyText;
+            if (document.getElementById('violation-reason-text')) document.getElementById('violation-reason-text').innerText = reason;
+            if (document.getElementById('violation-deduct-text')) document.getElementById('violation-deduct-text').innerText = `- ${deductVal.toLocaleString('vi-VN')} VNĐ`;
+            if (document.getElementById('violation-flow-text')) document.getElementById('violation-flow-text').innerText = flowText;
+            if (document.getElementById('violation-remaining-text')) document.getElementById('violation-remaining-text').innerText = `${remVal.toLocaleString('vi-VN')} VNĐ`;
+            if (document.getElementById('violation-arb-text')) document.getElementById('violation-arb-text').innerText = arbName;
+            if (document.getElementById('violation-time-text')) document.getElementById('violation-time-text').innerText = timeStr;
         }
     }
 
