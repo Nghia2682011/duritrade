@@ -342,12 +342,23 @@
                 </div>
 
                 <!-- CANCEL DRAFT CONTRACT CONTAINER (ANTI-HANGING FEATURE IN V25) -->
-                <div id="cancel-draft-container" style="margin-top: 10px;">
-                    <button id="btn-cancel-draft-contract" class="btn btn-outline" style="border-color: #d32f2f; color: #d32f2f; font-weight: bold; width: 100%; font-size: 13px;" onclick="cancelDraftContract()">❌ HỦY DỰ THẢO HỢP ĐỒNG NÀY & GIẢI PHÓNG BÀI ĐĂNG TRÊN SÀN</button>
+                <div id="cancel-actions-container" style="margin-top: 10px; display: flex; flex-direction: column; gap: 8px;">
+                    <button id="btn-cancel-draft-contract" class="btn btn-outline" style="border-color: #d32f2f; color: #d32f2f; font-weight: bold; width: 100%; font-size: 13px;" onclick="cancelDraftContract()">❌ HỦY DỰ THẢO HỢP ĐỒNG (Chưa Ký & Chưa Cọc - Giải Phóng Bài Đăng Sàn)</button>
+                    <button id="btn-cancel-deposit-contract" class="btn btn-danger" style="background: #c62828; color: #fff; font-weight: bold; width: 100%; font-size: 13px; display: none;" onclick="openCancelDepositModal()">⚠️ HỦY CỌC HỢP ĐỒNG & PHẠT PHÁP LÝ ESCROW (BẺ HỢP ĐỒNG)</button>
                 </div>
 
                 <!-- FINALIZED SUMMARY CARD -->
-                <div id="finalized-summary-card" style="display: none; margin-top: 16px; background: #e8f5e9; border: 2px solid #2e7d32; border-radius: 10px; padding: 14px;">
+                
+                    <!-- CANCEL DEPOSIT RESULT CARD (NEW IN V26) -->
+                    <div id="cancel-deposit-result-card" style="display: none; margin-top: 12px; background: #ffebee; border: 2px solid #c62828; border-radius: 8px; padding: 10px; font-size: 12px; color: #b71c1c;">
+                        <div style="font-weight: 700; font-size: 13px; margin-bottom: 6px; text-align: center;">📋 BIÊN BẢN HỦY CỌC & XỬ LÝ PHẠT VI PHẠM ESCROW (ĐIỀU 328 BLDS 2015)</div>
+                        <p>🚨 <strong>Bên tự ý hủy cọc (Bẻ hợp đồng):</strong> <span id="cancel-party-text" style="font-weight:bold;"></span></p>
+                        <p>📝 <strong>Lý do hủy cọc:</strong> <span id="cancel-reason-text"></span></p>
+                        <p>💸 <strong>Xử lý Ví Escrow MBBank (82.500.000 VNĐ):</strong> <span id="cancel-escrow-action-text" style="font-weight:bold; color:#d32f2f;"></span></p>
+                        <p>🕒 <strong>Thời điểm hủy cọc:</strong> <span id="cancel-time-text"></span></p>
+                    </div>
+
+<div id="finalized-summary-card" style="display: none; margin-top: 16px; background: #e8f5e9; border: 2px solid #2e7d32; border-radius: 10px; padding: 14px;">
                     <div style="font-weight: 700; color: #1b5e20; font-size: 15px; margin-bottom: 8px; text-align: center;">✅ HỢP ĐỒNG ĐÃ ĐƯỢC 2 BÊN CHỐT & GỬI THÀNH CÔNG</div>
                     <div style="font-size: 12px; color: #333; line-height: 1.7;">
                         <p>📌 <strong>Mã băm Hợp đồng (SHA-256):</strong> <span id="final-hash-code" style="color:#d32f2f; font-family:monospace; font-weight:bold;">#DT-HASH-99827-SECURE</span></p>
@@ -560,6 +571,44 @@
             </div>
 
             <button class="btn btn-danger" onclick="executeAdminDeduction()">💥 Admin Ra Phán Quyết & Trừ Cọc Escrow</button>
+        </div>
+    </div>
+
+
+    <!-- MODAL 5: HỦY CỌC HỢP ĐỒNG & PHẠT PHÁP LÝ ESCROW (KHI ĐÃ NỘP CỌC) -->
+    <div id="modal-cancel-deposit" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-header">
+                <div class="modal-title" style="color: #c62828;">⚠️ Hủy Cọc Hợp Đồng & Phạt Escrow</div>
+                <button class="btn-close" onclick="closeModal('modal-cancel-deposit')">✕</button>
+            </div>
+            
+            <div style="font-size: 12px; color: #555; line-height: 1.5; margin-bottom: 12px; background: #ffebee; padding: 10px; border-radius: 8px; border: 1px solid #ffcdd2;">
+                <strong>⚠️ CHÚ Ý PHÁP LÝ (ĐIỀU 328 BLDS 2015):</strong><br>
+                Hợp đồng này đã được ký kết và <strong>phong tỏa 10% cọc Escrow MBBank</strong>. Việc HỦY CỌC lúc này là hành vi bẻ hợp đồng và sẽ kích hoạt chế tài phạt cọc tài chính!
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Chọn Bên Đột Ngột Hủy Cọc / Bẻ Hợp Đồng:</label>
+                <select id="cancel-deposit-party-select" class="form-select">
+                    <option value="buyer">💼 Bên Mua (Thương Lái) Tự Ý Hủy Cọc - Không Mua Nữa</option>
+                    <option value="farmer">🌾 Bên Bán (Nông Dân) Tự Ý Hủy Cọc - Bẻ Bán Vựa Khác</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Lý Do Hủy Cọc Hợp Đồng:</label>
+                <textarea id="cancel-deposit-reason" class="form-control" style="height: 60px;" placeholder="Ví dụ: Thương lái thay đổi kế hoạch thu mua / Nhà vườn muốn đổi vựa khác..."></textarea>
+            </div>
+
+            <div style="font-size: 11px; color: #333; margin-bottom: 12px; background: #fff3e0; padding: 8px; border-radius: 6px; border: 1px solid #ffe0b2;">
+                <label style="display: flex; align-items: center; gap: 6px; cursor: pointer;">
+                    <input type="checkbox" id="chk-cancel-deposit-confirm" checked>
+                    <span><strong>Xác nhận:</strong> Đồng ý xử lý chế tài tịch thu/đền bù 100% tiền cọc Escrow MBBank theo quy định pháp luật.</span>
+                </label>
+            </div>
+
+            <button class="btn btn-danger" style="background: #c62828; font-weight: bold; width: 100%;" onclick="executeCancelDeposit()">💥 XÁC NHẬN HỦY CỌC & TỊCH THU/BỒI THƯỜNG ESCROW</button>
         </div>
     </div>
 
@@ -1318,6 +1367,62 @@ Biên bản phán quyết đã được niêm phong vĩnh viễn trên Hợp đ�
         isSignatureSaved = true;
         localStorage.setItem('duritrade_sig_saved', 'true');
         alert('✍️ Chữ ký điện tử của bạn đã được ghi nhận vào hợp đồng!');
+    }
+
+    
+    function openCancelDepositModal() {
+        const contract = userContracts.find(c => c.id === currentContractId);
+        if (!contract) return;
+        if (contract.cancelDepositRecord) {
+            alert('ℹ️ Hợp đồng này đã làm thủ tục HỦY CỌC & xử lý phạt Escrow trước đó!');
+            return;
+        }
+        document.getElementById('modal-cancel-deposit').style.display = 'flex';
+    }
+
+    function executeCancelDeposit() {
+        const chk = document.getElementById('chk-cancel-deposit-confirm');
+        if (!chk || !chk.checked) {
+            alert('⚠️ Vui lòng tích chọn ô xác nhận đồng ý chế tài phạt cọc theo Điều 328 BLDS 2015!');
+            return;
+        }
+
+        const contract = userContracts.find(c => c.id === currentContractId);
+        if (!contract) return;
+
+        const party = document.getElementById('cancel-deposit-party-select').value;
+        const reason = document.getElementById('cancel-deposit-reason').value.trim() || 'Thay đổi kế hoạch thu mua / Bẻ hợp đồng';
+
+        const now = new Date();
+        const timeStr = now.getDate() + '/' + (now.getMonth() + 1) + '/' + now.getFullYear() + ' lúc ' + now.getHours() + ':' + (now.getMinutes() < 10 ? '0' : '') + now.getMinutes();
+
+        let partyText = '';
+        let escrowActionText = '';
+
+        if (party === 'buyer') {
+            partyText = '💼 Bên Mua (Thương Lái) Tự Ý Hủy Cọc';
+            escrowActionText = 'TỊCH THU 100% CỌC ESCROW (82.500.000 VNĐ) GIẢI NGÂN ĐỀN BÙ CHO NÔNG DÂN (Điều 328 BLDS)';
+        } else {
+            partyText = '🌾 Bên Bán (Nông Dân) Tự Ý Hủy Cọc (Bẻ Bán Vựa Khác)';
+            escrowActionText = 'HOÀN CỌC ESCROW 82.500.000 VNĐ + PHẠT PHẠM CỌC ĐỀN BÙ CHO THƯƠNG LÁI (Điều 328 BLDS)';
+        }
+
+        contract.cancelDepositRecord = {
+            partyText: partyText,
+            reason: reason,
+            escrowActionText: escrowActionText,
+            timeStr: timeStr
+        };
+
+        contract.status = 'cancelled_deposit';
+
+        localStorage.setItem('duritrade_user_contracts', JSON.stringify(userContracts));
+
+        closeModal('modal-cancel-deposit');
+        updateContractDropdown();
+        renderActiveContractUI();
+
+        alert();
     }
 
     function cancelDraftContract() {
