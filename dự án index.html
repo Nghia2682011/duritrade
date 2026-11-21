@@ -246,6 +246,17 @@
                         </div>
                     </div>
 
+                    <div style="display: flex; gap: 8px;">
+                        <div class="form-group" style="flex: 1;">
+                            <label class="form-label">📱 Số Điện Thoại Chính Chủ</label>
+                            <input type="tel" id="post-phone" class="form-input" placeholder="VD: 0987.654.321" value="0987.654.321" required>
+                        </div>
+                        <div class="form-group" style="flex: 1;">
+                            <label class="form-label">🪪 Căn Cước Công Dân (eKYC)</label>
+                            <input type="text" id="post-cccd" class="form-input" placeholder="VD: 066092008892" value="066092008892" required>
+                        </div>
+                    </div>
+
                     <div class="form-group">
                         <label class="form-label">Cam Kết Chất Lượng Tổng Quan (BRIX & Tỷ Lệ Hàng A)</label>
                         <input type="text" id="post-brix" class="form-input" placeholder="VD: BRIX ≥ 33° (Hàng A > 85%)" value="BRIX ≥ 33° (Hàng A > 85%)" required>
@@ -336,7 +347,17 @@
                 
                 <div style="font-size: 12px; line-height: 1.6; color: #333; margin-bottom: 12px; background: #fafafa; padding: 10px; border-radius: 8px; border: 1px solid var(--border);">
                     <p><strong>Bên Bán (Nông dân):</strong> <span id="contract-seller">Nguyễn Văn A (Krông Pắc, Đắk Lắk)</span></p>
+                    <p style="font-size: 11px; color: #555; margin-top: -2px; margin-bottom: 6px; padding-left: 10px; border-left: 2px solid var(--primary);">
+                        📱 <strong>SĐT:</strong> <span id="contract-seller-phone" style="font-weight:600; color:#1b5e20;">0987.654.321</span> | 
+                        🪪 <strong>CCCD:</strong> <span id="contract-seller-cccd" style="font-weight:600; color:#1b5e20;">066092008892</span> 
+                        <span class="badge" style="background:#e8f5e9; color:#1b5e20; font-size:10px; font-weight:700; padding:1px 4px;">● eKYC Verified</span>
+                    </p>
                     <p><strong>Bên Mua (Thương lái):</strong> <span id="contract-buyer">Vựa Sầu Riêng Xuất Nhập Khẩu B</span></p>
+                    <p style="font-size: 11px; color: #555; margin-top: -2px; margin-bottom: 6px; padding-left: 10px; border-left: 2px solid var(--primary);">
+                        📱 <strong>SĐT:</strong> <span id="contract-buyer-phone" style="font-weight:600; color:#1b5e20;">0912.345.678</span> | 
+                        🪪 <strong>CCCD/MST:</strong> <span id="contract-buyer-cccd" style="font-weight:600; color:#1b5e20;">040088009982</span> 
+                        <span class="badge" style="background:#e8f5e9; color:#1b5e20; font-size:10px; font-weight:700; padding:1px 4px;">● eKYC Verified</span>
+                    </p>
                     <p><strong>Sản lượng:</strong> <span id="contract-qty">15 Tấn Monthong Thái</span> | <strong>Giá chốt:</strong> <span id="contract-price">55.000đ/kg</span></p>
                     <p><strong>Tổng giá trị đơn hàng:</strong> <span id="contract-total-val" style="color: var(--danger); font-weight: 700;">825.000.000 VNĐ</span></p>
                     <p><strong>Tiền cọc an toàn (10% Escrow):</strong> <span id="contract-deposit-val" style="color: var(--primary); font-weight: 700;">82.500.000 VNĐ</span></p>
@@ -397,7 +418,7 @@
 
                 <!-- SIGNATURE CANVAS AREA -->
                 <div class="form-group" id="signature-area-group">
-                    <label class="form-label">Ký Điện Tử Bằng Ngón Tay (Mã Hóa Timestamp)</label>
+                    <label class="form-label">Ký Điện Tử Ngón Tay (Định danh eKYC + SĐT & CCCD chính chủ + Timestamp)</label>
                     <div class="signature-pad-container">
                         <canvas id="signature-pad"></canvas>
                     </div>
@@ -764,6 +785,10 @@
             dao3Date: '15/06/2026',
             dao3Quality: 'Hàng B/Dạt cho phép (Giảm 15% giá)',
             harvestSchedule: 'Dao 1: 25/05/2026 | Dao 2: 05/06/2026 | Dao 3: 15/06/2026',
+            sellerPhone: '0987.654.321',
+            sellerCCCD: '066092008892',
+            buyerPhone: '0912.345.678',
+            buyerCCCD: '040088009982',
             image: SVG_DURIAN_PLACEHOLDER
         },
         {
@@ -852,14 +877,14 @@
                         ${statusBadge}
                     </div>
                     <div style="color:#333; line-height:1.5; margin-bottom:6px;">
-                        • 🌾 <strong>Bên Bán:</strong> ${c.seller || 'Nông dân'}<br>
-                        • 💼 <strong>Bên Mua:</strong> ${c.buyer || 'Thương lái'}<br>
+                        • 🌾 <strong>Bên Bán:</strong> ${c.seller || 'Nông dân'} (📱 SĐT: ${c.sellerPhone || '0987.654.321'} | 🪪 CCCD: ${c.sellerCCCD || '066092008892'})<br>
+                        • 💼 <strong>Bên Mua:</strong> ${c.buyer || 'Thương lái'} (📱 SĐT: ${c.buyerPhone || '0912.345.678'} | 🪪 CCCD/MST: ${c.buyerCCCD || '040088009982'})<br>
                         • 📍 <strong>GPS Vườn:</strong> ${c.gps || '12.6853° N, 108.2142° E'}<br>
                         • 📅 <strong>Lịch Cắt:</strong> Dao 1 (${c.dao1Date || '25/05/2026'}) | Dao 2 (${c.dao2Date || '05/06/2026'}) | Dao 3 (${c.dao3Date || '15/06/2026'})<br>
                         • ✍️ <strong>Chữ Ký Điện Tử:</strong> ${sigImgHtml}<br>
                         • 🔐 <strong>Mã SHA-256 Niêm Phong:</strong> <span style="font-family:monospace; color:#d32f2f; font-weight:bold;">#DT-HASH-${c.id}-SECURE</span>
                     </div>
-                    <button class="btn btn-primary btn-sm" style="padding:4px 8px; font-size:10px; width:100%;" onclick="exportCourtEvidence(${c.id})">📥 Trích Xuất Bằng Chứng Pháp Lý Cho Trọng Tài / Tòa Án</button>
+                    <button class="btn btn-primary btn-sm" style="padding:4px 8px; font-size:10px; width:100%;" onclick="exportCourtEvidence(${c.id})">📥 Trích Xuất Hồ Sơ eKYC Kèm SĐT & CCCD Cho Trọng Tài / Tòa Án</button>
                 </div>
             `;
         });
@@ -990,6 +1015,10 @@
                 title: '🌾 Vườn Monthong Thái 15 Tấn Đạt Chuẩn Xuất Khẩu',
                 seller: 'Nguyễn Văn A (Krông Pắc, Đắk Lắk)',
                 buyer: 'Vựa Sầu Riêng Xuất Nhập Khẩu B',
+                sellerPhone: '0987.654.321',
+                sellerCCCD: '066092008892',
+                buyerPhone: '0912.345.678',
+                buyerCCCD: '040088009982',
                 quantity: 15,
                 price: 55000,
                 totalVal: 825000000,
@@ -1074,6 +1103,10 @@
                 title: item.title,
                 seller: item.role === 'farmer' ? `Nhà Vườn (${item.location})` : 'Nhà Vườn Đủ Điều Kiện Xuất Khẩu',
                 buyer: item.role === 'farmer' ? 'Doanh Nghiệp / Vựa Thu Mua Đã Xác Minh' : `Vựa Thu Mua (${item.location})`,
+                sellerPhone: item.sellerPhone || '0987.654.321',
+                sellerCCCD: item.sellerCCCD || '066092008892',
+                buyerPhone: item.buyerPhone || '0912.345.678',
+                buyerCCCD: item.buyerCCCD || '040088009982',
                 quantity: item.quantity,
                 price: item.price,
                 totalVal: totalVal,
@@ -1156,6 +1189,18 @@
 
         document.getElementById('contract-seller').innerText = contract.seller;
         document.getElementById('contract-buyer').innerText = contract.buyer;
+        
+        const elSellerPhone = document.getElementById('contract-seller-phone');
+        if (elSellerPhone) elSellerPhone.innerText = contract.sellerPhone || '0987.654.321';
+        
+        const elSellerCCCD = document.getElementById('contract-seller-cccd');
+        if (elSellerCCCD) elSellerCCCD.innerText = contract.sellerCCCD || '066092008892';
+        
+        const elBuyerPhone = document.getElementById('contract-buyer-phone');
+        if (elBuyerPhone) elBuyerPhone.innerText = contract.buyerPhone || '0912.345.678';
+        
+        const elBuyerCCCD = document.getElementById('contract-buyer-cccd');
+        if (elBuyerCCCD) elBuyerCCCD.innerText = contract.buyerCCCD || '040088009982';
         document.getElementById('contract-qty').innerText = `${contract.quantity} Tấn (${contract.title.split(' ')[1] || 'Sầu Riêng'})`;
         document.getElementById('contract-price').innerText = `${Number(contract.price).toLocaleString('vi-VN')}đ/kg`;
         document.getElementById('contract-total-val').innerText = `${Number(contract.totalVal).toLocaleString('vi-VN')} VNĐ`;
@@ -1320,6 +1365,8 @@
         const location = document.getElementById('post-location').value;
         const quantity = document.getElementById('post-quantity').value;
         const price = document.getElementById('post-price').value;
+        const phone = document.getElementById('post-phone').value || '0987.654.321';
+        const cccd = document.getElementById('post-cccd').value || '066092008892';
         const brix = document.getElementById('post-brix').value;
         const gps = document.getElementById('post-gps').value || '12.6853° N, 108.2142° E';
         
@@ -1342,6 +1389,10 @@
             price: Number(price),
             brix: brix,
             gps: gps,
+            sellerPhone: role === 'farmer' ? phone : '0987.654.321',
+            sellerCCCD: role === 'farmer' ? cccd : '066092008892',
+            buyerPhone: role === 'buyer' ? phone : '0912.345.678',
+            buyerCCCD: role === 'buyer' ? cccd : '040088009982',
             harvestSchedule: harvestSched,
             qualityDao1: dao1Qual,
             qualityDao2: dao2Qual,
