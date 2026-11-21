@@ -398,7 +398,17 @@
                 </select>
             </div>
 
-            <div class="card">
+            <!-- EMPTY CONTRACT PLACEHOLDER CARD -->
+            <div id="empty-contract-placeholder-card" class="card" style="display: none; text-align: center; padding: 28px 16px; background: #fafafa; border: 2px dashed #a5d6a7; border-radius: 12px; margin-bottom: 12px;">
+                <div style="font-size: 48px; margin-bottom: 8px;">🛒</div>
+                <div style="font-weight: 700; font-size: 16px; color: #1b5e20; margin-bottom: 6px;">DANH MỤC HỢP ĐỒNG ĐANG TRỐNG</div>
+                <div style="font-size: 12px; color: #555; line-height: 1.6; margin-bottom: 16px; max-width: 340px; margin-left: auto; margin-right: auto;">
+                    Bạn chưa có hợp đồng giao dịch nào. Vui lòng vào <strong>Tab 1: Thị Trường</strong>, chọn bài đăng sầu riêng mong muốn và bấm <strong>"🛒 Mua / Đặt Cọc Bao Tiêu"</strong> để tạo Hợp đồng điện tử chính thức!
+                </div>
+                <button class="btn btn-primary" style="max-width: 240px; margin: 0 auto; background: linear-gradient(135deg, #1b5e20, #2e7d32);" onclick="switchTab(0, document.querySelectorAll('.nav-item')[0])">🛒 Đến Sàn Thị Trường Ngay</button>
+            </div>
+
+            <div id="active-contract-main-card" class="card">
                 <div class="card-title">
                     <span id="contract-code-title">📄 Hợp Đồng Điện Tử #DT-8892</span>
                     <span id="contract-status-badge" class="badge badge-escrow">🔒 ĐÃ KHÓA CỌC 10%</span>
@@ -455,7 +465,10 @@
                         </div>
                     </div>
 
-                    <!-- CONTROL BUTTONS FOR CUT DATE & WEATHER DELAY -->
+                    <!-- END OF active-contract-main-card -->
+            </div>
+            
+            <!-- CONTROL BUTTONS FOR CUT DATE & WEATHER DELAY -->
                     <!-- 2-PARTY POSTPONE REQUEST APPROVAL CARD (NEW IN V30) -->
                     <div id="postpone-request-approval-card" style="display: none; margin-top: 10px; background: #fff8e1; border: 2px solid #ffa000; border-radius: 8px; padding: 10px; font-size: 12px; color: #5d4037;">
                         <div style="font-weight: 700; color: #e65100; font-size: 13px; margin-bottom: 6px; text-align: center;">📩 YÊU CẦU DỜI LỊCH CẮT CẦN PHÊ DUYỆT</div>
@@ -906,7 +919,7 @@
         document.getElementById('auth-login-username').value = username;
         document.getElementById('auth-login-password').value = password;
         document.getElementById('auth-login-role').value = role;
-        switchAuthTab('login');
+        localStorage.setItem('duritrade_user_contracts_' + username, JSON.stringify([])); sessionStorage.setItem('duritrade_logged_user', JSON.stringify(newUser)); sessionStorage.setItem('duritrade_user_role', role); alert('🎉 ĐĂNG KÝ TÀI KHOẢN MỚI THÀNH CÔNG!\n\nHệ thống đã tự động đăng nhập vào tài khoản của bạn.'); checkUserAuthSession();
     }
 
     function autoSyncAdminLoginState(roleVal) {
@@ -1243,10 +1256,21 @@
     }
 
     // RENDER MARKETPLACE LISTINGS FROM LOCALSTORAGE
+    function viewListingDetail(id) {
+        const items = JSON.parse(localStorage.getItem('duritrade_market_items')) || DEFAULT_MARKET_DATA;
+        const item = items.find(i => i.id === id) || items[0];
+        alert(`📍 THÔNG TIN BÀI ĐĂNG NÔNG SẢN #DT-${id}:\n\n📌 Tiêu đề: ${item.title}\n📍 Khu vực: ${item.location}\n⚖️ Sản lượng: ${item.quantity} Tấn\n💰 Giá chốt: ${Number(item.price).toLocaleString('vi-VN')} VNĐ/kg\n📅 Lịch cắt: ${item.harvestSchedule || 'Dao 1: 01/12/2026 | Dao 2: 11/12/2026 | Dao 3: 21/12/2026'}\n📍 GPS Vườn: ${item.gps || '12.6853° N, 108.2142° E'}`);
+    }
+
+    function registerSupplyForBuyer(id) {
+        alert(`🌾 NÔNG DÂN ĐĂNG KÝ CUNG CẤP CHO VỰA #DT-${id}:\n\nHệ thống đã gửi thông tin vườn của bạn tới Vựa Thu Mua! Khi Vựa Thu Mua chấp nhận và nộp cọc 10% Escrow MBBank, Hợp đồng sẽ tự động xuất hiện tại Tab Hợp Đồng của bạn.`);
+    }
+
     function renderMarketList(filterRole = 'all') {
         const container = document.getElementById('market-listings-container');
         const searchVal = document.getElementById('market-search').value.toLowerCase();
         const items = JSON.parse(localStorage.getItem('duritrade_market_items')) || DEFAULT_MARKET_DATA;
+        const currentUser = getCurrentUserObj();
 
         let html = '';
         items.forEach(item => {
@@ -1256,6 +1280,23 @@
             const isFarmer = item.role === 'farmer';
             const badgeClass = isFarmer ? 'badge-farmer' : 'badge-buyer';
             const badgeText = isFarmer ? '🌾 VƯỜN BÁN (CUNG)' : '💼 VỰA CẦN MUA (CẦU)';
+
+            let actionBtnHtml = '';
+            if (currentUser.role === 'farmer' || currentUser.username === 'nongdan01') {
+                if (isFarmer) {
+                    actionBtnHtml = `<button class="btn btn-outline" style="border-color:#1b5e20; color:#1b5e20; font-weight:bold;" onclick="viewListingDetail(${item.id})">ℹ️ Xem Chi Tiết Vườn Nông Dân</button>`;
+                } else {
+                    actionBtnHtml = `<button class="btn btn-primary" style="background:#2e7d32;" onclick="registerSupplyForBuyer(${item.id})">🤝 Đăng Ký Cung Cấp Cho Vựa</button>`;
+                }
+            } else if (currentUser.role === 'buyer' || currentUser.username === 'vuasaurieng01') {
+                if (isFarmer) {
+                    actionBtnHtml = `<button class="btn btn-accent" style="background:#fbc02d; color:#1b5e20; font-weight:700;" onclick="openMarketPaymentModal(${item.id})">🔒 Nộp Cọc 10% Escrow MBBank Bao Tiêu Vườn</button>`;
+                } else {
+                    actionBtnHtml = `<button class="btn btn-outline" onclick="viewListingDetail(${item.id})">ℹ️ Xem Nhu Cầu Mua Của Vựa</button>`;
+                }
+            } else {
+                actionBtnHtml = `<button class="btn btn-accent" style="background:#fbc02d; color:#1b5e20; font-weight:700;" onclick="openMarketPaymentModal(${item.id})">🔒 Nộp Cọc 10% Escrow MBBank Bao Tiêu Vườn</button>`;
+            }
 
             html += `
                 <div class="listing-card">
@@ -1274,7 +1315,7 @@
                             <div>🔪 <strong>Dao 2 (50% SL):</strong> ${item.dao2Date || '11/12/2026'} (${item.dao2Quality || 'BRIX ≥ 31°'})</div>
                             <div>🔪 <strong>Dao 3 (20% SL):</strong> ${item.dao3Date || '21/12/2026'} (${item.dao3Quality || 'Hàng B/Dạt'})</div>
                         </div>
-                        <button class="btn btn-primary" onclick="selectListingForContract(${item.id})">🤝 Ký Hợp Đồng & Khóa Cọc 10%</button>
+                        ${actionBtnHtml}
                     </div>
                 </div>
             `;
@@ -1307,79 +1348,21 @@
 
     function initUserContracts() {
         const user = getCurrentUserObj();
-        const userKey = 'duritrade_user_contracts_' + user.username;
-        const stored = localStorage.getItem(userKey);
-
-        if (stored) {
-            userContracts = JSON.parse(stored);
-        } else {
-            if (user.role === 'buyer' || user.username === 'vuasaurieng01') {
-                userContracts = [{
-                    id: 9982,
-                    title: '💼 Vựa XNK Bao Tiêu 20 Tấn Ri6 Chuẩn Xuất Khẩu',
-                    seller: 'Hợp Tác Xã Sầu Riêng Krông Pắc',
-                    buyer: 'Vựa Sầu Riêng XNK B (vuasaurieng01)',
-                    sellerPhone: '0977.111.222',
-                    sellerCCCD: '066092001111',
-                    buyerPhone: '0912.345.678',
-                    buyerCCCD: '040088009982',
-                    ownerUsername: 'vuasaurieng01',
-                    quantity: 20,
-                    price: 58000,
-                    totalVal: 1160000000,
-                    depositVal: 116000000,
-                    gps: '12.7121° N, 108.2311° E',
-                    dao1Date: '03/12/2026',
-                    dao1Quality: 'BRIX ≥ 33° | Hàng A ≥ 85%',
-                    dao2Date: '13/12/2026',
-                    dao2Quality: 'BRIX ≥ 31° | Hàng A ≥ 80%',
-                    dao3Date: '23/12/2026',
-                    dao3Quality: 'Hàng B / Dạt cho phép',
-                    harvestSchedule: 'Dao 1: 03/12/2026 (30%) | Dao 2: 13/12/2026 (50%) | Dao 3: 23/12/2026 (20%)',
-                    weatherDelayNote: null,
-                    status: 'signed',
-                    isSigned: true,
-                    isFinalized: false,
-                    incidentReport: null,
-                    violationResult: null
-                }];
-            } else if (user.role === 'admin' || user.username === 'admin') {
-                const storedFarmer = localStorage.getItem('duritrade_user_contracts_nongdan01');
-                const storedBuyer = localStorage.getItem('duritrade_user_contracts_vuasaurieng01');
-                let farmerContracts = storedFarmer ? JSON.parse(storedFarmer) : [];
-                let buyerContracts = storedBuyer ? JSON.parse(storedBuyer) : [];
-                userContracts = [...farmerContracts, ...buyerContracts];
-                if (userContracts.length === 0) {
-                    userContracts = [{
-                        id: 8892,
-                        title: '🌾 Vườn Monthong Thái 15 Tấn Đạt Chuẩn Xuất Khẩu',
-                        seller: 'Nguyễn Văn A (Krông Pắc, Đắk Lắk)',
-                        buyer: 'Vựa Sầu Riêng Xuất Nhập Khẩu B',
-                        sellerPhone: '0987.654.321',
-                        sellerCCCD: '066092008892',
-                        buyerPhone: '0912.345.678',
-                        buyerCCCD: '040088009982',
-                        ownerUsername: 'nongdan01',
-                        quantity: 15,
-                        price: 55000,
-                        totalVal: 825000000,
-                        depositVal: 82500000,
-                        gps: '12.6853° N, 108.2142° E',
-                        dao1Date: '01/12/2026',
-                        dao1Quality: 'BRIX ≥ 33° | Hàng A ≥ 85%',
-                        dao2Date: '11/12/2026',
-                        dao2Quality: 'BRIX ≥ 31° | Hàng A ≥ 80%',
-                        dao3Date: '21/12/2026',
-                        dao3Quality: 'Hàng B / Dạt cho phép (Giảm 15% giá)',
-                        harvestSchedule: 'Dao 1: 01/12/2026 (30%) | Dao 2: 11/12/2026 (50%) | Dao 3: 21/12/2026 (20%)',
-                        weatherDelayNote: null,
-                        status: 'locked_deposit',
-                        isSigned: true,
-                        isFinalized: false,
-                        incidentReport: null,
-                        violationResult: null
-                    }];
-                }
+        if (user.role === 'admin' || user.username === 'admin') {
+            const keys = Object.keys(localStorage).filter(k => k.startsWith('duritrade_user_contracts_'));
+            let allContracts = [];
+            keys.forEach(k => {
+                try {
+                    const list = JSON.parse(localStorage.getItem(k)) || [];
+                    allContracts = [...allContracts, ...list];
+                } catch(e) {}
+            });
+            userContracts = allContracts;
+        } else if (user.username === 'nongdan01') {
+            const userKey = 'duritrade_user_contracts_nongdan01';
+            const stored = localStorage.getItem(userKey);
+            if (stored) {
+                userContracts = JSON.parse(stored);
             } else {
                 userContracts = [{
                     id: 8892,
@@ -1405,13 +1388,61 @@
                     harvestSchedule: 'Dao 1: 01/12/2026 (30%) | Dao 2: 11/12/2026 (50%) | Dao 3: 21/12/2026 (20%)',
                     weatherDelayNote: null,
                     status: 'locked_deposit',
-                    isSigned: true,
+                    isPaid: true,
+                    isSigned: false,
                     isFinalized: false,
                     incidentReport: null,
                     violationResult: null
                 }];
+                saveUserContractsState();
             }
-            saveUserContractsState();
+        } else if (user.username === 'vuasaurieng01') {
+            const userKey = 'duritrade_user_contracts_vuasaurieng01';
+            const stored = localStorage.getItem(userKey);
+            if (stored) {
+                userContracts = JSON.parse(stored);
+            } else {
+                userContracts = [{
+                    id: 9982,
+                    title: '💼 Vựa XNK Bao Tiêu 20 Tấn Ri6 Chuẩn Xuất Khẩu',
+                    seller: 'Hợp Tác Xã Sầu Riêng Krông Pắc',
+                    buyer: 'Vựa Sầu Riêng XNK B (vuasaurieng01)',
+                    sellerPhone: '0977.111.222',
+                    sellerCCCD: '066092001111',
+                    buyerPhone: '0912.345.678',
+                    buyerCCCD: '040088009982',
+                    ownerUsername: 'vuasaurieng01',
+                    quantity: 20,
+                    price: 58000,
+                    totalVal: 1160000000,
+                    depositVal: 116000000,
+                    gps: '12.7121° N, 108.2311° E',
+                    dao1Date: '03/12/2026',
+                    dao1Quality: 'BRIX ≥ 33° | Hàng A ≥ 85%',
+                    dao2Date: '13/12/2026',
+                    dao2Quality: 'BRIX ≥ 31° | Hàng A ≥ 80%',
+                    dao3Date: '23/12/2026',
+                    dao3Quality: 'Hàng B / Dạt cho phép',
+                    harvestSchedule: 'Dao 1: 03/12/2026 (30%) | Dao 2: 13/12/2026 (50%) | Dao 3: 23/12/2026 (20%)',
+                    weatherDelayNote: null,
+                    status: 'locked_deposit',
+                    isPaid: true,
+                    isSigned: false,
+                    isFinalized: false,
+                    incidentReport: null,
+                    violationResult: null
+                }];
+                saveUserContractsState();
+            }
+        } else {
+            const userKey = 'duritrade_user_contracts_' + user.username;
+            const stored = localStorage.getItem(userKey);
+            if (stored) {
+                userContracts = JSON.parse(stored);
+            } else {
+                userContracts = [];
+                saveUserContractsState();
+            }
         }
 
         if (userContracts.length > 0) {
@@ -1428,6 +1459,11 @@
     function updateContractDropdown() {
         const select = document.getElementById('contract-select-dropdown');
         if (!select) return;
+
+        if (userContracts.length === 0) {
+            select.innerHTML = '<option value="">🛒 Danh mục trống - Chưa chọn bài đăng nào</option>';
+            return;
+        }
 
         let html = '';
         userContracts.forEach(c => {
@@ -1534,25 +1570,20 @@
         const btnCancelDeposit = document.getElementById('btn-cancel-deposit-contract');
         const btnFinalizeContainer = document.getElementById('finalization-container');
 
+        const emptyCard = document.getElementById('empty-contract-placeholder-card');
+        const mainContractCard = document.getElementById('active-contract-main-card');
+
         if (userContracts.length === 0) {
-            document.getElementById('contract-code-title').innerText = '📄 Hợp Đồng Điện Tử (Trống)';
-            const badge = document.getElementById('contract-status-badge');
-            if (badge) {
-                badge.className = 'badge badge-outline';
-                badge.innerText = 'ℹ️ CHƯA CHỌN BÀI ĐĂNG NÀO';
-            }
-            document.getElementById('contract-seller').innerText = 'Chưa chọn';
-            document.getElementById('contract-buyer').innerText = 'Chưa chọn';
-            document.getElementById('contract-qty').innerText = '0 Tấn';
-            document.getElementById('contract-price').innerText = '0đ/kg';
-            document.getElementById('contract-total-val').innerText = '0 VNĐ';
-            document.getElementById('contract-deposit-val').innerText = '0 VNĐ';
-            document.getElementById('contract-gps').innerText = 'Chưa xác định';
+            if (emptyCard) emptyCard.style.display = 'block';
+            if (mainContractCard) mainContractCard.style.display = 'none';
             
             if (btnCancelDraft) btnCancelDraft.style.display = 'none';
             if (btnCancelDeposit) btnCancelDeposit.style.display = 'none';
             if (btnFinalizeContainer) btnFinalizeContainer.style.display = 'none';
             return;
+        } else {
+            if (emptyCard) emptyCard.style.display = 'none';
+            if (mainContractCard) mainContractCard.style.display = 'block';
         }
 
         if (btnFinalizeContainer) btnFinalizeContainer.style.display = 'block';
