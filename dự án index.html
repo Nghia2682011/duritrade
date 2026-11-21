@@ -1293,42 +1293,131 @@
     let userContracts = [];
     let currentContractId = null;
 
+    function getCurrentUserObj() {
+        const loggedUserStr = sessionStorage.getItem('duritrade_logged_user');
+        return loggedUserStr ? JSON.parse(loggedUserStr) : { username: 'nongdan01', role: 'farmer', fullname: 'Nguyễn Văn A' };
+    }
+
+    function saveUserContractsState() {
+        const user = getCurrentUserObj();
+        const userKey = 'duritrade_user_contracts_' + user.username;
+        localStorage.setItem(userKey, JSON.stringify(userContracts));
+        saveUserContractsState();
+    }
+
     function initUserContracts() {
-        const stored = localStorage.getItem('duritrade_user_contracts');
+        const user = getCurrentUserObj();
+        const userKey = 'duritrade_user_contracts_' + user.username;
+        const stored = localStorage.getItem(userKey);
+
         if (stored) {
             userContracts = JSON.parse(stored);
         } else {
-            // Initial default contract
-            userContracts = [{
-                id: 8892,
-                title: '🌾 Vườn Monthong Thái 15 Tấn Đạt Chuẩn Xuất Khẩu',
-                seller: 'Nguyễn Văn A (Krông Pắc, Đắk Lắk)',
-                buyer: 'Vựa Sầu Riêng Xuất Nhập Khẩu B',
-                sellerPhone: '0987.654.321',
-                sellerCCCD: '066092008892',
-                buyerPhone: '0912.345.678',
-                buyerCCCD: '040088009982',
-                quantity: 15,
-                price: 55000,
-                totalVal: 825000000,
-                depositVal: 82500000,
-                gps: '12.6853° N, 108.2142° E',
-                harvestSchedule: 'Dao 1: 01/12/2026 (30%) | Dao 2: 11/12/2026 (50%) | Dao 3: 21/12/2026 (20%)',
-                qualityDao1: 'BRIX ≥ 33° | Hàng A ≥ 85%',
-                qualityDao2: 'BRIX ≥ 31° | Hàng A ≥ 80%',
-                qualityDao3: 'Hàng B / Dạt cho phép (Giảm 15% giá)',
-                weatherDelayNote: null,
-                status: 'locked_deposit',
-                isSigned: true,
-                isFinalized: false,
-                incidentReport: null,
-                violationResult: null
-            }];
-            localStorage.setItem('duritrade_user_contracts', JSON.stringify(userContracts));
+            if (user.role === 'buyer' || user.username === 'vuasaurieng01') {
+                userContracts = [{
+                    id: 9982,
+                    title: '💼 Vựa XNK Bao Tiêu 20 Tấn Ri6 Chuẩn Xuất Khẩu',
+                    seller: 'Hợp Tác Xã Sầu Riêng Krông Pắc',
+                    buyer: 'Vựa Sầu Riêng XNK B (vuasaurieng01)',
+                    sellerPhone: '0977.111.222',
+                    sellerCCCD: '066092001111',
+                    buyerPhone: '0912.345.678',
+                    buyerCCCD: '040088009982',
+                    ownerUsername: 'vuasaurieng01',
+                    quantity: 20,
+                    price: 58000,
+                    totalVal: 1160000000,
+                    depositVal: 116000000,
+                    gps: '12.7121° N, 108.2311° E',
+                    dao1Date: '03/12/2026',
+                    dao1Quality: 'BRIX ≥ 33° | Hàng A ≥ 85%',
+                    dao2Date: '13/12/2026',
+                    dao2Quality: 'BRIX ≥ 31° | Hàng A ≥ 80%',
+                    dao3Date: '23/12/2026',
+                    dao3Quality: 'Hàng B / Dạt cho phép',
+                    harvestSchedule: 'Dao 1: 03/12/2026 (30%) | Dao 2: 13/12/2026 (50%) | Dao 3: 23/12/2026 (20%)',
+                    weatherDelayNote: null,
+                    status: 'signed',
+                    isSigned: true,
+                    isFinalized: false,
+                    incidentReport: null,
+                    violationResult: null
+                }];
+            } else if (user.role === 'admin' || user.username === 'admin') {
+                const storedFarmer = localStorage.getItem('duritrade_user_contracts_nongdan01');
+                const storedBuyer = localStorage.getItem('duritrade_user_contracts_vuasaurieng01');
+                let farmerContracts = storedFarmer ? JSON.parse(storedFarmer) : [];
+                let buyerContracts = storedBuyer ? JSON.parse(storedBuyer) : [];
+                userContracts = [...farmerContracts, ...buyerContracts];
+                if (userContracts.length === 0) {
+                    userContracts = [{
+                        id: 8892,
+                        title: '🌾 Vườn Monthong Thái 15 Tấn Đạt Chuẩn Xuất Khẩu',
+                        seller: 'Nguyễn Văn A (Krông Pắc, Đắk Lắk)',
+                        buyer: 'Vựa Sầu Riêng Xuất Nhập Khẩu B',
+                        sellerPhone: '0987.654.321',
+                        sellerCCCD: '066092008892',
+                        buyerPhone: '0912.345.678',
+                        buyerCCCD: '040088009982',
+                        ownerUsername: 'nongdan01',
+                        quantity: 15,
+                        price: 55000,
+                        totalVal: 825000000,
+                        depositVal: 82500000,
+                        gps: '12.6853° N, 108.2142° E',
+                        dao1Date: '01/12/2026',
+                        dao1Quality: 'BRIX ≥ 33° | Hàng A ≥ 85%',
+                        dao2Date: '11/12/2026',
+                        dao2Quality: 'BRIX ≥ 31° | Hàng A ≥ 80%',
+                        dao3Date: '21/12/2026',
+                        dao3Quality: 'Hàng B / Dạt cho phép (Giảm 15% giá)',
+                        harvestSchedule: 'Dao 1: 01/12/2026 (30%) | Dao 2: 11/12/2026 (50%) | Dao 3: 21/12/2026 (20%)',
+                        weatherDelayNote: null,
+                        status: 'locked_deposit',
+                        isSigned: true,
+                        isFinalized: false,
+                        incidentReport: null,
+                        violationResult: null
+                    }];
+                }
+            } else {
+                userContracts = [{
+                    id: 8892,
+                    title: '🌾 Vườn Monthong Thái 15 Tấn Đạt Chuẩn Xuất Khẩu',
+                    seller: 'Nguyễn Văn A (Krông Pắc, Đắk Lắk)',
+                    buyer: 'Vựa Sầu Riêng Xuất Nhập Khẩu B',
+                    sellerPhone: '0987.654.321',
+                    sellerCCCD: '066092008892',
+                    buyerPhone: '0912.345.678',
+                    buyerCCCD: '040088009982',
+                    ownerUsername: 'nongdan01',
+                    quantity: 15,
+                    price: 55000,
+                    totalVal: 825000000,
+                    depositVal: 82500000,
+                    gps: '12.6853° N, 108.2142° E',
+                    dao1Date: '01/12/2026',
+                    dao1Quality: 'BRIX ≥ 33° | Hàng A ≥ 85%',
+                    dao2Date: '11/12/2026',
+                    dao2Quality: 'BRIX ≥ 31° | Hàng A ≥ 80%',
+                    dao3Date: '21/12/2026',
+                    dao3Quality: 'Hàng B / Dạt cho phép (Giảm 15% giá)',
+                    harvestSchedule: 'Dao 1: 01/12/2026 (30%) | Dao 2: 11/12/2026 (50%) | Dao 3: 21/12/2026 (20%)',
+                    weatherDelayNote: null,
+                    status: 'locked_deposit',
+                    isSigned: true,
+                    isFinalized: false,
+                    incidentReport: null,
+                    violationResult: null
+                }];
+            }
+            saveUserContractsState();
         }
 
-        if (!currentContractId && userContracts.length > 0) {
+        if (userContracts.length > 0) {
             currentContractId = userContracts[0].id;
+        } else {
+            currentContractId = null;
         }
 
         updateContractDropdown();
@@ -1425,7 +1514,7 @@
             };
 
             userContracts.push(contract);
-            localStorage.setItem('duritrade_user_contracts', JSON.stringify(userContracts));
+            saveUserContractsState();
             alert(`🎉 NHÀ ĐẦU TƯ THÊM HỢP ĐỒNG THÀNH CÔNG!\n\nĐã khởi tạo Hợp đồng mới #DT-${contract.id.toString().slice(-4)} cho dự án: "${item.title}".\n\nHợp đồng đã được thêm vào Danh mục Đầu tư của bạn!`);
         } else {
             alert(`📂 Đã chuyển sang Hợp đồng #DT-${contract.id.toString().slice(-4)} trong Danh mục Đầu tư của bạn!`);
@@ -2104,7 +2193,7 @@ Biên bản phán quyết đã được niêm phong vĩnh viễn trên Hợp đ�
             contract.signatureDataUrl = null;
             contract.isSigned = false;
             localStorage.removeItem('duritrade_sig_' + contract.id);
-            localStorage.setItem('duritrade_user_contracts', JSON.stringify(userContracts));
+            saveUserContractsState();
         }
 
         isSignatureSaved = false;
@@ -2137,7 +2226,7 @@ Biên bản phán quyết đã được niêm phong vĩnh viễn trên Hợp đ�
         }
 
         localStorage.setItem('duritrade_sig_' + contract.id, dataUrl);
-        localStorage.setItem('duritrade_user_contracts', JSON.stringify(userContracts));
+        saveUserContractsState();
 
         isSignatureSaved = true;
 
@@ -2189,7 +2278,7 @@ Biên bản phán quyết đã được niêm phong vĩnh viễn trên Hợp đ�
             status: 'pending'
         };
 
-        localStorage.setItem('duritrade_user_contracts', JSON.stringify(userContracts));
+        saveUserContractsState();
 
         closeModal('modal-weather-delay');
         renderActiveContractUI();
@@ -2206,7 +2295,7 @@ Biên bản phán quyết đã được niêm phong vĩnh viễn trên Hợp đ�
         contract.weatherDelayed = true;
         contract.weatherDelayInfo = `Đã đồng thuận gia hạn ${req.dao} thêm +${req.days} ngày (${req.reason})`;
 
-        localStorage.setItem('duritrade_user_contracts', JSON.stringify(userContracts));
+        saveUserContractsState();
         renderActiveContractUI();
 
         alert(`✅ ĐÃ CHÍNH THỨC ĐỒNG THUẬN DỜI LỊCH CẮT!\n\n🔪 Đợt cắt: ${req.dao}\n⏱️ Đã dời thêm: +${req.days} ngày\n🌧️ Lý do: ${req.reason}\n\nHai bên nhất trí gia hạn lịch cắt, không phạt cọc Escrow.`);
@@ -2219,7 +2308,7 @@ Biên bản phán quyết đã được niêm phong vĩnh viễn trên Hợp đ�
         const req = contract.postponeRequest;
         req.status = 'rejected';
 
-        localStorage.setItem('duritrade_user_contracts', JSON.stringify(userContracts));
+        saveUserContractsState();
         renderActiveContractUI();
 
         alert(`❌ ĐÃ TỪ CHỐI YÊU CẦU DỜI LỊCH CẮT!\n\nLịch cắt ${req.dao} giữ nguyên mốc thời gian ban đầu. Nếu quá 24h không thực hiện cắt sầu, bên trễ hạn sẽ bị áp dụng chế tài bẻ cọc Escrow.`);
@@ -2249,7 +2338,7 @@ Biên bản phán quyết đã được niêm phong vĩnh viễn trên Hợp đ�
             time: timeStr
         };
 
-        localStorage.setItem('duritrade_user_contracts', JSON.stringify(userContracts));
+        saveUserContractsState();
 
         renderActiveContractUI();
         alert(`🚨 ĐÃ XỬ LÝ VI PHẠM TRỄ HẠN CẮT 24H THÀNH CÔNG!\n\nTiền cọc Escrow 82.500.000 VNĐ đã được chuyển giải ngân đền bù cho Nông dân.`);
@@ -2301,7 +2390,7 @@ Biên bản phán quyết đã được niêm phong vĩnh viễn trên Hợp đ�
 
         contract.status = 'cancelled_deposit';
 
-        localStorage.setItem('duritrade_user_contracts', JSON.stringify(userContracts));
+        saveUserContractsState();
 
         closeModal('modal-cancel-deposit');
         updateContractDropdown();
@@ -2331,7 +2420,7 @@ Biên bản phán quyết đã được niêm phong vĩnh viễn trên Hợp đ�
             currentContractId = userContracts[0].id;
         }
 
-        localStorage.setItem('duritrade_user_contracts', JSON.stringify(userContracts));
+        saveUserContractsState();
 
         initUserContracts();
         renderMarketList();
@@ -2370,7 +2459,7 @@ Biên bản phán quyết đã được niêm phong vĩnh viễn trên Hợp đ�
         contract.finalizedTime = `${now.getDate()}/${now.getMonth()+1}/${now.getFullYear()} lúc ${now.getHours()}:${now.getMinutes()<10?'0':''}${now.getMinutes()}`;
 
         localStorage.removeItem('duritrade_contract_finalized');
-        localStorage.setItem('duritrade_user_contracts', JSON.stringify(userContracts));
+        saveUserContractsState();
 
         updateContractDropdown();
         updatePortfolioSummary();
@@ -2499,7 +2588,7 @@ Ban Quản Trị DuriTrade sẽ xem xét, gửi Email phản hồi và điều �
             contract.isPaid = true;
             depositVal = Number(contract.depositVal) || 82500000;
             contractCodeStr = contract.id ? contract.id.toString().slice(-4) : '8892';
-            localStorage.setItem('duritrade_user_contracts', JSON.stringify(userContracts));
+            saveUserContractsState();
 
             const now = new Date();
             const timeStr = `${now.getDate()}/${now.getMonth()+1}/${now.getFullYear()} lúc ${now.getHours()}:${now.getMinutes()<10?'0':''}${now.getMinutes()}:${now.getSeconds()<10?'0':''}${now.getSeconds()}`;
