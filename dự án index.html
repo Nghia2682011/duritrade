@@ -1283,7 +1283,13 @@
                 btnFinalize.innerText = '🔒 HỢP ĐỒNG ĐÃ ĐƯỢC CHỐT & GỬI THÀNH CÔNG';
                 btnFinalize.style.background = '#555';
             }
-            if (summaryCard) summaryCard.style.display = 'block';
+            if (summaryCard) {
+            summaryCard.style.display = 'block';
+            const elHash = document.getElementById('final-hash-code');
+            if (elHash) elHash.innerText = `#DT-HASH-${contract.id}-SECURE`;
+            const elTime = document.getElementById('final-timestamp');
+            if (elTime) elTime.innerText = contract.finalizedTime || `${new Date().getDate()}/${new Date().getMonth()+1}/${new Date().getFullYear()} lúc ${new Date().getHours()}:${new Date().getMinutes()<10?'0':''}${new Date().getMinutes()}`;
+        }
         } else {
             if (btnClear) { btnClear.disabled = false; btnClear.style.opacity = '1'; }
             if (btnSaveSig) { btnSaveSig.disabled = false; btnSaveSig.innerText = '✍️ Lưu & Ký Hợp Đồng'; btnSaveSig.style.opacity = '1'; }
@@ -2051,69 +2057,43 @@ Biên bản phán quyết đã được niêm phong vĩnh viễn trên Hợp đ�
     }
 
     function finalizeContract() {
-        if (localStorage.getItem('duritrade_contract_finalized') === 'true') {
-            alert('ℹ️ Hợp đồng này đã được 2 bên chốt & khóa hiệu lực pháp lý trước đó!');
+        const contract = userContracts.find(c => c.id === currentContractId);
+        if (!contract) {
+            alert('⚠️ Chưa chọn hợp đồng!');
             return;
         }
 
-        if (!isSignatureSaved && !localStorage.getItem('duritrade_sig_saved')) {
+        if (contract.isFinalized) {
+            alert(`ℹ️ Hợp đồng #DT-${contract.id.toString().slice(-4)} này đã được 2 bên chốt & khóa hiệu lực pháp lý trước đó!`);
+            return;
+        }
+
+        const hasSig = contract.isSigned || contract.signatureDataUrl || localStorage.getItem('duritrade_sig_' + contract.id);
+        if (!hasSig) {
             alert('⚠️ Vui lòng ký ngón tay và bấm "✍️ Lưu & Ký Hợp Đồng" trước khi chốt hợp đồng!');
             return;
         }
 
-        const confirmChot = confirm(`📜 XÁC NHẬN CHỐT & GỬI HỢP ĐỒNG PHÁP LÝ:
+        const confirmChot = confirm(`📜 XÁC NHẬN CHỐT & GỬI HỢP ĐỒNG PHÁP LÝ:\n\nBạn có chắc chắn muốn CHỐT HỢP ĐỒNG #DT-${contract.id.toString().slice(-4)} này?\n\nSau khi chốt:\n1. Chữ ký điện tử ngón tay sẽ bị KHÓA VĨNH VIỄN.\n2. Mã băm mã hóa SHA-256 (#DT-HASH-${contract.id}-SECURE) sẽ được tạo làm chứng cứ pháp lý.\n3. Hợp đồng chính thức có hiệu lực ràng buộc 2 bên.\n4. TỰ ĐỘNG KÍCH HOẠT MỞ PHẦN TỐ CÁO / BÁO CÁO KHIẾU NẠI VỀ BAN QUẢN TRỊ ADMIN.`);
 
-Bạn có chắc chắn muốn CHỐT HỢP ĐỒNG này?
-
-Sau khi chốt:
-1. Chữ ký điện tử sẽ bị KHÓA VĨNH VIỄN.
-2. Mã băm SHA-256 (#DT-HASH-99827) sẽ được tạo để làm chứng cứ pháp lý.
-3. Hợp đồng chính thức có hiệu lực ràng buộc 2 bên.`);
-        
         if (!confirmChot) return;
 
-        localStorage.setItem('duritrade_contract_finalized', 'true');
-        applyFinalizedContractState();
+        contract.isFinalized = true;
+        const now = new Date();
+        contract.finalizedTime = `${now.getDate()}/${now.getMonth()+1}/${now.getFullYear()} lúc ${now.getHours()}:${now.getMinutes()<10?'0':''}${now.getMinutes()}`;
 
-        alert(`🎉 CHỐT HỢP ĐỒNG THÀNH CÔNG!
+        localStorage.removeItem('duritrade_contract_finalized');
+        localStorage.setItem('duritrade_user_contracts', JSON.stringify(userContracts));
 
-Hợp đồng #DT-8892 đã được 2 BÊN CHỐT & GỬI THÀNH CÔNG.
+        updateContractDropdown();
+        updatePortfolioSummary();
+        renderActiveContractUI();
 
-Dữ liệu đã được khóa mã hóa an toàn 100%.`);
+        alert(`🎉 CHỐT HỢP ĐỒNG THÀNH CÔNG!\n\nHợp đồng #DT-${contract.id.toString().slice(-4)} đã được 2 BÊN CHỐT & GỬI THÀNH CÔNG.\n\nDữ liệu đã được khóa mã hóa an toàn 100%.\nPhần Báo cáo Khiếu nại & Tố cáo vi phạm về Admin đã được mở ngay bên dưới.`);
     }
 
     function applyFinalizedContractState() {
-        const isFinalized = localStorage.getItem('duritrade_contract_finalized') === 'true';
-        if (!isFinalized) return;
-
-        const badge = document.getElementById('contract-status-badge');
-        if (badge) {
-            badge.className = 'badge badge-success';
-            badge.innerText = '✅ HỢP ĐỒNG ĐÃ CHỐT HOÀN TẤT (ĐÃ KHÓA PHÁP LÝ)';
-        }
-
-        const btnClear = document.getElementById('btn-clear-sig');
-        const btnSaveSig = document.getElementById('btn-save-sig');
-        const btnFinalize = document.getElementById('btn-finalize-contract');
-
-        if (btnClear) { btnClear.disabled = true; btnClear.style.opacity = '0.5'; }
-        if (btnSaveSig) { btnSaveSig.disabled = true; btnSaveSig.innerText = '🔒 Chữ Ký Đã Khóa'; btnSaveSig.style.opacity = '0.7'; }
-
-        if (btnFinalize) {
-            btnFinalize.disabled = true;
-            btnFinalize.innerText = '🔒 HỢP ĐỒNG ĐÃ ĐƯỢC CHỐT & GỬI THÀNH CÔNG';
-            btnFinalize.style.background = '#555';
-            btnFinalize.style.boxShadow = 'none';
-        }
-
-        const summaryCard = document.getElementById('finalized-summary-card');
-        if (summaryCard) {
-            summaryCard.style.display = 'block';
-            const now = new Date();
-            const timeStr = `${now.getDate()}/${now.getMonth()+1}/${now.getFullYear()} lúc ${now.getHours()}:${now.getMinutes()<10?'0':''}${now.getMinutes()}`;
-            const timeElement = document.getElementById('final-timestamp');
-            if (timeElement) timeElement.innerText = timeStr;
-        }
+        renderActiveContractUI();
     }
 
     // REPORT ADMIN DISPUTE MODAL
