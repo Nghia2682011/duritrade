@@ -1027,6 +1027,7 @@
         const mainApp = document.getElementById('main-app-container');
         const userBadge = document.getElementById('header-user-badge');
         const adminBtn = document.getElementById('admin-header-lock-btn');
+        const bottomNav = document.querySelector('.bottom-nav');
 
         if (!loggedUserStr) {
             if (authScreen) authScreen.style.display = 'flex';
@@ -1041,8 +1042,49 @@
                 userBadge.innerText = roleIcon + ' ' + (user.username || user.fullname);
             }
 
+            const isAdmin = (user.role === 'admin' || user.username === 'admin' || sessionStorage.getItem('duritrade_admin_logged') === 'true');
+
             if (adminBtn) {
-                adminBtn.style.display = (user.role === 'admin' || sessionStorage.getItem('duritrade_admin_logged') === 'true') ? 'inline-block' : 'none';
+                adminBtn.style.display = isAdmin ? 'inline-block' : 'none';
+            }
+
+            // Customize Bottom Nav for Admin vs Normal Users
+            if (bottomNav) {
+                if (isAdmin) {
+                    bottomNav.innerHTML = `
+                        <button class="nav-item active" onclick="switchTab(0, this)">
+                            <span class="icon">🛒</span>
+                            <span>Thị Trường</span>
+                        </button>
+                        <button class="nav-item" onclick="switchTab(1, this)">
+                            <span class="icon">📈</span>
+                            <span>Biến Động Giá</span>
+                        </button>
+                        <button class="nav-item" onclick="openAdminPortalModal()">
+                            <span class="icon">🔐</span>
+                            <span>Cổng Admin</span>
+                        </button>
+                    `;
+                } else {
+                    bottomNav.innerHTML = `
+                        <button class="nav-item active" onclick="switchTab(0, this)">
+                            <span class="icon">🛒</span>
+                            <span>Thị Trường</span>
+                        </button>
+                        <button class="nav-item" onclick="switchTab(1, this)">
+                            <span class="icon">📈</span>
+                            <span>Biến Động Giá</span>
+                        </button>
+                        <button class="nav-item" onclick="switchTab(2, this)">
+                            <span class="icon">➕</span>
+                            <span>Đăng Tin</span>
+                        </button>
+                        <button class="nav-item" onclick="switchTab(3, this)">
+                            <span class="icon">📋</span>
+                            <span>Hợp Đồng</span>
+                        </button>
+                    `;
+                }
             }
 
             renderMarketList();
@@ -1057,85 +1099,6 @@
         }
     }
 
-
-    // DEFAULT PLACEHOLDER DURIAN SVG IMAGE DATA URL
-    const SVG_DURIAN_PLACEHOLDER = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='250' viewBox='0 0 400 250'><rect width='400' height='250' fill='%231b5e20'/><circle cx='200' cy='125' r='70' fill='%23fbc02d'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' fill='%231b5e20' font-size='20' font-weight='bold'>🍈 DuriTrade</text></svg>";
-
-    // INITIAL APP STATE
-    const DEFAULT_MARKET_DATA = [
-        {
-            id: 1,
-            role: 'farmer',
-            title: '🌾 Vườn Monthong Thái 15 Tấn Đạt Chuẩn Xuất Khẩu',
-            location: 'Krông Pắc, Đắk Lắk',
-            quantity: 15,
-            price: 55000,
-            brix: 'BRIX ≥ 33° (Hàng A > 85%)',
-            gps: '12.6853° N, 108.2142° E',
-            dao1Date: '01/12/2026',
-            dao1Quality: 'BRIX ≥ 33° (Hàng A ≥ 85%)',
-            dao2Date: '11/12/2026',
-            dao2Quality: 'BRIX ≥ 31° (Hàng A ≥ 80%)',
-            dao3Date: '21/12/2026',
-            dao3Quality: 'Hàng B/Dạt cho phép (Giảm 15% giá)',
-            harvestSchedule: 'Dao 1: 01/12/2026 | Dao 2: 11/12/2026 | Dao 3: 21/12/2026',
-            sellerPhone: '0987.654.321',
-            sellerCCCD: '066092008892',
-            buyerPhone: '0912.345.678',
-            buyerCCCD: '040088009982',
-            image: SVG_DURIAN_PLACEHOLDER
-        },
-        {
-            id: 2,
-            role: 'buyer',
-            title: '💼 Vựa XNK Thu Mua 50 Tấn Ri6 Đẹp Số Lượng Lớn',
-            location: 'Cai Lậy, Tiền Giang',
-            quantity: 50,
-            price: 48000,
-            brix: 'BRIX ≥ 31°',
-            gps: '10.3421° N, 106.1154° E',
-            dao1Date: '28/11/2026',
-            dao1Quality: 'BRIX ≥ 32° (Hàng A ≥ 85%)',
-            dao2Date: '08/12/2026',
-            dao2Quality: 'BRIX ≥ 30° (Hàng A ≥ 80%)',
-            dao3Date: '18/12/2026',
-            dao3Quality: 'Hàng B/Dạt cho phép',
-            harvestSchedule: 'Dao 1: 28/11/2026 | Dao 2: 08/12/2026 | Dao 3: 18/12/2026',
-            image: SVG_DURIAN_PLACEHOLDER
-        },
-        {
-            id: 3,
-            role: 'farmer',
-            title: '🌾 Vườn Ri6 Đẹp 8 Tấn Cắt Cận Ngày',
-            location: 'Bảo Lộc, Lâm Đồng',
-            quantity: 8,
-            price: 52000,
-            brix: 'BRIX ≥ 32°',
-            gps: '11.5461° N, 107.8023° E',
-            dao1Date: '26/11/2026',
-            dao1Quality: 'BRIX ≥ 32° (Hàng A ≥ 85%)',
-            dao2Date: '06/12/2026',
-            dao2Quality: 'BRIX ≥ 30° (Hàng A ≥ 80%)',
-            dao3Date: '16/12/2026',
-            dao3Quality: 'Hàng B/Dạt cho phép',
-            harvestSchedule: 'Dao 1: 26/11/2026 | Dao 2: 06/12/2026 | Dao 3: 16/12/2026',
-            image: SVG_DURIAN_PLACEHOLDER
-        }
-    ];
-
-    let currentCompressedImageData = null;
-    let isSignatureSaved = false;
-
-    // INITIALIZE DATA ON LOAD
-    document.addEventListener('DOMContentLoaded', () => {
-        if (!localStorage.getItem('duritrade_market_items')) {
-            localStorage.setItem('duritrade_market_items', JSON.stringify(DEFAULT_MARKET_DATA));
-        }
-        checkUserAuthSession();
-    });
-
-
-    // ADMIN LEGAL VAULT & COURT EVIDENCE EXPORT (NEW IN V31)
     function renderAdminLegalVault() {
         const container = document.getElementById('admin-legal-vault-container');
         if (!container) return;
@@ -1268,7 +1231,7 @@
 
     function renderMarketList(filterRole = 'all') {
         const container = document.getElementById('market-listings-container');
-        const searchVal = document.getElementById('market-search').value.toLowerCase();
+        const searchVal = document.getElementById('market-search') ? document.getElementById('market-search').value.toLowerCase() : '';
         const items = JSON.parse(localStorage.getItem('duritrade_market_items')) || DEFAULT_MARKET_DATA;
         const currentUser = getCurrentUserObj();
 
@@ -1277,25 +1240,25 @@
             if (filterRole !== 'all' && item.role !== filterRole) return;
             if (searchVal && !item.location.toLowerCase().includes(searchVal) && !item.title.toLowerCase().includes(searchVal)) return;
 
-            const isFarmer = item.role === 'farmer';
-            const badgeClass = isFarmer ? 'badge-farmer' : 'badge-buyer';
-            const badgeText = isFarmer ? '🌾 VƯỜN BÁN (CUNG)' : '💼 VỰA CẦN MUA (CẦU)';
+            let badgeClass = 'badge-farmer';
+            let badgeText = '🌾 VƯỜN BÁN (CUNG)';
+
+            if (item.role === 'buyer_wholesale') {
+                badgeClass = 'badge-buyer';
+                badgeText = '📦 VỰA BÁN SỈ HÀNG A/B';
+            } else if (item.role === 'buyer_datsii') {
+                badgeClass = 'badge-buyer';
+                badgeText = '🏭 VỰA BÁN HÀNG DẠT / BÓC MÚI';
+            } else if (item.role === 'buyer') {
+                badgeClass = 'badge-buyer';
+                badgeText = '💼 VỰA CẦN MUA (CẦU)';
+            }
 
             let actionBtnHtml = '';
-            if (currentUser.role === 'farmer' || currentUser.username === 'nongdan01') {
-                if (isFarmer) {
-                    actionBtnHtml = `<button class="btn btn-outline" style="border-color:#1b5e20; color:#1b5e20; font-weight:bold;" onclick="viewListingDetail(${item.id})">ℹ️ Xem Chi Tiết Vườn Nông Dân</button>`;
-                } else {
-                    actionBtnHtml = `<button class="btn btn-primary" style="background:#2e7d32;" onclick="registerSupplyForBuyer(${item.id})">🤝 Đăng Ký Cung Cấp Cho Vựa</button>`;
-                }
-            } else if (currentUser.role === 'buyer' || currentUser.username === 'vuasaurieng01') {
-                if (isFarmer) {
-                    actionBtnHtml = `<button class="btn btn-accent" style="background:#fbc02d; color:#1b5e20; font-weight:700;" onclick="openMarketPaymentModal(${item.id})">🔒 Nộp Cọc 10% Escrow MBBank Bao Tiêu Vườn</button>`;
-                } else {
-                    actionBtnHtml = `<button class="btn btn-outline" onclick="viewListingDetail(${item.id})">ℹ️ Xem Nhu Cầu Mua Của Vựa</button>`;
-                }
+            if (item.ownerUsername && item.ownerUsername === currentUser.username) {
+                actionBtnHtml = `<button class="btn btn-outline" style="border-color:#1b5e20; color:#1b5e20; font-weight:bold;" onclick="switchTab(2, document.querySelectorAll('.nav-item')[2])">📌 Bài Đăng Của Bạn (Quản Lý)</button>`;
             } else {
-                actionBtnHtml = `<button class="btn btn-accent" style="background:#fbc02d; color:#1b5e20; font-weight:700;" onclick="openMarketPaymentModal(${item.id})">🔒 Nộp Cọc 10% Escrow MBBank Bao Tiêu Vườn</button>`;
+                actionBtnHtml = `<button class="btn btn-primary" style="background:linear-gradient(135deg, #1b5e20, #2e7d32); color:#fff; font-weight:700;" onclick="selectListingForContract(${item.id})">🛒 Đặt Cọc 10% Escrow MBBank Bao Tiêu Vườn</button>`;
             }
 
             html += `
@@ -1321,7 +1284,7 @@
             `;
         });
 
-        container.innerHTML = html || '<p style="text-align:center; padding:20px; color:#888;">Không tìm thấy bài đăng phù hợp.</p>';
+        if (container) container.innerHTML = html || '<p style="text-align:center; padding:20px; color:#888;">Không tìm thấy bài đăng phù hợp.</p>';
     }
 
     function filterMarket(role, element) {
@@ -1358,89 +1321,13 @@
                 } catch(e) {}
             });
             userContracts = allContracts;
-        } else if (user.username === 'nongdan01') {
-            const userKey = 'duritrade_user_contracts_nongdan01';
-            const stored = localStorage.getItem(userKey);
-            if (stored) {
-                userContracts = JSON.parse(stored);
-            } else {
-                userContracts = [{
-                    id: 8892,
-                    title: '🌾 Vườn Monthong Thái 15 Tấn Đạt Chuẩn Xuất Khẩu',
-                    seller: 'Nguyễn Văn A (Krông Pắc, Đắk Lắk)',
-                    buyer: 'Vựa Sầu Riêng Xuất Nhập Khẩu B',
-                    sellerPhone: '0987.654.321',
-                    sellerCCCD: '066092008892',
-                    buyerPhone: '0912.345.678',
-                    buyerCCCD: '040088009982',
-                    ownerUsername: 'nongdan01',
-                    quantity: 15,
-                    price: 55000,
-                    totalVal: 825000000,
-                    depositVal: 82500000,
-                    gps: '12.6853° N, 108.2142° E',
-                    dao1Date: '01/12/2026',
-                    dao1Quality: 'BRIX ≥ 33° | Hàng A ≥ 85%',
-                    dao2Date: '11/12/2026',
-                    dao2Quality: 'BRIX ≥ 31° | Hàng A ≥ 80%',
-                    dao3Date: '21/12/2026',
-                    dao3Quality: 'Hàng B / Dạt cho phép (Giảm 15% giá)',
-                    harvestSchedule: 'Dao 1: 01/12/2026 (30%) | Dao 2: 11/12/2026 (50%) | Dao 3: 21/12/2026 (20%)',
-                    weatherDelayNote: null,
-                    status: 'locked_deposit',
-                    isPaid: true,
-                    isSigned: false,
-                    isFinalized: false,
-                    incidentReport: null,
-                    violationResult: null
-                }];
-                saveUserContractsState();
-            }
-        } else if (user.username === 'vuasaurieng01') {
-            const userKey = 'duritrade_user_contracts_vuasaurieng01';
-            const stored = localStorage.getItem(userKey);
-            if (stored) {
-                userContracts = JSON.parse(stored);
-            } else {
-                userContracts = [{
-                    id: 9982,
-                    title: '💼 Vựa XNK Bao Tiêu 20 Tấn Ri6 Chuẩn Xuất Khẩu',
-                    seller: 'Hợp Tác Xã Sầu Riêng Krông Pắc',
-                    buyer: 'Vựa Sầu Riêng XNK B (vuasaurieng01)',
-                    sellerPhone: '0977.111.222',
-                    sellerCCCD: '066092001111',
-                    buyerPhone: '0912.345.678',
-                    buyerCCCD: '040088009982',
-                    ownerUsername: 'vuasaurieng01',
-                    quantity: 20,
-                    price: 58000,
-                    totalVal: 1160000000,
-                    depositVal: 116000000,
-                    gps: '12.7121° N, 108.2311° E',
-                    dao1Date: '03/12/2026',
-                    dao1Quality: 'BRIX ≥ 33° | Hàng A ≥ 85%',
-                    dao2Date: '13/12/2026',
-                    dao2Quality: 'BRIX ≥ 31° | Hàng A ≥ 80%',
-                    dao3Date: '23/12/2026',
-                    dao3Quality: 'Hàng B / Dạt cho phép',
-                    harvestSchedule: 'Dao 1: 03/12/2026 (30%) | Dao 2: 13/12/2026 (50%) | Dao 3: 23/12/2026 (20%)',
-                    weatherDelayNote: null,
-                    status: 'locked_deposit',
-                    isPaid: true,
-                    isSigned: false,
-                    isFinalized: false,
-                    incidentReport: null,
-                    violationResult: null
-                }];
-                saveUserContractsState();
-            }
         } else {
             const userKey = 'duritrade_user_contracts_' + user.username;
             const stored = localStorage.getItem(userKey);
             if (stored) {
                 userContracts = JSON.parse(stored);
             } else {
-                userContracts = [];
+                userContracts = []; // EMPTY BY DEFAULT! NO PRE-EXISTING CONTRACT FOR ANY USER
                 saveUserContractsState();
             }
         }
@@ -1514,8 +1401,9 @@
     function selectListingForContract(id) {
         const items = JSON.parse(localStorage.getItem('duritrade_market_items')) || DEFAULT_MARKET_DATA;
         const item = items.find(i => i.id === id) || items[0];
+        const currentUser = getCurrentUserObj();
 
-        // Check if contract already exists in investor portfolio
+        // Check if contract already exists in user portfolio
         let contract = userContracts.find(c => c.id === item.id);
 
         if (!contract) {
@@ -1526,23 +1414,28 @@
             contract = {
                 id: item.id,
                 title: item.title,
-                seller: item.role === 'farmer' ? `Nhà Vườn (${item.location})` : 'Nhà Vườn Đủ Điều Kiện Xuất Khẩu',
-                buyer: item.role === 'farmer' ? 'Doanh Nghiệp / Vựa Thu Mua Đã Xác Minh' : `Vựa Thu Mua (${item.location})`,
+                seller: item.role === 'farmer' ? (item.ownerName || `Nhà Vườn (${item.location})`) : 'Nhà Vườn Đủ Điều Kiện Xuất Khẩu',
+                buyer: currentUser.fullname || (currentUser.role === 'farmer' ? 'Thương Lái Thu Mua' : `Vựa Thu Mua (${item.location})`),
                 sellerPhone: item.sellerPhone || '0987.654.321',
                 sellerCCCD: item.sellerCCCD || '066092008892',
-                buyerPhone: item.buyerPhone || '0912.345.678',
-                buyerCCCD: item.buyerCCCD || '040088009982',
+                buyerPhone: currentUser.phone || '0912.345.678',
+                buyerCCCD: currentUser.cccd || '040088009982',
+                ownerUsername: currentUser.username,
                 quantity: item.quantity,
                 price: item.price,
                 totalVal: totalVal,
                 depositVal: depositVal,
                 gps: item.gps || '12.6853° N, 108.2142° E',
+                dao1Date: item.dao1Date || '01/12/2026',
+                dao1Quality: item.dao1Quality || 'BRIX ≥ 33° | Hàng A ≥ 85%',
+                dao2Date: item.dao2Date || '11/12/2026',
+                dao2Quality: item.dao2Quality || 'BRIX ≥ 31° | Hàng A ≥ 80%',
+                dao3Date: item.dao3Date || '21/12/2026',
+                dao3Quality: item.dao3Quality || 'Hàng B / Dạt cho phép (Giảm 15% giá)',
                 harvestSchedule: item.harvestSchedule || 'Dao 1: 01/12/2026 (30%) | Dao 2: 11/12/2026 (50%) | Dao 3: 21/12/2026 (20%)',
-                qualityDao1: item.qualityDao1 || 'BRIX ≥ 33° | Hàng A ≥ 85%',
-                qualityDao2: item.qualityDao2 || 'BRIX ≥ 31° | Hàng A ≥ 80%',
-                qualityDao3: item.qualityDao3 || 'Hàng B / Dạt cho phép (Giảm 15% giá)',
                 weatherDelayNote: null,
-                status: 'draft',
+                status: 'draft', // DRAFT STATUS BY DEFAULT!
+                isPaid: false,
                 isSigned: false,
                 isFinalized: false,
                 incidentReport: null,
@@ -1551,9 +1444,9 @@
 
             userContracts.push(contract);
             saveUserContractsState();
-            alert(`🎉 NHÀ ĐẦU TƯ THÊM HỢP ĐỒNG THÀNH CÔNG!\n\nĐã khởi tạo Hợp đồng mới #DT-${contract.id.toString().slice(-4)} cho dự án: "${item.title}".\n\nHợp đồng đã được thêm vào Danh mục Đầu tư của bạn!`);
+            alert(`🎉 KHỞI TẠO HỢP ĐỒNG MỚI THÀNH CÔNG!\n\nĐã tạo Hợp đồng Nháp #DT-${contract.id.toString().slice(-4)} cho giao dịch: "${item.title}".\n\nVui lòng nộp 10% tiền cọc Escrow MBBank và ký chữ ký ngón tay để hoàn tất!`);
         } else {
-            alert(`📂 Đã chuyển sang Hợp đồng #DT-${contract.id.toString().slice(-4)} trong Danh mục Đầu tư của bạn!`);
+            alert(`📂 Đã mở Hợp đồng #DT-${contract.id.toString().slice(-4)} trong Danh mục của bạn!`);
         }
 
         currentContractId = contract.id;
