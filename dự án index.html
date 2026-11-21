@@ -912,22 +912,31 @@
             return;
         }
 
+        const isActivated = contract.isSigned || contract.status === 'locked_deposit' || contract.isFinalized;
+
+        if (!isActivated) {
+            if (dateLabel) dateLabel.innerText = contract.dao1Date || '25/05/2026';
+            display.innerText = '📝 Chưa ký hợp đồng (Đồng hồ đếm ngược thu hoạch sẽ tự động kích hoạt live ngay sau khi ký & nộp cọc)';
+            display.style.color = '#e65100';
+            return;
+        }
+
+        display.style.color = 'var(--primary)';
         const dao1Str = contract.dao1Date || '25/05/2026';
         if (dateLabel) dateLabel.innerText = dao1Str;
 
-        const parts = dao1Str.split('/');
-        let targetDate;
-        if (parts.length === 3) {
-            targetDate = new Date(parts[2], parts[1] - 1, parts[0], 7, 0, 0);
-        } else {
-            targetDate = new Date(Date.now() + 2 * 24 * 3600 * 1000 + 8 * 3600 * 1000);
+        if (!contract.targetHarvestTime) {
+            contract.targetHarvestTime = Date.now() + (2 * 86400 + 8 * 3600 + 34 * 60 + 12) * 1000;
+            localStorage.setItem('duritrade_user_contracts', JSON.stringify(userContracts));
         }
 
-        const now = new Date();
-        let diff = targetDate.getTime() - now.getTime();
+        const now = Date.now();
+        let diff = contract.targetHarvestTime - now;
 
-        if (diff < 0) {
-            diff = (2 * 24 * 3600 + 5 * 3600 + 18 * 60 + 42) * 1000;
+        if (diff <= 0) {
+            display.innerText = '🔔 ĐÃ ĐẾN MỐC THU HOẠCH DAO 1! Cần bố trí xe container & cắt sầu trong 24h.';
+            display.style.color = '#c62828';
+            return;
         }
 
         const days = Math.floor(diff / (1000 * 60 * 60 * 24));
@@ -935,7 +944,7 @@
         const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
-        display.innerText = `⏳ ĐẾM NGƯỢC THU HOẠCH: ${days} Ngày ${hours < 10 ? '0' : ''}${hours} Giờ ${minutes < 10 ? '0' : ''}${minutes} Phút ${seconds < 10 ? '0' : ''}${seconds} Giây`;
+        display.innerText = `⏳ ĐẾM NGƯỢC THU HOẠCH LIVE: ${days} Ngày ${hours < 10 ? '0' : ''}${hours} Giờ ${minutes < 10 ? '0' : ''}${minutes} Phút ${seconds < 10 ? '0' : ''}${seconds} Giây`;
     }
 
     setInterval(updateHarvestCountdown, 1000);
@@ -1053,7 +1062,18 @@
 
         let html = '';
         userContracts.forEach(c => {
-            const statusLabel = c.isFinalized ? '✅ Đã Chốt' : (c.status === 'locked_deposit' ? '🔒 Đã Cọc 10%' : '⏳ Đang Xử Lý');
+            let statusLabel = '📝 Nháp (Chờ Ký)';
+            if (c.isFinalized) {
+                statusLabel = '✅ Đã Chốt Pháp Lý';
+            } else if (c.status === 'cancelled_deposit') {
+                statusLabel = '❌ Đã Hủy Cọc';
+            } else if (c.status === 'admin_arbitrated') {
+                statusLabel = '🚨 Admin Phán Quyết';
+            } else if (c.status === 'locked_deposit') {
+                statusLabel = '🔒 Đã Cọc 10% Escrow';
+            } else if (c.isSigned || c.status === 'signed') {
+                statusLabel = '✍️ Đã Ký (Chờ Cọc)';
+            }
             html += `<option value="${c.id}" ${c.id === currentContractId ? 'selected' : ''}>📄 Hợp Đồng #DT-${c.id.toString().slice(-4)} - ${c.quantity} Tấn (${statusLabel})</option>`;
         });
 
@@ -1177,13 +1197,21 @@
         if (badge) {
             if (contract.isFinalized) {
                 badge.className = 'badge badge-success';
-                badge.innerText = '✅ HỢP ĐỒNG ĐÃ CHỐT HOÀN TẤT';
+                badge.innerText = '✅ HỢP ĐỒNG ĐÃ CHỐT HOÀN TẤT (ĐÃ KHÓA PHÁP LÝ)';
+            } else if (contract.status === 'cancelled_deposit') {
+                badge.className = 'badge badge-danger';
+                badge.style.background = '#c62828';
+                badge.innerText = '❌ ĐÃ HỦY CỌC / VI PHẠM ESCROW';
             } else if (contract.status === 'locked_deposit') {
                 badge.className = 'badge badge-success';
-                badge.innerText = '🔒 ĐÃ KHÓA 10% CỌC ESCROW';
+                badge.innerText = '🔒 ĐÃ KHÓA 10% CỌC ESCROW MBBANK';
+            } else if (contract.isSigned || contract.status === 'signed') {
+                badge.className = 'badge badge-primary';
+                badge.style.background = '#1565c0';
+                badge.innerText = '✍️ ĐÃ KÝ NGÓN TAY (CHỜ NỘP CỌC 10%)';
             } else {
                 badge.className = 'badge badge-warning';
-                badge.innerText = '⏳ CHỜ KÝ & NỘP CỌC';
+                badge.innerText = '📝 NHÁP (CHỜ KÝ & NỘP CỌC)';
             }
         }
 
@@ -1811,6 +1839,9 @@ Biên bản phán quyết đã được niêm phong vĩnh viễn trên Hợp đ�
         const dataUrl = sigCanvas.toDataURL();
         contract.signatureDataUrl = dataUrl;
         contract.isSigned = true;
+        if (contract.status === 'draft') {
+            contract.status = 'signed';
+        }
 
         localStorage.setItem('duritrade_sig_' + contract.id, dataUrl);
         localStorage.setItem('duritrade_user_contracts', JSON.stringify(userContracts));
@@ -1824,6 +1855,8 @@ Biên bản phán quyết đã được niêm phong vĩnh viễn trên Hợp đ�
         }
 
         alert(`✍️ Chữ ký điện tử cho Hợp đồng #DT-${contract.id.toString().slice(-4)} đã được niêm phong & ghi nhận vào hồ sơ!`);
+        updateContractDropdown();
+        updatePortfolioSummary();
         renderActiveContractUI();
     }
 
@@ -2154,13 +2187,18 @@ Ban Quản Trị DuriTrade sẽ xem xét, gửi Email phản hồi và điều �
     function closeModal(id) { document.getElementById(id).style.display = 'none'; }
 
     function simulatePaymentSuccess() {
-        alert('🎉 Mô phỏng thanh toán thành công! Tiền cọc 82.500.000 VNĐ (10% Escrow) đã được khóa an toàn tại Ngân hàng MBBank.');
-        const badge = document.getElementById('contract-status-badge');
-        if (badge) {
-            badge.className = 'badge badge-success';
-            badge.innerText = '🔒 ĐÃ KHÓA 10% CỌC ESCROW';
+        const contract = userContracts.find(c => c.id === currentContractId);
+        if (contract) {
+            contract.status = 'locked_deposit';
+            contract.isPaid = true;
+            localStorage.setItem('duritrade_user_contracts', JSON.stringify(userContracts));
         }
+
+        alert('🎉 Mô phỏng thanh toán thành công! Tiền cọc 10% Escrow đã được phong tỏa an toàn tại Ngân hàng MBBank.');
         closeModal('modal-payment');
+        updateContractDropdown();
+        updatePortfolioSummary();
+        renderActiveContractUI();
     }
 
     // RESET ALL LOCALSTORAGE APP DATA
