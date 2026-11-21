@@ -313,6 +313,9 @@
                         🪪 <strong>CCCD/MST:</strong> <span id="contract-buyer-cccd" style="font-weight:600; color:#1b5e20;">040088009982</span> 
                         <span class="badge" style="background:#e8f5e9; color:#1b5e20; font-size:10px; font-weight:700; padding:1px 4px;">● eKYC Verified</span>
                     </p>
+                    <div style="font-size: 10.5px; color: #0288d1; background: #e1f5fe; padding: 4px 8px; border-radius: 4px; border: 1px solid #81d4fa; margin-top: 4px; margin-bottom: 6px;">
+                        🔒 <strong>Bảo mật thông tin eKYC:</strong> SĐT & CCCD chính chủ được tự động ẩn khi ở dạng nháp. Dữ liệu cá nhân chỉ mở khóa hiển thị đầy đủ sau khi hai bên ký kết chữ ký điện tử.
+                    </div>
                     <p><strong>Sản lượng:</strong> <span id="contract-qty">15 Tấn Monthong Thái</span> | <strong>Giá chốt:</strong> <span id="contract-price">55.000đ/kg</span></p>
                     <p><strong>Tổng giá trị đơn hàng:</strong> <span id="contract-total-val" style="color: var(--danger); font-weight: 700;">825.000.000 VNĐ</span></p>
                     <p><strong>Tiền cọc an toàn (10% Escrow):</strong> <span id="contract-deposit-val" style="color: var(--primary); font-weight: 700;">82.500.000 VNĐ</span></p>
@@ -1225,17 +1228,21 @@
         document.getElementById('contract-seller').innerText = contract.seller;
         document.getElementById('contract-buyer').innerText = contract.buyer;
         
+        const isSignedOrLocked = contract.isSigned || contract.status === 'signed' || contract.status === 'locked_deposit' || contract.isFinalized;
+        const maskedPhone = '🔒 Ẩn khi còn nháp (Ký xong mới hiện SĐT)';
+        const maskedCCCD = '🔒 Ẩn khi còn nháp (Ký xong mới hiện CCCD)';
+        
         const elSellerPhone = document.getElementById('contract-seller-phone');
-        if (elSellerPhone) elSellerPhone.innerText = contract.sellerPhone || '0987.654.321';
+        if (elSellerPhone) elSellerPhone.innerText = isSignedOrLocked ? (contract.sellerPhone || '0987.654.321') : maskedPhone;
         
         const elSellerCCCD = document.getElementById('contract-seller-cccd');
-        if (elSellerCCCD) elSellerCCCD.innerText = contract.sellerCCCD || '066092008892';
+        if (elSellerCCCD) elSellerCCCD.innerText = isSignedOrLocked ? (contract.sellerCCCD || '066092008892') : maskedCCCD;
         
         const elBuyerPhone = document.getElementById('contract-buyer-phone');
-        if (elBuyerPhone) elBuyerPhone.innerText = contract.buyerPhone || '0912.345.678';
+        if (elBuyerPhone) elBuyerPhone.innerText = isSignedOrLocked ? (contract.buyerPhone || '0912.345.678') : maskedPhone;
         
         const elBuyerCCCD = document.getElementById('contract-buyer-cccd');
-        if (elBuyerCCCD) elBuyerCCCD.innerText = contract.buyerCCCD || '040088009982';
+        if (elBuyerCCCD) elBuyerCCCD.innerText = isSignedOrLocked ? (contract.buyerCCCD || '040088009982') : maskedCCCD;
         document.getElementById('contract-qty').innerText = `${contract.quantity} Tấn (${contract.title.split(' ')[1] || 'Sầu Riêng'})`;
         document.getElementById('contract-price').innerText = `${Number(contract.price).toLocaleString('vi-VN')}đ/kg`;
         document.getElementById('contract-total-val').innerText = `${Number(contract.totalVal).toLocaleString('vi-VN')} VNĐ`;
@@ -1270,7 +1277,7 @@
         // BUTTON VISIBILITY RULES (UPDATED IN V30):
         // 1. If contract is signed, locked deposit, or finalized -> HỦY DỰ THẢO BUTTON MUST DISAPPEAR (100% HIDDEN).
         // 2. In its place, HỦY CỌC HỢP ĐỒNG (BẺ ESCROW) BUTTON appears for active signed/locked contracts.
-        const isSignedOrLocked = contract.isSigned || contract.status === 'locked_deposit' || contract.isFinalized;
+        // isSignedOrLocked already computed above
         
         if (isSignedOrLocked) {
             if (btnCancelDraft) btnCancelDraft.style.display = 'none';
@@ -1484,11 +1491,11 @@
         const isLogged = sessionStorage.getItem('duritrade_admin_logged') === 'true';
         const panel = document.getElementById('admin-panel-content');
         const loginBox = document.getElementById('admin-login-box');
-        const toggleBtn = document.getElementById('admin-login-toggle-btn');
+        // Admin login modal used in v36
 
         if (panel) panel.style.display = isLogged ? 'block' : 'none';
         if (loginBox) loginBox.style.display = isLogged ? 'none' : 'block';
-        if (toggleBtn) toggleBtn.innerText = isLogged ? '✅ Đã Đăng Nhập Admin' : '🔓 Đăng Nhập Admin';
+        // toggleBtn removed
         const headerBtn = document.getElementById('admin-header-lock-btn');
         if (headerBtn) headerBtn.innerHTML = isLogged ? '✅ Admin' : '🔐 Admin';
 
