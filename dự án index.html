@@ -98,18 +98,122 @@
         .admin-table { width: 100%; border-collapse: collapse; font-size: 11px; text-align: left; margin-top: 8px; }
         .admin-table th, .admin-table td { padding: 6px; border-bottom: 1px solid #eee; }
         .admin-table th { background: #f0f4f1; color: var(--primary); font-weight: bold; }
-    </style>
+    
+        /* AUTH GATE SCREEN STYLES (NEW IN V39) */
+        #auth-gate-screen {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(135deg, #1b5e20, #2e7d32);
+            z-index: 9999; display: flex; align-items: center; justify-content: center;
+            padding: 16px; overflow-y: auto;
+        }
+        .auth-card {
+            background: #ffffff; width: 100%; max-width: 420px; border-radius: 12px;
+            padding: 20px; box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+        }
+        .auth-logo { text-align: center; font-size: 22px; font-weight: 800; color: #1b5e20; margin-bottom: 4px; }
+        .auth-subtitle { text-align: center; font-size: 11px; color: #666; margin-bottom: 16px; }
+        .auth-tab-group { display: flex; border-bottom: 2px solid #e0e0e0; margin-bottom: 16px; }
+        .auth-tab-btn { flex: 1; padding: 8px; text-align: center; font-weight: 700; font-size: 13px; color: #666; background: none; border: none; cursor: pointer; }
+        .auth-tab-btn.active { color: #1b5e20; border-bottom: 3px solid #1b5e20; }
+        .demo-account-box { background: #e8f5e9; border: 1px dashed #2e7d32; border-radius: 8px; padding: 10px; margin-bottom: 14px; font-size: 11px; }
+        .demo-btn-group { display: flex; gap: 4px; margin-top: 6px; flex-wrap: wrap; }
+        .demo-btn { flex: 1; min-width: 100px; padding: 4px 6px; font-size: 10px; font-weight: bold; border-radius: 4px; border: 1px solid #1b5e20; background: #fff; color: #1b5e20; cursor: pointer; text-align: center; }
+        .demo-btn:hover { background: #1b5e20; color: #fff; }
+
+</style>
 </head>
 <body>
 
-    <header>
-        <div class="logo">🍈 DuriTrade</div>
-        <div class="header-actions">
-            <button class="btn-header" onclick="openLegalModal()">⚖️ Pháp Lý</button>
-            <button id="admin-header-lock-btn" class="btn-header" style="background: rgba(255,255,255,0.22); border: 1px solid rgba(255,255,255,0.4);" onclick="openAdminPortalModal()">🔐 Admin</button>
-            <button class="btn-header" onclick="resetAppData()">🔄 Reset</button>
+    <!-- AUTH GATE SCREEN (NEW IN V39) -->
+    <div id="auth-gate-screen">
+        <div class="auth-card">
+            <div class="auth-logo">🍈 DuriTrade</div>
+            <div class="auth-subtitle">Sàn Giao Dịch B2B & Bảo Chứng Cọc Sầu Riêng MBBank</div>
+
+            <!-- DEMO QUICK LOGIN SUGGESTIONS (1-CLICK FILL) -->
+            <div class="demo-account-box">
+                <div style="font-weight: bold; color: #1b5e20; margin-bottom: 4px;">⚡ GỢI Ý TÀI KHOẢN MẪU DÙNG THỬ NHANH (1-CLICK):</div>
+                <div style="color: #444; line-height: 1.4;">Bấm chọn nhanh tài khoản để trải nghiệm các quyền người dùng:</div>
+                <div class="demo-btn-group">
+                    <button class="demo-btn" onclick="quickFillDemo('nongdan01', '123', 'farmer')">🌾 Nông Dân</button>
+                    <button class="demo-btn" onclick="quickFillDemo('vuasaurieng01', '123', 'buyer')">💼 Thương Lái</button>
+                    <button class="demo-btn" onclick="quickFillDemo('admin', 'admin123', 'admin')" style="border-color:#c62828; color:#c62828;">🔑 Admin Portal</button>
+                </div>
+            </div>
+
+            <div class="auth-tab-group">
+                <button id="auth-tab-login-btn" class="auth-tab-btn active" onclick="switchAuthTab('login')">🔑 Đăng Nhập</button>
+                <button id="auth-tab-register-btn" class="auth-tab-btn" onclick="switchAuthTab('register')">📝 Đăng Ký Tài Khoản</button>
+            </div>
+
+            <!-- LOGIN FORM -->
+            <form id="auth-login-form" onsubmit="handleAuthLogin(event)">
+                <div class="form-group">
+                    <label class="form-label">Vai Trò Đăng Nhập</label>
+                    <select id="auth-login-role" class="form-select" onchange="autoSyncAdminLoginState(this.value)">
+                        <option value="farmer">🌾 Hộ Nông Dân (Bán Vườn)</option>
+                        <option value="buyer">💼 Doanh Nghiệp / Thương Lái Thu Mua</option>
+                        <option value="admin">🔑 Ban Quản Trị Admin System</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Tên Đăng Nhập / SĐT / Email</label>
+                    <input type="text" id="auth-login-username" class="form-input" placeholder="Nhập tên tài khoản..." value="nongdan01" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Mật Khẩu</label>
+                    <input type="password" id="auth-login-password" class="form-input" placeholder="Nhập mật khẩu..." value="123" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="background: linear-gradient(135deg, #1b5e20, #2e7d32); margin-top: 8px; font-weight: bold; padding: 12px;">🚀 ĐĂNG NHẬP VÀO SÀN DURITRADE</button>
+            </form>
+
+            <!-- REGISTER FORM -->
+            <form id="auth-register-form" style="display: none;" onsubmit="handleAuthRegister(event)">
+                <div class="form-group">
+                    <label class="form-label">Họ & Tên Chính Chủ (eKYC)</label>
+                    <input type="text" id="auth-reg-fullname" class="form-input" placeholder="VD: Nguyễn Văn A" required>
+                </div>
+                <div style="display: flex; gap: 6px;">
+                    <div class="form-group" style="flex: 1;">
+                        <label class="form-label">Số Điện Thoại</label>
+                        <input type="text" id="auth-reg-phone" class="form-input" placeholder="0987.654.321" required>
+                    </div>
+                    <div class="form-group" style="flex: 1;">
+                        <label class="form-label">Số CCCD (12 số)</label>
+                        <input type="text" id="auth-reg-cccd" class="form-input" placeholder="066092008892" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Vai Trò Sử Dụng</label>
+                    <select id="auth-reg-role" class="form-select">
+                        <option value="farmer">🌾 Hộ Nông Dân (Đăng bán vườn sầu riêng)</option>
+                        <option value="buyer">💼 Thương Lái / Vựa Thu Mua Xuất Khẩu</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Tên Đăng Nhập Mong Muốn</label>
+                    <input type="text" id="auth-reg-username" class="form-input" placeholder="VD: nongdan_daklak" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Mật Khẩu</label>
+                    <input type="password" id="auth-reg-password" class="form-input" placeholder="Tạo mật khẩu..." required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="background: linear-gradient(135deg, #1b5e20, #2e7d32); margin-top: 8px; font-weight: bold; padding: 12px;">📝 TẠO TÀI KHOẢN & ĐĂNG NHẬP NGAY</button>
+            </form>
         </div>
-    </header>
+    </div>
+
+    <!-- MAIN APP CONTAINER (VISIBLE AFTER LOGIN) -->
+    <div id="main-app-container" style="display: none;">
+        <header>
+            <div class="logo">🍈 DuriTrade</div>
+            <div class="header-actions">
+                <span id="header-user-badge" style="font-size: 11px; background: rgba(255,255,255,0.2); padding: 4px 8px; border-radius: 20px; color: #fff; font-weight: 600;">👤 nongdan01</span>
+                <button id="admin-header-lock-btn" class="btn-header" style="display: none; background: rgba(255,255,255,0.22); border: 1px solid rgba(255,255,255,0.4);" onclick="openAdminPortalModal()">🔐 Admin Vault</button>
+                <button class="btn-header" onclick="openLegalModal()">⚖️ Pháp Lý</button>
+                <button class="btn-header" style="background: #c62828;" onclick="handleUserLogout()">🚪 Đăng Xuất</button>
+            </div>
+        </header>
 
     <main>
         <!-- TAB 1: THỊ TRƯỜNG (MARKETPLACE) -->
@@ -474,6 +578,7 @@
             <span>Hợp Đồng</span>
         </button>
     </nav>
+    </div> <!-- END #main-app-container -->
 
     <!-- MODAL 1: BẢNG QUY ĐỊNH PHÁP LUẬT & ĐIỀU KHOẢN SỬ DỤNG APP -->
     <div id="modal-legal" class="modal-overlay">
@@ -776,6 +881,170 @@
     </div>
 
     <script>
+
+    // AUTHENTICATION & LOGIN MANAGEMENT (NEW IN V39)
+    function switchAuthTab(tab) {
+        const loginBtn = document.getElementById('auth-tab-login-btn');
+        const regBtn = document.getElementById('auth-tab-register-btn');
+        const loginForm = document.getElementById('auth-login-form');
+        const regForm = document.getElementById('auth-register-form');
+
+        if (tab === 'login') {
+            loginBtn.classList.add('active');
+            regBtn.classList.remove('active');
+            loginForm.style.display = 'block';
+            regForm.style.display = 'none';
+        } else {
+            regBtn.classList.add('active');
+            loginBtn.classList.remove('active');
+            regForm.style.display = 'block';
+            loginForm.style.display = 'none';
+        }
+    }
+
+    function quickFillDemo(username, password, role) {
+        document.getElementById('auth-login-username').value = username;
+        document.getElementById('auth-login-password').value = password;
+        document.getElementById('auth-login-role').value = role;
+        switchAuthTab('login');
+    }
+
+    function autoSyncAdminLoginState(roleVal) {
+        if (roleVal === 'admin') {
+            document.getElementById('auth-login-username').value = 'admin';
+            document.getElementById('auth-login-password').value = 'admin123';
+        }
+    }
+
+    function handleAuthLogin(event) {
+        event.preventDefault();
+        const username = document.getElementById('auth-login-username').value.trim();
+        const password = document.getElementById('auth-login-password').value.trim();
+        const role = document.getElementById('auth-login-role').value;
+
+        if (role === 'admin' || username === 'admin') {
+            if (password === 'admin123' || password === 'admin') {
+                const adminUser = { name: 'Ban Quản Trị Admin', username: 'admin', role: 'admin' };
+                sessionStorage.setItem('duritrade_logged_user', JSON.stringify(adminUser));
+                sessionStorage.setItem('duritrade_user_role', 'admin');
+                sessionStorage.setItem('duritrade_admin_logged', 'true');
+
+                alert('🔓 ĐĂNG NHẬP CỔNG QUẢN TRỊ VIÊN ADMIN THÀNH CÔNG!\n\nBạn có toàn quyền truy cập Cổng Admin, Bảng giá Live, Hộp thư Khiếu nại và Kho lưu trữ eKYC Pháp Lý.');
+                checkUserAuthSession();
+            } else {
+                alert('❌ Mật khẩu Admin không đúng! Vui lòng dùng mật khẩu: admin123');
+            }
+            return;
+        }
+
+        // Normal User Login
+        let registeredUsers = JSON.parse(localStorage.getItem('duritrade_registered_users')) || [
+            { fullname: 'Nguyễn Văn A (Hộ Nông Dân)', username: 'nongdan01', password: '123', role: 'farmer', phone: '0987.654.321', cccd: '066092008892' },
+            { fullname: 'Vựa Sầu Riêng XNK B', username: 'vuasaurieng01', password: '123', role: 'buyer', phone: '0912.345.678', cccd: '040088009982' }
+        ];
+
+        const user = registeredUsers.find(u => (u.username === username || u.phone === username) && u.password === password);
+
+        if (user) {
+            sessionStorage.setItem('duritrade_logged_user', JSON.stringify(user));
+            sessionStorage.setItem('duritrade_user_role', user.role || role);
+            sessionStorage.removeItem('duritrade_admin_logged');
+
+            const roleLabel = (user.role === 'farmer' || role === 'farmer') ? '🌾 Hộ Nông Dân' : '💼 Thương Lái Thu Mua';
+            alert('🎉 ĐĂNG NHẬP THÀNH CÔNG!\n\nXin chào: ' + (user.fullname || user.username) + '\nVai trò: ' + roleLabel + '\n\nChúc bạn giao dịch thành công & an toàn trên Sàn DuriTrade!');
+            checkUserAuthSession();
+        } else {
+            // Allow default demo fallbacks
+            const defaultUser = {
+                fullname: role === 'farmer' ? 'Nguyễn Văn A (Hộ Nông Dân)' : 'Vựa Sầu Riêng XNK B',
+                username: username,
+                role: role,
+                phone: role === 'farmer' ? '0987.654.321' : '0912.345.678',
+                cccd: role === 'farmer' ? '066092008892' : '040088009982'
+            };
+            sessionStorage.setItem('duritrade_logged_user', JSON.stringify(defaultUser));
+            sessionStorage.setItem('duritrade_user_role', role);
+            sessionStorage.removeItem('duritrade_admin_logged');
+
+            alert('🎉 ĐĂNG NHẬP DÙNG THỬ THÀNH CÔNG!\n\nXin chào: ' + username + '\nVai trò: ' + (role === 'farmer' ? '🌾 Hộ Nông Dân' : '💼 Thương Lái'));
+            checkUserAuthSession();
+        }
+    }
+
+    function handleAuthRegister(event) {
+        event.preventDefault();
+        const fullname = document.getElementById('auth-reg-fullname').value.trim();
+        const phone = document.getElementById('auth-reg-phone').value.trim();
+        const cccd = document.getElementById('auth-reg-cccd').value.trim();
+        const role = document.getElementById('auth-reg-role').value;
+        const username = document.getElementById('auth-reg-username').value.trim();
+        const password = document.getElementById('auth-reg-password').value.trim();
+
+        if (!fullname || !username || !password) {
+            alert('Vui lòng điền đầy đủ thông tin đăng ký!');
+            return;
+        }
+
+        const newUser = { fullname, phone, cccd, role, username, password };
+        let registeredUsers = JSON.parse(localStorage.getItem('duritrade_registered_users')) || [];
+        registeredUsers.push(newUser);
+        localStorage.setItem('duritrade_registered_users', JSON.stringify(registeredUsers));
+
+        sessionStorage.setItem('duritrade_logged_user', JSON.stringify(newUser));
+        sessionStorage.setItem('duritrade_user_role', role);
+        sessionStorage.removeItem('duritrade_admin_logged');
+
+        alert('🎉 ĐĂNG KÝ TÀI KHOẢN MỚI THÀNH CÔNG!\n\nHọ & Tên: ' + fullname + '\nTên Đăng Nhập: ' + username + '\nĐã tự động đăng nhập vào DuriTrade.');
+        checkUserAuthSession();
+    }
+
+    function handleUserLogout() {
+        if (confirm('🔒 Bạn có chắc chắn muốn đăng xuất khỏi DuriTrade?')) {
+            sessionStorage.removeItem('duritrade_logged_user');
+            sessionStorage.removeItem('duritrade_user_role');
+            sessionStorage.removeItem('duritrade_admin_logged');
+            alert('🔒 Đã đăng xuất thành công!');
+            checkUserAuthSession();
+        }
+    }
+
+    function checkUserAuthSession() {
+        const loggedUserStr = sessionStorage.getItem('duritrade_logged_user');
+        const authScreen = document.getElementById('auth-gate-screen');
+        const mainApp = document.getElementById('main-app-container');
+        const userBadge = document.getElementById('header-user-badge');
+        const adminBtn = document.getElementById('admin-header-lock-btn');
+
+        if (!loggedUserStr) {
+            if (authScreen) authScreen.style.display = 'flex';
+            if (mainApp) mainApp.style.display = 'none';
+        } else {
+            const user = JSON.parse(loggedUserStr);
+            if (authScreen) authScreen.style.display = 'none';
+            if (mainApp) mainApp.style.display = 'block';
+
+            if (userBadge) {
+                const roleIcon = user.role === 'admin' ? '🔑' : (user.role === 'farmer' ? '🌾' : '💼');
+                userBadge.innerText = roleIcon + ' ' + (user.username || user.fullname);
+            }
+
+            if (adminBtn) {
+                adminBtn.style.display = (user.role === 'admin' || sessionStorage.getItem('duritrade_admin_logged') === 'true') ? 'inline-block' : 'none';
+            }
+
+            renderMarketList();
+            updatePriceChart();
+            initSignaturePad();
+            checkAdminSession();
+            initUserContracts();
+            applyFinalizedContractState();
+            applyViolationState();
+            applyAdminEmailResponseState();
+            applyAdminEscrowNotificationsState();
+        }
+    }
+
+
     // DEFAULT PLACEHOLDER DURIAN SVG IMAGE DATA URL
     const SVG_DURIAN_PLACEHOLDER = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='250' viewBox='0 0 400 250'><rect width='400' height='250' fill='%231b5e20'/><circle cx='200' cy='125' r='70' fill='%23fbc02d'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' fill='%231b5e20' font-size='20' font-weight='bold'>🍈 DuriTrade</text></svg>";
 
@@ -849,14 +1118,7 @@
         if (!localStorage.getItem('duritrade_market_items')) {
             localStorage.setItem('duritrade_market_items', JSON.stringify(DEFAULT_MARKET_DATA));
         }
-        renderMarketList();
-        updatePriceChart();
-        initSignaturePad();
-        checkAdminSession();
-        initUserContracts();
-        applyFinalizedContractState();
-        applyViolationState();
-        applyAdminEmailResponseState();
+        checkUserAuthSession();
     });
 
 
