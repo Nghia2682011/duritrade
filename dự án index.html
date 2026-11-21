@@ -267,17 +267,17 @@
                         <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; font-size: 11px;">
                             <div>
                                 <label style="font-weight: bold; color: #1b5e20;">🔪 Dao 1 (30% SL):</label>
-                                <input type="text" id="post-dao1-date" class="form-input" style="font-size: 11px; padding: 4px; margin-top: 2px;" value="25/05/2026" required>
+                                <input type="text" id="post-dao1-date" class="form-input" style="font-size: 11px; padding: 4px; margin-top: 2px;" value="01/12/2026" required>
                                 <input type="text" id="post-dao1-quality" class="form-input" style="font-size: 11px; padding: 4px; margin-top: 2px;" value="BRIX ≥ 33° | Hàng A ≥ 85%" required>
                             </div>
                             <div>
                                 <label style="font-weight: bold; color: #1b5e20;">🔪 Dao 2 (50% SL):</label>
-                                <input type="text" id="post-dao2-date" class="form-input" style="font-size: 11px; padding: 4px; margin-top: 2px;" value="05/06/2026" required>
+                                <input type="text" id="post-dao2-date" class="form-input" style="font-size: 11px; padding: 4px; margin-top: 2px;" value="11/12/2026" required>
                                 <input type="text" id="post-dao2-quality" class="form-input" style="font-size: 11px; padding: 4px; margin-top: 2px;" value="BRIX ≥ 31° | Hàng A ≥ 80%" required>
                             </div>
                             <div>
                                 <label style="font-weight: bold; color: #1b5e20;">🔪 Dao 3 (20% SL):</label>
-                                <input type="text" id="post-dao3-date" class="form-input" style="font-size: 11px; padding: 4px; margin-top: 2px;" value="15/06/2026" required>
+                                <input type="text" id="post-dao3-date" class="form-input" style="font-size: 11px; padding: 4px; margin-top: 2px;" value="21/12/2026" required>
                                 <input type="text" id="post-dao3-quality" class="form-input" style="font-size: 11px; padding: 4px; margin-top: 2px;" value="Hàng B/Dạt (Giảm 15% giá)" required>
                             </div>
                         </div>
@@ -362,12 +362,12 @@
                     <p><strong>Tổng giá trị đơn hàng:</strong> <span id="contract-total-val" style="color: var(--danger); font-weight: 700;">825.000.000 VNĐ</span></p>
                     <p><strong>Tiền cọc an toàn (10% Escrow):</strong> <span id="contract-deposit-val" style="color: var(--primary); font-weight: 700;">82.500.000 VNĐ</span></p>
                     <p><strong>Tọa độ GPS vườn:</strong> <span id="contract-gps">12.6853° N, 108.2142° E</span> (Đã xác minh)</p>
-                    <p><strong>📅 Lịch Cắt Nông Sản:</strong> <span id="contract-harvest-schedule" style="color: #1b5e20; font-weight: 700;">Dao 1: 25/05/2026 | Dao 2: 05/06/2026 | Dao 3: 15/06/2026</span></p>
+                    <p><strong>📅 Lịch Cắt Nông Sản:</strong> <span id="contract-harvest-schedule" style="color: #1b5e20; font-weight: 700;">Dao 1: 01/12/2026 | Dao 2: 11/12/2026 | Dao 3: 21/12/2026</span></p>
                     
                     <div id="contract-dao-details-box" style="margin-top: 6px; font-size: 11px; background: #fff; padding: 6px; border-radius: 6px; border: 1px solid #c8e6c9;">
-                        <div>🔪 <strong>Dao 1 (Cắt bói 30%):</strong> <span id="contract-dao1-info" style="font-weight:600; color:#1b5e20;">25/05/2026 (BRIX ≥ 33° | Hàng A ≥ 85%)</span></div>
-                        <div>🔪 <strong>Dao 2 (Cắt rộ 50%):</strong> <span id="contract-dao2-info" style="font-weight:600; color:#1b5e20;">05/06/2026 (BRIX ≥ 31° | Hàng A ≥ 80%)</span></div>
-                        <div>🔪 <strong>Dao 3 (Cắt vét 20%):</strong> <span id="contract-dao3-info" style="font-weight:600; color:#1b5e20;">15/06/2026 (Hàng B/Dạt cho phép)</span></div>
+                        <div>🔪 <strong>Dao 1 (Cắt bói 30%):</strong> <span id="contract-dao1-info" style="font-weight:600; color:#1b5e20;">01/12/2026 (BRIX ≥ 33° | Hàng A ≥ 85%)</span></div>
+                        <div>🔪 <strong>Dao 2 (Cắt rộ 50%):</strong> <span id="contract-dao2-info" style="font-weight:600; color:#1b5e20;">11/12/2026 (BRIX ≥ 31° | Hàng A ≥ 80%)</span></div>
+                        <div>🔪 <strong>Dao 3 (Cắt vét 20%):</strong> <span id="contract-dao3-info" style="font-weight:600; color:#1b5e20;">21/12/2026 (Hàng B/Dạt cho phép)</span></div>
                     </div>
                     
                     <div style="margin-top: 6px; padding: 8px; background: #e8f5e9; border-radius: 6px; border: 1px solid #c8e6c9;">
@@ -389,7 +389,7 @@
                             ⏳ Đang tính toán thời gian đếm ngược...
                         </div>
                         <div style="font-size: 11px; color: #5d4037; margin-top: 6px; line-height: 1.4;">
-                            📡 <strong>Trạng thái Cảm biến:</strong> Tự động phát hiện mốc cắt Dao 1 (<span id="countdown-next-dao-date" style="font-weight:bold; color:#1b5e20;">25/05/2026</span>) và kích hoạt đếm ngược 2-3 ngày. Hệ thống tự động gửi thông báo SMS/App nhắc nhở Thương lái bố trí xe container và Nông dân chuẩn bị mở cổng vườn.
+                            📡 <strong>Trạng thái Cảm biến:</strong> Tự động phát hiện mốc cắt Dao 1 (<span id="countdown-next-dao-date" style="font-weight:bold; color:#1b5e20;">01/12/2026</span>) và kích hoạt đếm ngược 2-3 ngày. Hệ thống tự động gửi thông báo SMS/App nhắc nhở Thương lái bố trí xe container và Nông dân chuẩn bị mở cổng vườn.
                         </div>
                     </div>
 
@@ -778,13 +778,13 @@
             price: 55000,
             brix: 'BRIX ≥ 33° (Hàng A > 85%)',
             gps: '12.6853° N, 108.2142° E',
-            dao1Date: '25/05/2026',
+            dao1Date: '01/12/2026',
             dao1Quality: 'BRIX ≥ 33° (Hàng A ≥ 85%)',
-            dao2Date: '05/06/2026',
+            dao2Date: '11/12/2026',
             dao2Quality: 'BRIX ≥ 31° (Hàng A ≥ 80%)',
-            dao3Date: '15/06/2026',
+            dao3Date: '21/12/2026',
             dao3Quality: 'Hàng B/Dạt cho phép (Giảm 15% giá)',
-            harvestSchedule: 'Dao 1: 25/05/2026 | Dao 2: 05/06/2026 | Dao 3: 15/06/2026',
+            harvestSchedule: 'Dao 1: 01/12/2026 | Dao 2: 11/12/2026 | Dao 3: 21/12/2026',
             sellerPhone: '0987.654.321',
             sellerCCCD: '066092008892',
             buyerPhone: '0912.345.678',
@@ -800,13 +800,13 @@
             price: 48000,
             brix: 'BRIX ≥ 31°',
             gps: '10.3421° N, 106.1154° E',
-            dao1Date: '20/05/2026',
+            dao1Date: '28/11/2026',
             dao1Quality: 'BRIX ≥ 32° (Hàng A ≥ 85%)',
-            dao2Date: '01/06/2026',
+            dao2Date: '08/12/2026',
             dao2Quality: 'BRIX ≥ 30° (Hàng A ≥ 80%)',
-            dao3Date: '10/06/2026',
+            dao3Date: '18/12/2026',
             dao3Quality: 'Hàng B/Dạt cho phép',
-            harvestSchedule: 'Dao 1: 20/05/2026 | Dao 2: 01/06/2026 | Dao 3: 10/06/2026',
+            harvestSchedule: 'Dao 1: 28/11/2026 | Dao 2: 08/12/2026 | Dao 3: 18/12/2026',
             image: SVG_DURIAN_PLACEHOLDER
         },
         {
@@ -818,13 +818,13 @@
             price: 52000,
             brix: 'BRIX ≥ 32°',
             gps: '11.5461° N, 107.8023° E',
-            dao1Date: '18/05/2026',
+            dao1Date: '26/11/2026',
             dao1Quality: 'BRIX ≥ 32° (Hàng A ≥ 85%)',
-            dao2Date: '28/05/2026',
+            dao2Date: '06/12/2026',
             dao2Quality: 'BRIX ≥ 30° (Hàng A ≥ 80%)',
-            dao3Date: '08/06/2026',
+            dao3Date: '16/12/2026',
             dao3Quality: 'Hàng B/Dạt cho phép',
-            harvestSchedule: 'Dao 1: 18/05/2026 | Dao 2: 28/05/2026 | Dao 3: 08/06/2026',
+            harvestSchedule: 'Dao 1: 26/11/2026 | Dao 2: 06/12/2026 | Dao 3: 16/12/2026',
             image: SVG_DURIAN_PLACEHOLDER
         }
     ];
@@ -880,7 +880,7 @@
                         • 🌾 <strong>Bên Bán:</strong> ${c.seller || 'Nông dân'} (📱 SĐT: ${c.sellerPhone || '0987.654.321'} | 🪪 CCCD: ${c.sellerCCCD || '066092008892'})<br>
                         • 💼 <strong>Bên Mua:</strong> ${c.buyer || 'Thương lái'} (📱 SĐT: ${c.buyerPhone || '0912.345.678'} | 🪪 CCCD/MST: ${c.buyerCCCD || '040088009982'})<br>
                         • 📍 <strong>GPS Vườn:</strong> ${c.gps || '12.6853° N, 108.2142° E'}<br>
-                        • 📅 <strong>Lịch Cắt:</strong> Dao 1 (${c.dao1Date || '25/05/2026'}) | Dao 2 (${c.dao2Date || '05/06/2026'}) | Dao 3 (${c.dao3Date || '15/06/2026'})<br>
+                        • 📅 <strong>Lịch Cắt:</strong> Dao 1 (${c.dao1Date || '01/12/2026'}) | Dao 2 (${c.dao2Date || '11/12/2026'}) | Dao 3 (${c.dao3Date || '21/12/2026'})<br>
                         • ✍️ <strong>Chữ Ký Điện Tử:</strong> ${sigImgHtml}<br>
                         • 🔐 <strong>Mã SHA-256 Niêm Phong:</strong> <span style="font-family:monospace; color:#d32f2f; font-weight:bold;">#DT-HASH-${c.id}-SECURE</span>
                     </div>
@@ -897,10 +897,20 @@
         const c = contracts.find(item => item.id === contractId) || contracts[0];
         const sigUrl = c.signatureDataUrl || localStorage.getItem('duritrade_sig_' + c.id);
 
-        alert(`🏛️ TRÍCH XUẤT HỒ SƠ BẰNG CHỨNG PHÁP LÝ CHO CƠ QUAN TRỌNG TÀI / TÒA ÁN:\n\n📌 Mã Hợp đồng: #DT-${c.id}\n🔑 Mã SHA-256 Niêm Phong: #DT-HASH-${c.id}-SECURE\n🌾 Bên Bán: ${c.seller}\n💼 Bên Mua: ${c.buyer}\n📍 Tọa độ GPS Vườn: ${c.gps}\n💳 Tiền Cọc Escrow: ${(c.depositVal || 82500000).toLocaleString('vi-VN')} VNĐ (Khóa an toàn MBBank)\n📅 Lịch Cắt: Dao 1 (${c.dao1Date || '25/05/2026'}) | Dao 2 (${c.dao2Date || '05/06/2026'}) | Dao 3 (${c.dao3Date || '15/06/2026'})\n✍️ Trạng Thái Chữ Ký Điện Tử Canvas: ${sigUrl ? 'ĐÃ NẠP MÃ HÓA TIMESTAMP NGUYÊN BẢN' : 'Chưa ký'}\n\nHồ sơ chứng cứ mã hóa SHA-256 đã sẵn sàng xuất file niêm phong đối soát trước pháp luật.`);
+        alert(`🏛️ TRÍCH XUẤT HỒ SƠ BẰNG CHỨNG PHÁP LÝ CHO CƠ QUAN TRỌNG TÀI / TÒA ÁN:\n\n📌 Mã Hợp đồng: #DT-${c.id}\n🔑 Mã SHA-256 Niêm Phong: #DT-HASH-${c.id}-SECURE\n🌾 Bên Bán: ${c.seller}\n💼 Bên Mua: ${c.buyer}\n📍 Tọa độ GPS Vườn: ${c.gps}\n💳 Tiền Cọc Escrow: ${(c.depositVal || 82500000).toLocaleString('vi-VN')} VNĐ (Khóa an toàn MBBank)\n📅 Lịch Cắt: Dao 1 (${c.dao1Date || '01/12/2026'}) | Dao 2 (${c.dao2Date || '11/12/2026'}) | Dao 3 (${c.dao3Date || '21/12/2026'})\n✍️ Trạng Thái Chữ Ký Điện Tử Canvas: ${sigUrl ? 'ĐÃ NẠP MÃ HÓA TIMESTAMP NGUYÊN BẢN' : 'Chưa ký'}\n\nHồ sơ chứng cứ mã hóa SHA-256 đã sẵn sàng xuất file niêm phong đối soát trước pháp luật.`);
     }
 
-    // LIVE HARVEST COUNTDOWN TIMER & SENSOR (NEW IN V31)
+    // LIVE HARVEST COUNTDOWN TIMER & SENSOR (UPDATED FOR REAL-TIME ACCURACY IN V35)
+    function parseDao1Timestamp(dateStr) {
+        if (!dateStr) return Date.now() + 11 * 86400 * 1000;
+        const parts = dateStr.split('/');
+        if (parts.length === 3) {
+            const d = new Date(parseInt(parts[2]), parseInt(parts[1]) - 1, parseInt(parts[0]), 7, 0, 0);
+            if (!isNaN(d.getTime())) return d.getTime();
+        }
+        return Date.now() + 11 * 86400 * 1000;
+    }
+
     function updateHarvestCountdown() {
         const contract = userContracts.find(c => c.id === currentContractId);
         const display = document.getElementById('countdown-timer-display');
@@ -913,28 +923,24 @@
         }
 
         const isActivated = contract.isSigned || contract.status === 'locked_deposit' || contract.isFinalized;
+        const dao1Str = contract.dao1Date || '01/12/2026';
+        if (dateLabel) dateLabel.innerText = dao1Str;
 
         if (!isActivated) {
-            if (dateLabel) dateLabel.innerText = contract.dao1Date || '25/05/2026';
-            display.innerText = '📝 Chưa ký hợp đồng (Đồng hồ đếm ngược thu hoạch sẽ tự động kích hoạt live ngay sau khi ký & nộp cọc)';
+            display.innerText = '📝 Chưa ký hợp đồng (Đồng hồ đếm ngược thu hoạch sầu riêng sẽ tự động kích hoạt live ngay sau khi ký & nộp cọc)';
             display.style.color = '#e65100';
             return;
         }
 
         display.style.color = 'var(--primary)';
-        const dao1Str = contract.dao1Date || '25/05/2026';
-        if (dateLabel) dateLabel.innerText = dao1Str;
 
-        if (!contract.targetHarvestTime) {
-            contract.targetHarvestTime = Date.now() + (2 * 86400 + 8 * 3600 + 34 * 60 + 12) * 1000;
-            localStorage.setItem('duritrade_user_contracts', JSON.stringify(userContracts));
-        }
-
+        // Calculate dynamic harvest target timestamp based on contract dao1Date
+        const targetTime = parseDao1Timestamp(dao1Str);
         const now = Date.now();
-        let diff = contract.targetHarvestTime - now;
+        let diff = targetTime - now;
 
         if (diff <= 0) {
-            display.innerText = '🔔 ĐÃ ĐẾN MỐC THU HOẠCH DAO 1! Cần bố trí xe container & cắt sầu trong 24h.';
+            display.innerText = '🔔 ĐÃ ĐẾN MỐC CẮT DAO 1! Cửa sổ thu hoạch (2-3 ngày) đang diễn ra. Yêu cầu Thương lái điều xe container cắt sầu trong 24h.';
             display.style.color = '#c62828';
             return;
         }
@@ -944,7 +950,7 @@
         const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
-        display.innerText = `⏳ ĐẾM NGƯỢC THU HOẠCH LIVE: ${days} Ngày ${hours < 10 ? '0' : ''}${hours} Giờ ${minutes < 10 ? '0' : ''}${minutes} Phút ${seconds < 10 ? '0' : ''}${seconds} Giây`;
+        display.innerText = `⏳ ĐẾM NGƯỢC THU HOẠCH LIVE: ${days} Ngày ${hours < 10 ? '0' : ''}${hours} Giờ ${minutes < 10 ? '0' : ''}${minutes} Phút ${seconds < 10 ? '0' : ''}${seconds} Giây (Cửa sổ thu hoạch Dao 1: ${days} - ${days + 3} ngày)`;
     }
 
     setInterval(updateHarvestCountdown, 1000);
@@ -990,9 +996,9 @@
                         <div class="listing-price">${Number(item.price).toLocaleString('vi-VN')} VNĐ/kg</div>
                         <div style="font-size: 11px; color: #1b5e20; background: #e8f5e9; padding: 6px 8px; border-radius: 6px; margin-bottom: 8px; border: 1px solid #c8e6c9; line-height: 1.4;">
                             <div style="font-weight: 700; color: #1b5e20; margin-bottom: 2px;">📅 Lịch Cắt & Tiêu Chuẩn Nông Sản:</div>
-                            <div>🔪 <strong>Dao 1 (30% SL):</strong> ${item.dao1Date || '25/05/2026'} (${item.dao1Quality || 'BRIX ≥ 33°'})</div>
-                            <div>🔪 <strong>Dao 2 (50% SL):</strong> ${item.dao2Date || '05/06/2026'} (${item.dao2Quality || 'BRIX ≥ 31°'})</div>
-                            <div>🔪 <strong>Dao 3 (20% SL):</strong> ${item.dao3Date || '15/06/2026'} (${item.dao3Quality || 'Hàng B/Dạt'})</div>
+                            <div>🔪 <strong>Dao 1 (30% SL):</strong> ${item.dao1Date || '01/12/2026'} (${item.dao1Quality || 'BRIX ≥ 33°'})</div>
+                            <div>🔪 <strong>Dao 2 (50% SL):</strong> ${item.dao2Date || '11/12/2026'} (${item.dao2Quality || 'BRIX ≥ 31°'})</div>
+                            <div>🔪 <strong>Dao 3 (20% SL):</strong> ${item.dao3Date || '21/12/2026'} (${item.dao3Quality || 'Hàng B/Dạt'})</div>
                         </div>
                         <button class="btn btn-primary" onclick="selectListingForContract(${item.id})">🤝 Ký Hợp Đồng & Khóa Cọc 10%</button>
                     </div>
@@ -1033,7 +1039,7 @@
                 totalVal: 825000000,
                 depositVal: 82500000,
                 gps: '12.6853° N, 108.2142° E',
-                harvestSchedule: 'Dao 1: 25/05/2026 (30%) | Dao 2: 05/06/2026 (50%) | Dao 3: 15/06/2026 (20%)',
+                harvestSchedule: 'Dao 1: 01/12/2026 (30%) | Dao 2: 11/12/2026 (50%) | Dao 3: 21/12/2026 (20%)',
                 qualityDao1: 'BRIX ≥ 33° | Hàng A ≥ 85%',
                 qualityDao2: 'BRIX ≥ 31° | Hàng A ≥ 80%',
                 qualityDao3: 'Hàng B / Dạt cho phép (Giảm 15% giá)',
@@ -1132,7 +1138,7 @@
                 totalVal: totalVal,
                 depositVal: depositVal,
                 gps: item.gps || '12.6853° N, 108.2142° E',
-                harvestSchedule: item.harvestSchedule || 'Dao 1: 25/05/2026 (30%) | Dao 2: 05/06/2026 (50%) | Dao 3: 15/06/2026 (20%)',
+                harvestSchedule: item.harvestSchedule || 'Dao 1: 01/12/2026 (30%) | Dao 2: 11/12/2026 (50%) | Dao 3: 21/12/2026 (20%)',
                 qualityDao1: item.qualityDao1 || 'BRIX ≥ 33° | Hàng A ≥ 85%',
                 qualityDao2: item.qualityDao2 || 'BRIX ≥ 31° | Hàng A ≥ 80%',
                 qualityDao3: item.qualityDao3 || 'Hàng B / Dạt cho phép (Giảm 15% giá)',
@@ -1235,7 +1241,7 @@
         document.getElementById('contract-deposit-val').innerText = `${Number(contract.depositVal).toLocaleString('vi-VN')} VNĐ`;
         document.getElementById('contract-gps').innerText = contract.gps;
         const elSchedule = document.getElementById('contract-harvest-schedule');
-        if (elSchedule) elSchedule.innerText = contract.harvestSchedule || 'Dao 1: 25/05/2026 (30%) | Dao 2: 05/06/2026 (50%) | Dao 3: 15/06/2026 (20%)';
+        if (elSchedule) elSchedule.innerText = contract.harvestSchedule || 'Dao 1: 01/12/2026 (30%) | Dao 2: 11/12/2026 (50%) | Dao 3: 21/12/2026 (20%)';
 
         const q1 = document.getElementById('contract-quality-dao1');
         const q2 = document.getElementById('contract-quality-dao2');
@@ -1404,9 +1410,9 @@
         const brix = document.getElementById('post-brix').value;
         const gps = document.getElementById('post-gps').value || '12.6853° N, 108.2142° E';
         
-        const dao1Date = document.getElementById('post-dao1-date').value || '25/05/2026';
-        const dao2Date = document.getElementById('post-dao2-date').value || '05/06/2026';
-        const dao3Date = document.getElementById('post-dao3-date').value || '15/06/2026';
+        const dao1Date = document.getElementById('post-dao1-date').value || '01/12/2026';
+        const dao2Date = document.getElementById('post-dao2-date').value || '11/12/2026';
+        const dao3Date = document.getElementById('post-dao3-date').value || '21/12/2026';
 
         const dao1Qual = document.getElementById('post-dao1-quality').value || 'BRIX ≥ 33° | Hàng A ≥ 85%';
         const dao2Qual = document.getElementById('post-dao2-quality').value || 'BRIX ≥ 31° | Hàng A ≥ 80%';
