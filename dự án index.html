@@ -403,7 +403,7 @@
                 <div style="font-size: 48px; margin-bottom: 8px;">🛒</div>
                 <div style="font-weight: 700; font-size: 16px; color: #1b5e20; margin-bottom: 6px;">DANH MỤC HỢP ĐỒNG ĐANG TRỐNG</div>
                 <div style="font-size: 12px; color: #555; line-height: 1.6; margin-bottom: 16px; max-width: 340px; margin-left: auto; margin-right: auto;">
-                    Bạn chưa có hợp đồng giao dịch nào. Vui lòng vào <strong>Tab 1: Thị Trường</strong>, chọn bài đăng sầu riêng mong muốn và bấm <strong>"🛒 Mua / Đặt Cọc Bao Tiêu"</strong> để tạo Hợp đồng điện tử chính thức!
+                    Bạn chưa có hợp đồng giao dịch nào. Vui lòng vào <strong>Tab 1: Thị Trường</strong>, chọn bài đăng sầu riêng mong muốn và bấm <strong>"🤝 Tạo Hợp Đồng Bao Tiêu"</strong> để khởi tạo Hợp đồng điện tử chính thức!
                 </div>
                 <button class="btn btn-primary" style="max-width: 240px; margin: 0 auto; background: linear-gradient(135deg, #1b5e20, #2e7d32);" onclick="switchTab(0, document.querySelectorAll('.nav-item')[0])">🛒 Đến Sàn Thị Trường Ngay</button>
             </div>
@@ -1255,10 +1255,12 @@
             }
 
             let actionBtnHtml = '';
-            if (item.ownerUsername && item.ownerUsername === currentUser.username) {
+            if (currentUser.role === 'admin' || currentUser.username === 'admin') {
+                actionBtnHtml = `<button class="btn btn-outline" style="border-color:#1565c0; color:#1565c0; font-weight:bold;" onclick="openAdminPortalModal()">🔍 Giám Sát Giao Dịch (Cổng Admin)</button>`;
+            } else if (item.ownerUsername && item.ownerUsername === currentUser.username) {
                 actionBtnHtml = `<button class="btn btn-outline" style="border-color:#1b5e20; color:#1b5e20; font-weight:bold;" onclick="switchTab(2, document.querySelectorAll('.nav-item')[2])">📌 Bài Đăng Của Bạn (Quản Lý)</button>`;
             } else {
-                actionBtnHtml = `<button class="btn btn-primary" style="background:linear-gradient(135deg, #1b5e20, #2e7d32); color:#fff; font-weight:700;" onclick="selectListingForContract(${item.id})">🛒 Đặt Cọc 10% Escrow MBBank Bao Tiêu Vườn</button>`;
+                actionBtnHtml = `<button class="btn btn-primary" style="background:linear-gradient(135deg, #1b5e20, #2e7d32); color:#fff; font-weight:700;" onclick="selectListingForContract(${item.id})">🤝 Tạo Hợp Đồng Bao Tiêu</button>`;
             }
 
             html += `
@@ -1403,6 +1405,12 @@
         const item = items.find(i => i.id === id) || items[0];
         const currentUser = getCurrentUserObj();
 
+        if (currentUser.role === 'admin' || currentUser.username === 'admin') {
+            alert('ℹ️ Ban Quản Trị Admin đóng vai trò Giám sát & Trọng tài hệ thống, không thực hiện đặt cọc hợp đồng cá nhân!');
+            openAdminPortalModal();
+            return;
+        }
+
         // Check if contract already exists in user portfolio
         let contract = userContracts.find(c => c.id === item.id);
 
@@ -1444,7 +1452,7 @@
 
             userContracts.push(contract);
             saveUserContractsState();
-            alert(`🎉 KHỞI TẠO HỢP ĐỒNG MỚI THÀNH CÔNG!\n\nĐã tạo Hợp đồng Nháp #DT-${contract.id.toString().slice(-4)} cho giao dịch: "${item.title}".\n\nVui lòng nộp 10% tiền cọc Escrow MBBank và ký chữ ký ngón tay để hoàn tất!`);
+            alert(`🎉 KHỞI TẠO HỢP ĐỒNG MỚI THÀNH CÔNG!\n\nĐã tạo Hợp đồng Nháp #DT-${contract.id.toString().slice(-4)} cho giao dịch: "${item.title}".\n\nVui lòng kiểm tra thông tin hợp đồng, thực hiện nộp cọc Escrow MBBank và ký chữ ký ngón tay để hoàn tất!`);
         } else {
             alert(`📂 Đã mở Hợp đồng #DT-${contract.id.toString().slice(-4)} trong Danh mục của bạn!`);
         }
