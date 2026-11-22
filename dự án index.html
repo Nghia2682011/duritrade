@@ -484,11 +484,16 @@
                         <button type="button" id="btn-cancel-deposit-contract" class="btn btn-danger" style="background: #c62828; color: #fff; font-weight: bold; width: 100%; font-size: 12.5px; display: none;" onclick="openCancelDepositModal()">⚠️ HỦY CỌC HỢP ĐỒNG & PHẠT PHÁP LÝ ESCROW</button>
                     </div>
 
-                    <div id="cancel-deposit-result-card" style="display: none; margin-top: 12px; background: #ffebee; border: 2px solid #c62828; border-radius: 8px; padding: 10px; font-size: 12px; color: #b71c1c;">
-                        <div style="font-weight: 700; font-size: 13px; margin-bottom: 6px; text-align: center;">📋 BIÊN BẢN HỦY CỌC & XỬ LÝ PHẠT VI PHẠM ESCROW</div>
+                    <div id="cancel-deposit-result-card" style="display: none; margin-top: 12px; background: #ffebee; border: 2px solid #c62828; border-radius: 8px; padding: 11px; font-size: 12px; color: #b71c1c;">
+                        <div style="font-weight: 800; font-size: 13px; margin-bottom: 6px; text-align: center;">📋 BIÊN BẢN HỦY CỌC & XỬ LÝ PHẠT VI PHẠM ESCROW</div>
+                        <div id="cancel-refund-notice-banner" style="background: #e8f5e9; border: 1.5px solid #2e7d32; color: #1b5e20; border-radius: 6px; padding: 8px; margin-bottom: 8px; font-weight: 700; line-height: 1.5;">
+                            ✅ Đã chuyển tiền cọc/đền bù lại cho bên thiệt hại qua Ví Escrow MBBank và hợp đồng này đã được xử lý hoàn tất.
+                        </div>
                         <p>🚨 <strong>Bên tự ý hủy cọc:</strong> <span id="cancel-party-text" style="font-weight:bold;"></span></p>
+                        <p>🛡️ <strong>Bên thiệt hại đã nhận tiền:</strong> <span id="cancel-injured-party-text" style="font-weight:bold; color:#1b5e20;"></span></p>
                         <p>📝 <strong>Lý do hủy cọc:</strong> <span id="cancel-reason-text"></span></p>
                         <p>💸 <strong>Xử lý Ví Escrow MBBank:</strong> <span id="cancel-escrow-action-text" style="font-weight:bold; color:#d32f2f;"></span></p>
+                        <p>📌 <strong>Trạng thái hợp đồng:</strong> <span id="cancel-processed-status-text" style="font-weight:bold; color:#1565c0;">Đã được xử lý & khóa thao tác</span></p>
                         <p>🕒 <strong>Thời điểm hủy cọc:</strong> <span id="cancel-time-text"></span></p>
                     </div>
 
@@ -667,12 +672,13 @@
                 </select>
             </div>
             <div class="form-group">
-                <label class="form-label">Mức Phạt Khấu Trừ Tiền Cọc Escrow MBBank</label>
+                <label class="form-label">Tiền Cọc Hiện Tại Của Hợp Đồng Đang Chọn: <span id="admin-arb-current-deposit-label" style="color:#1b5e20; font-weight:800;">82.500.000 VNĐ</span></label>
+                <label class="form-label" style="margin-top:4px;">Mức Phạt Khấu Trừ Tiền Cọc Escrow MBBank</label>
                 <select id="admin-deduct-rate-select" class="form-select">
-                    <option value="0.20">Khấu trừ 20% cọc (16.500.000 VNĐ)</option>
-                    <option value="0.30">Khấu trừ 30% cọc (24.750.000 VNĐ)</option>
-                    <option value="0.50">Khấu trừ 50% cọc (41.250.000 VNĐ)</option>
-                    <option value="1.00">Khấu trừ 100% toàn bộ cọc (82.500.000 VNĐ)</option>
+                    <option value="0.20">Khấu trừ 20% tiền cọc</option>
+                    <option value="0.30">Khấu trừ 30% tiền cọc</option>
+                    <option value="0.50">Khấu trừ 50% tiền cọc</option>
+                    <option value="1.00">Khấu trừ 100% toàn bộ tiền cọc</option>
                 </select>
             </div>
             <div style="font-size: 11px; color: #666; margin-bottom: 12px; background: #fff3e0; padding: 8px; border-radius: 6px; border: 1px solid #ffe0b2;">
@@ -845,20 +851,20 @@
                     </div>
                 </div>
 
-                <!-- PHÂN HỆ 5: HỘP THƯ TỐ CÁO MAIL XỬ LÝ PHẠT TRỪ CỌC ESCROW -->
+                <!-- PHÂN HỆ 5: BIẾN ĐỘNG CỌC ESCROW (TRÊN) & HỘP THƯ TỐ CÁO MAIL / PHÁN QUYẾT TRỪ CỌC ESCROW (DƯỚI) -->
                 <div id="admin-module-5" class="admin-module-panel">
-                    <div class="card" style="background: #fef2f2; border: 1.5px solid #fca5a5; margin-bottom: 10px;">
-                        <div style="font-weight: 700; color: #991b1b; font-size: 13px; margin-bottom: 6px;">📧 Phân Hệ 5: Hộp Thư Tố Cáo Mail & Phạt Trừ Cọc Escrow</div>
-                        <div id="admin-incident-reports-container" style="max-height: 180px; overflow-y: auto; font-size: 11px; margin-bottom: 8px;"></div>
-                        <button type="button" class="btn btn-danger" style="padding: 8px; font-size: 12px;" onclick="openAdminArbitrateModal(0)">⚖️ Mở Bảng Phán Quyết Phạt Trừ Cọc Escrow</button>
-                    </div>
-
-                    <div style="background: #e3f2fd; border: 1.5px solid #93c5fd; border-radius: 8px; padding: 10px; font-size: 11px;">
+                    <div style="background: #e3f2fd; border: 1.5px solid #93c5fd; border-radius: 10px; padding: 10px; font-size: 11px; margin-bottom: 10px;">
                         <div style="font-weight: 700; color: #0d47a1; font-size: 12px; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center;">
                             <span>💳 HỘP THƯ BIẾN ĐỘNG CỌC ESCROW MBBANK</span>
-                            <span id="admin-escrow-notif-badge" class="badge" style="background: #1565c0; color: #fff; font-size: 10px;">1 Cọc Mới</span>
+                            <span id="admin-escrow-notif-badge" class="badge" style="background: #1565c0; color: #fff; font-size: 10px;">1 Cọc</span>
                         </div>
-                        <div id="admin-escrow-notifications-container" style="max-height: 150px; overflow-y: auto;"></div>
+                        <div id="admin-escrow-notifications-container" style="max-height: 140px; overflow-y: auto;"></div>
+                    </div>
+
+                    <div class="card" style="background: #fef2f2; border: 1.5px solid #fca5a5; margin-bottom: 0;">
+                        <div style="font-weight: 700; color: #991b1b; font-size: 13px; margin-bottom: 6px;">⚖️ Phân Hệ 5: Phán Quyết Trừ Cọc Escrow & Hộp Thư Tố Cáo Mail</div>
+                        <div id="admin-incident-reports-container" style="max-height: 170px; overflow-y: auto; font-size: 11px; margin-bottom: 8px;"></div>
+                        <button type="button" class="btn btn-danger" style="padding: 8px; font-size: 12px;" onclick="openAdminArbitrateModal(0)">⚖️ Mở Bảng Phán Quyết Phạt Trừ Cọc Escrow</button>
                     </div>
                 </div>
             </div>
@@ -1335,50 +1341,119 @@
 
         function getCurrentUserObj() {
             const loggedUserStr = sessionStorage.getItem('duritrade_logged_user');
-            return loggedUserStr ? JSON.parse(loggedUserStr) : { username: 'nongdan01', role: 'farmer', fullname: 'Nguyễn Văn A' };
+            return loggedUserStr ? JSON.parse(loggedUserStr) : { username: 'nongdan01', role: 'farmer', fullname: 'Nguyễn Văn A (Hộ Nông Dân)' };
+        }
+
+        function getSharedContractsStorageKey() {
+            return 'duritrade_shared_contracts_v1';
+        }
+
+        function deduplicateContractsList(list) {
+            if (!Array.isArray(list)) return [];
+            const map = new Map();
+            list.forEach(item => {
+                if (!item || item.id === undefined || item.id === null) return;
+                const key = String(item.id);
+                if (!map.has(key)) {
+                    map.set(key, { ...item });
+                } else {
+                    const existing = map.get(key);
+                    // Keep the most advanced / locked / finalized / cancelled state
+                    const priority = (c) => {
+                        if (c.status === 'cancelled_deposit' || c.isProcessed) return 5;
+                        if (c.isFinalized) return 4;
+                        if (c.isPaid || c.status === 'locked_deposit') return 3;
+                        if (c.isSigned) return 2;
+                        return 1;
+                    };
+                    if (priority(item) >= priority(existing)) {
+                        map.set(key, { ...existing, ...item });
+                    }
+                }
+            });
+            return Array.from(map.values());
+        }
+
+        function loadAllContractsAcrossAccounts() {
+            let merged = [];
+            try {
+                const shared = JSON.parse(localStorage.getItem(getSharedContractsStorageKey())) || [];
+                merged = [...merged, ...shared];
+            } catch(e) {}
+            const userKeys = Object.keys(localStorage).filter(k => k.startsWith('duritrade_user_contracts_'));
+            userKeys.forEach(k => {
+                try {
+                    const arr = JSON.parse(localStorage.getItem(k)) || [];
+                    merged = [...merged, ...arr];
+                } catch(e) {}
+            });
+            return deduplicateContractsList(merged);
         }
 
         function saveUserContractsState() {
+            userContracts = deduplicateContractsList(userContracts);
+            const serialized = JSON.stringify(userContracts);
+            localStorage.setItem(getSharedContractsStorageKey(), serialized);
             const user = getCurrentUserObj();
-            if (!user || !user.username) return;
-            localStorage.setItem('duritrade_user_contracts_' + user.username, JSON.stringify(userContracts));
+            if (user && user.username) {
+                localStorage.setItem('duritrade_user_contracts_' + user.username, serialized);
+            }
+            const role = sessionStorage.getItem('duritrade_user_role');
+            if (role) {
+                localStorage.setItem('duritrade_user_contracts_role_' + role, serialized);
+            }
         }
 
         function initUserContracts() {
-            const user = getCurrentUserObj();
-            const userKey = 'duritrade_user_contracts_' + (user.username || 'nongdan01');
-            try {
-                userContracts = JSON.parse(localStorage.getItem(userKey)) || [];
-            } catch(e) { userContracts = []; }
-            currentContractId = userContracts.length > 0 ? userContracts[0].id : null;
+            userContracts = loadAllContractsAcrossAccounts();
+            saveUserContractsState();
+            if (userContracts.length > 0) {
+                const exists = userContracts.some(c => c.id === currentContractId);
+                if (!exists) currentContractId = userContracts[0].id;
+            } else {
+                currentContractId = null;
+            }
             updateContractDropdown();
             updatePortfolioSummary();
             renderActiveContractUI();
         }
 
+        function getContractStatusLabel(c) {
+            if (c.status === 'cancelled_deposit' || c.isProcessed) return '🛑 Đã Hủy Cọc & Đã Xử Lý';
+            if (c.isFinalized) return '✅ Đã Chốt & Khóa SHA-256';
+            if (c.isPaid || c.status === 'locked_deposit') return '🔒 Đã Khóa Cọc 10% Escrow';
+            if (c.isSigned) return '✍️ Đã Ký Hợp Đồng';
+            return '📝 Nháp';
+        }
+
         function updateContractDropdown() {
             const select = document.getElementById('contract-select-dropdown');
             if (!select) return;
+            userContracts = deduplicateContractsList(userContracts);
             if (userContracts.length === 0) {
                 select.innerHTML = '<option value="">🛒 Danh mục trống - Chưa có hợp đồng</option>';
                 return;
             }
             select.innerHTML = userContracts.map(c => {
-                let st = '📝 Nháp';
-                if (c.isFinalized) st = '✅ Đã Chốt SHA-256';
-                else if (c.status === 'cancelled_deposit') st = '❌ Đã Hủy Cọc';
-                else if (c.isPaid || c.status === 'locked_deposit') st = '🔒 Đã Khóa Cọc 10%';
-                else if (c.isSigned) st = '✍️ Đã Ký';
+                const st = getContractStatusLabel(c);
                 return `<option value="${c.id}" ${c.id === currentContractId ? 'selected' : ''}>📄 HĐ #DT-${c.id.toString().slice(-4)} - ${c.quantity} Tấn (${st})</option>`;
             }).join('');
         }
 
         function updatePortfolioSummary() {
+            userContracts = deduplicateContractsList(userContracts);
             const totalGardens = userContracts.length;
             let totalQty = 0, totalEscrow = 0;
             userContracts.forEach(c => {
                 totalQty += Number(c.quantity) || 0;
-                totalEscrow += Number(c.depositVal) || 0;
+                const baseDep = Number(c.depositVal) || ((Number(c.quantity) || 0) * 1000 * (Number(c.price) || 0) * 0.10);
+                if (c.status === 'cancelled_deposit') {
+                    totalEscrow += 0;
+                } else if (typeof c.remainingDepositVal === 'number') {
+                    totalEscrow += Math.max(0, c.remainingDepositVal);
+                } else {
+                    totalEscrow += baseDep;
+                }
             });
             document.getElementById('portfolio-total-gardens').innerText = `${totalGardens} Vườn`;
             document.getElementById('portfolio-total-qty').innerText = `${totalQty} Tấn`;
@@ -1392,11 +1467,15 @@
         }
 
         function selectListingForContract(id) {
+            userContracts = loadAllContractsAcrossAccounts();
             const items = JSON.parse(localStorage.getItem('duritrade_market_items')) || DEFAULT_MARKET_DATA;
             const item = items.find(i => i.id === id) || items[0];
             let contract = userContracts.find(c => c.id === item.id);
             if (!contract) {
-                const totalVal = item.quantity * 1000 * item.price;
+                const qty = Number(item.quantity) || 10;
+                const price = Number(item.price) || 50000;
+                const totalVal = qty * 1000 * price;
+                const depositVal = Math.round(totalVal * 0.10);
                 contract = {
                     id: item.id,
                     title: item.title,
@@ -1406,19 +1485,38 @@
                     sellerCCCD: item.sellerCCCD || '066092008892',
                     buyerPhone: item.buyerPhone || '0912.345.678',
                     buyerCCCD: item.buyerCCCD || '040088009982',
-                    quantity: item.quantity,
-                    price: item.price,
+                    quantity: qty,
+                    price: price,
                     totalVal: totalVal,
-                    depositVal: totalVal * 0.10,
+                    depositVal: depositVal,
+                    remainingDepositVal: depositVal,
                     gps: item.gps || '12.6853° N, 108.2142° E',
                     dao1Date: item.dao1Date || '01/12/2026',
+                    dao1Quality: item.dao1Quality || 'BRIX ≥ 33° (Hàng A ≥ 85%)',
+                    dao2Date: item.dao2Date || '11/12/2026',
+                    dao2Quality: item.dao2Quality || 'BRIX ≥ 31° (Hàng A ≥ 80%)',
+                    dao3Date: item.dao3Date || '21/12/2026',
+                    dao3Quality: item.dao3Quality || 'Hàng B/Dạt cho phép (Giảm 15% giá)',
                     harvestSchedule: item.harvestSchedule || 'Dao 1: 01/12/2026 | Dao 2: 11/12/2026 | Dao 3: 21/12/2026',
                     status: 'draft',
                     isSigned: false,
                     isPaid: false,
-                    isFinalized: false
+                    isFinalized: false,
+                    isProcessed: false
                 };
                 userContracts.push(contract);
+                saveUserContractsState();
+            } else {
+                // Ensure exact deposit calculation (10% of quantity * 1000 * price)
+                const qty = Number(contract.quantity) || Number(item.quantity) || 10;
+                const price = Number(contract.price) || Number(item.price) || 50000;
+                const totalVal = qty * 1000 * price;
+                const depositVal = Math.round(totalVal * 0.10);
+                contract.totalVal = totalVal;
+                contract.depositVal = depositVal;
+                if (typeof contract.remainingDepositVal !== 'number') {
+                    contract.remainingDepositVal = depositVal;
+                }
                 saveUserContractsState();
             }
             currentContractId = contract.id;
@@ -1431,6 +1529,7 @@
         function renderActiveContractUI() {
             const emptyCard = document.getElementById('empty-contract-placeholder-card');
             const mainCard = document.getElementById('active-contract-main-card');
+            userContracts = deduplicateContractsList(userContracts);
             if (userContracts.length === 0) {
                 if (emptyCard) emptyCard.style.display = 'block';
                 if (mainCard) mainCard.style.display = 'none';
@@ -1440,22 +1539,36 @@
             if (mainCard) mainCard.style.display = 'block';
 
             const contract = userContracts.find(c => c.id === currentContractId) || userContracts[0];
+            currentContractId = contract.id;
+
+            const qty = Number(contract.quantity) || 0;
+            const price = Number(contract.price) || 0;
+            const totalVal = qty * 1000 * price;
+            const depositVal = Math.round(totalVal * 0.10);
+            contract.totalVal = totalVal;
+            contract.depositVal = depositVal;
+
             document.getElementById('contract-code-title').innerText = `📄 Hợp Đồng Điện Tử #DT-${contract.id.toString().slice(-4)}`;
             const badge = document.getElementById('contract-status-badge');
-            if (contract.isFinalized) {
-                badge.className = 'badge badge-success';
-                badge.innerText = '✅ ĐÃ CHỐT KHÓA SHA-256';
-            } else if (contract.status === 'cancelled_deposit') {
+            const isCancelledOrProcessed = contract.status === 'cancelled_deposit' || contract.isProcessed;
+            const isDepositLocked = Boolean(contract.isPaid || contract.status === 'locked_deposit');
+            const isSignedLocked = Boolean(contract.isSigned || contract.signatureDataUrl);
+            const isFinalLocked = Boolean(contract.isFinalized);
+
+            if (isCancelledOrProcessed) {
                 badge.className = 'badge badge-danger';
-                badge.innerText = '❌ ĐÃ HỦY CỌC';
-            } else if (contract.isPaid || contract.status === 'locked_deposit') {
+                badge.innerText = '🛑 ĐÃ HỦY CỌC & ĐÃ XỬ LÝ';
+            } else if (isFinalLocked) {
+                badge.className = 'badge badge-success';
+                badge.innerText = '✅ ĐÃ CHỐT & KHÓA SHA-256';
+            } else if (isDepositLocked) {
                 badge.className = 'badge badge-success';
                 badge.innerText = '🔒 ĐÃ KHÓA CỌC 10% ESCROW';
-            } else if (contract.isSigned) {
+            } else if (isSignedLocked) {
                 badge.className = 'badge badge-primary';
                 badge.style.background = '#1565c0';
                 badge.style.color = '#fff';
-                badge.innerText = '✍️ ĐÃ KÝ NGÓN TAY';
+                badge.innerText = '✍️ ĐÃ KÝ & KHÓA KÝ';
             } else {
                 badge.className = 'badge badge-warning';
                 badge.innerText = '📝 NHÁP';
@@ -1463,17 +1576,24 @@
 
             document.getElementById('contract-seller').innerText = contract.seller;
             document.getElementById('contract-buyer').innerText = contract.buyer;
-            const isUnlocked = contract.isSigned || contract.isPaid || contract.status === 'locked_deposit' || contract.isFinalized;
+            const isUnlocked = isSignedLocked || isDepositLocked || isFinalLocked || isCancelledOrProcessed;
             document.getElementById('contract-seller-phone').innerText = isUnlocked ? (contract.sellerPhone || '0987.654.321') : '🔒 Ẩn khi nháp';
             document.getElementById('contract-seller-cccd').innerText = isUnlocked ? (contract.sellerCCCD || '066092008892') : '🔒 Ẩn khi nháp';
             document.getElementById('contract-buyer-phone').innerText = isUnlocked ? (contract.buyerPhone || '0912.345.678') : '🔒 Ẩn khi nháp';
             document.getElementById('contract-buyer-cccd').innerText = isUnlocked ? (contract.buyerCCCD || '040088009982') : '🔒 Ẩn khi nháp';
-            document.getElementById('contract-qty').innerText = `${contract.quantity} Tấn`;
-            document.getElementById('contract-price').innerText = `${Number(contract.price).toLocaleString('vi-VN')}đ/kg`;
-            document.getElementById('contract-total-val').innerText = `${Number(contract.totalVal).toLocaleString('vi-VN')} VNĐ`;
-            document.getElementById('contract-deposit-val').innerText = `${Number(contract.depositVal).toLocaleString('vi-VN')} VNĐ`;
+            document.getElementById('contract-qty').innerText = `${qty} Tấn`;
+            document.getElementById('contract-price').innerText = `${price.toLocaleString('vi-VN')}đ/kg`;
+            document.getElementById('contract-total-val').innerText = `${totalVal.toLocaleString('vi-VN')} VNĐ`;
+            document.getElementById('contract-deposit-val').innerText = `${depositVal.toLocaleString('vi-VN')} VNĐ`;
             document.getElementById('contract-gps').innerText = contract.gps;
             document.getElementById('contract-harvest-schedule').innerText = contract.harvestSchedule;
+
+            const q1 = document.getElementById('contract-quality-dao1');
+            const q2 = document.getElementById('contract-quality-dao2');
+            const q3 = document.getElementById('contract-quality-dao3');
+            if (q1) q1.innerText = contract.dao1Quality || 'BRIX ≥ 33° | Hàng A ≥ 85%';
+            if (q2) q2.innerText = contract.dao2Quality || 'BRIX ≥ 31° | Hàng A ≥ 80%';
+            if (q3) q3.innerText = contract.dao3Quality || 'Hàng B / Dạt cho phép (Giảm 15% giá)';
 
             const wBadge = document.getElementById('weather-delay-status-badge');
             if (wBadge) {
@@ -1499,36 +1619,98 @@
                 }
             }
 
+            // LOCK SIGNATURE WHEN SIGNED OR FINALIZED OR PROCESSED
             const btnSaveSig = document.getElementById('btn-save-sig');
+            const btnClearSig = document.getElementById('btn-clear-sig');
+            const sigLocked = isSignedLocked || isFinalLocked || isCancelledOrProcessed;
             if (btnSaveSig) {
-                if (contract.isSigned || contract.isFinalized) {
+                btnSaveSig.disabled = sigLocked;
+                btnSaveSig.style.opacity = sigLocked ? '0.75' : '1';
+                btnSaveSig.style.cursor = sigLocked ? 'not-allowed' : 'pointer';
+                if (isFinalLocked || isCancelledOrProcessed) {
+                    btnSaveSig.style.background = '#455a64';
+                    btnSaveSig.innerText = '🔒 ĐÃ KHÓA CHỮ KÝ';
+                } else if (isSignedLocked) {
                     btnSaveSig.style.background = '#2e7d32';
-                    btnSaveSig.innerText = '✅ ĐÃ KÝ NGÓN TAY';
+                    btnSaveSig.innerText = '🔒 ĐÃ KÝ NGÓN TAY (KHÓA)';
                 } else {
                     btnSaveSig.style.background = 'var(--primary)';
                     btnSaveSig.innerText = '✍️ Lưu & Ký Hợp Đồng';
                 }
             }
+            if (btnClearSig) {
+                btnClearSig.disabled = sigLocked;
+                btnClearSig.style.opacity = sigLocked ? '0.5' : '1';
+                btnClearSig.style.cursor = sigLocked ? 'not-allowed' : 'pointer';
+            }
 
+            // LOCK DEPOSIT PAYMENT WHEN ALREADY PAID / LOCKED OR FINALIZED OR CANCELLED/PROCESSED
             const btnPay = document.getElementById('btn-payment-modal');
+            const payLocked = isDepositLocked || isFinalLocked || isCancelledOrProcessed;
             if (btnPay) {
-                if (contract.isPaid || contract.status === 'locked_deposit') {
+                btnPay.disabled = payLocked;
+                btnPay.style.opacity = payLocked ? '0.8' : '1';
+                btnPay.style.cursor = payLocked ? 'not-allowed' : 'pointer';
+                if (isCancelledOrProcessed) {
+                    btnPay.style.background = '#78909c';
+                    btnPay.style.color = '#fff';
+                    btnPay.innerText = '🔒 HỢP ĐỒNG ĐÃ HỦY CỌC / ĐÃ XỬ LÝ';
+                } else if (isDepositLocked) {
                     btnPay.style.background = '#1565c0';
                     btnPay.style.color = '#fff';
-                    btnPay.innerText = '✅ ĐÃ NỘP CỌC ESCROW MBBANK';
+                    btnPay.innerText = '🔒 ĐÃ KHÓA CỌC 10% ESCROW MBBANK';
+                } else if (isFinalLocked) {
+                    btnPay.style.background = '#2e7d32';
+                    btnPay.style.color = '#fff';
+                    btnPay.innerText = '🔒 ĐÃ CHỐT HỢP ĐỒNG (KHÓA NỘP CỌC)';
                 } else {
                     btnPay.style.background = 'var(--accent)';
                     btnPay.style.color = '#1b5e20';
-                    btnPay.innerText = '🔒 Nộp Cọc Bảo Chứng 10% (VietQR Escrow MBBank)';
+                    btnPay.innerText = `🔒 Nộp Cọc Bảo Chứng 10% (${depositVal.toLocaleString('vi-VN')} VNĐ)`;
+                }
+            }
+
+            // LOCK FINALIZE BUTTON ONCE FINALIZED OR CANCELLED/PROCESSED
+            const btnFinalize = document.getElementById('btn-finalize-contract');
+            const finalizeLocked = isFinalLocked || isCancelledOrProcessed;
+            if (btnFinalize) {
+                btnFinalize.disabled = finalizeLocked;
+                btnFinalize.style.opacity = finalizeLocked ? '0.75' : '1';
+                btnFinalize.style.cursor = finalizeLocked ? 'not-allowed' : 'pointer';
+                if (isFinalLocked) {
+                    btnFinalize.style.background = '#37474f';
+                    btnFinalize.innerText = '🔒 ĐÃ CHỐT & KHÓA HỢP ĐỒNG (SHA-256)';
+                } else if (isCancelledOrProcessed) {
+                    btnFinalize.style.background = '#78909c';
+                    btnFinalize.innerText = '🔒 HỢP ĐỒNG ĐÃ ĐƯỢC XỬ LÝ (KHÓA CHỐT)';
+                } else {
+                    btnFinalize.style.background = 'linear-gradient(135deg, #1b5e20, #2e7d32)';
+                    btnFinalize.innerText = '🚀 CHỐT & GỬI HỢP ĐỒNG CHÍNH THỨC (KHÓA SHA-256)';
+                }
+            }
+
+            // CANCEL DEPOSIT RESULT & REFUND / PROCESSED NOTICE
+            const cancelResultCard = document.getElementById('cancel-deposit-result-card');
+            if (cancelResultCard) {
+                if (contract.status === 'cancelled_deposit' && contract.cancelDepositRecord) {
+                    cancelResultCard.style.display = 'block';
+                    document.getElementById('cancel-party-text').innerText = contract.cancelDepositRecord.partyText || '';
+                    document.getElementById('cancel-injured-party-text').innerText = contract.cancelDepositRecord.injuredPartyText || '';
+                    document.getElementById('cancel-reason-text').innerText = contract.cancelDepositRecord.reason || '';
+                    document.getElementById('cancel-escrow-action-text').innerText = contract.cancelDepositRecord.escrowActionText || '';
+                    document.getElementById('cancel-processed-status-text').innerText = contract.cancelDepositRecord.processedStatusText || 'Đã chuyển tiền lại cho bên thiệt hại & hợp đồng đã được xử lý';
+                    document.getElementById('cancel-time-text').innerText = contract.cancelDepositRecord.timeStr || '';
+                } else {
+                    cancelResultCard.style.display = 'none';
                 }
             }
 
             const summaryCard = document.getElementById('finalized-summary-card');
             if (summaryCard) {
-                if (contract.isFinalized || contract.isSigned) {
+                if (isFinalLocked || isSignedLocked) {
                     summaryCard.style.display = 'block';
                     document.getElementById('final-hash-code').innerText = `#DT-HASH-${contract.id}-SECURE`;
-                    document.getElementById('final-timestamp').innerText = contract.finalizedTime || 'Đang chờ chốt chính thức';
+                    document.getElementById('final-timestamp').innerText = contract.finalizedTime || (isSignedLocked ? 'Đã ký (Chờ chốt chính thức)' : 'Đang chờ chốt chính thức');
                 } else {
                     summaryCard.style.display = 'none';
                 }
@@ -1559,8 +1741,8 @@
 
             const btnCancelDraft = document.getElementById('btn-cancel-draft-contract');
             const btnCancelDeposit = document.getElementById('btn-cancel-deposit-contract');
-            if (btnCancelDraft) btnCancelDraft.style.display = isUnlocked ? 'none' : 'block';
-            if (btnCancelDeposit) btnCancelDeposit.style.display = (isUnlocked && contract.status !== 'cancelled_deposit') ? 'block' : 'none';
+            if (btnCancelDraft) btnCancelDraft.style.display = (!isUnlocked && !isFinalLocked && !isCancelledOrProcessed) ? 'block' : 'none';
+            if (btnCancelDeposit) btnCancelDeposit.style.display = (isUnlocked && !isCancelledOrProcessed) ? 'block' : 'none';
 
             syncSystemContractBroadcastBanner();
             redrawCurrentContractSignature();
@@ -1795,6 +1977,15 @@
             }
         }
 
+        function getActiveContractDepositAmount() {
+            const contract = userContracts.find(c => c.id === currentContractId) || userContracts[0];
+            if (!contract) return 82500000;
+            const qty = Number(contract.quantity) || 0;
+            const price = Number(contract.price) || 0;
+            const calculated = Math.round(qty * 1000 * price * 0.10);
+            return calculated > 0 ? calculated : (Number(contract.depositVal) || 82500000);
+        }
+
         function openAdminArbitrateModal() {
             document.getElementById('modal-admin-arbitrate').style.display = 'flex';
         }
@@ -1825,6 +2016,79 @@
             localStorage.setItem('duritrade_violation_party', partyText);
             localStorage.setItem('duritrade_violation_flow', flowText);
             localStorage.setItem('duritrade_violation_reason', 'Phán quyết xử lý phạt trừ cọc Escrow của Admin');
+            localStorage.setItem('duritrade_violation_deduct', deductedVal.toString());
+            localStorage.setItem('duritrade_violation_remaining', remainingVal.toString());
+            localStorage.setItem('duritrade_violation_time', timeStr);
+            localStorage.setItem('duritrade_arbitrator_selected', arbVal);
+            applyViolationState();
+            closeModal('modal-admin-arbitrate');
+            alert('⚖️ Đã ra phán quyết phạt trừ cọc Escrow thành công!');
+        }
+
+        function applyViolationState() {
+            if (localStorage.getItem('duritrade_violation_applied') !== 'true') return;
+            const vCard = document.getElementById('violation-result-card');
+            if (!vCard) return;
+            vCard.style.display = 'block';
+            document.getElementById('violation-party-text').innerText = localStorage.getItem('duritrade_violation_party') || '';
+            document.getElementById('violation-reason-text').innerText = localStorage.getItem('duritrade_violation_reason') || '';
+            document.getElementById('violation-deduct-text').innerText = `- ${Number(localStorage.getItem('duritrade_violation_deduct') || 0).toLocaleString('vi-VN')} VNĐ`;
+            document.getElementById('violation-flow-text').innerText = localStorage.getItem('duritrade_violation_flow') || '';
+            document.getElementById('violation-remaining-text').innerText = `${Number(localStorage.getItem('duritrade_violation_remaining') || 0).toLocaleString('vi-VN')} VNĐ`;
+            document.getElementById('violation-arb-text').innerText = localStorage.getItem('duritrade_arbitrator_selected') || '';
+            document.getElementById('violation-time-text').innerText = localStorage.getItem('duritrade_violation_time') || '';
+        }
+
+        function openAdminArbitrateModal() {
+            const originalDeposit = getActiveContractDepositAmount();
+            const depLabel = document.getElementById('admin-arb-current-deposit-label');
+            if (depLabel) depLabel.innerText = `${originalDeposit.toLocaleString('vi-VN')} VNĐ`;
+            const rateSelect = document.getElementById('admin-deduct-rate-select');
+            if (rateSelect) {
+                const rates = [0.20, 0.30, 0.50, 1.00];
+                Array.from(rateSelect.options).forEach((opt, idx) => {
+                    const r = rates[idx] || 0.20;
+                    const amt = Math.round(originalDeposit * r);
+                    opt.text = `Khấu trừ ${Math.round(r * 100)}% cọc (${amt.toLocaleString('vi-VN')} VNĐ)`;
+                });
+            }
+            document.getElementById('modal-admin-arbitrate').style.display = 'flex';
+        }
+
+        function executeAdminDeduction() {
+            const contract = userContracts.find(c => c.id === currentContractId) || userContracts[0];
+            const arbVal = document.getElementById('admin-arbitrator-select').value;
+            const partyVal = document.getElementById('admin-violating-party-select').value;
+            const rateVal = parseFloat(document.getElementById('admin-deduct-rate-select').value);
+            const originalDeposit = getActiveContractDepositAmount();
+            const deductedVal = Math.round(originalDeposit * rateVal);
+            const remainingVal = Math.max(0, originalDeposit - deductedVal);
+
+            let partyText = '', flowText = '';
+            if (partyVal === 'farmer') {
+                partyText = '🌾 Bên Bán (Nhà Vườn) Vi Phạm';
+                flowText = `Hoàn ${deductedVal.toLocaleString('vi-VN')} VNĐ từ Ví Escrow MBBank về Bên Mua (${contract ? contract.buyer : 'Bên Mua'}).`;
+            } else if (partyVal === 'buyer') {
+                partyText = '💼 Bên Mua (Thương Lái) Vi Phạm';
+                flowText = `Tịch thu & chuyển ${deductedVal.toLocaleString('vi-VN')} VNĐ từ Ví Escrow MBBank đền bù Bên Bán (${contract ? contract.seller : 'Bên Bán'}).`;
+            } else {
+                partyText = '🌧️ Thời Tiết Bất Khả Kháng';
+                flowText = `Hoàn 100% cọc (${originalDeposit.toLocaleString('vi-VN')} VNĐ) cho Bên Mua & miễn phạt.`;
+            }
+
+            if (contract) {
+                contract.depositVal = originalDeposit;
+                contract.remainingDepositVal = remainingVal;
+                saveUserContractsState();
+                updatePortfolioSummary();
+            }
+
+            const now = new Date();
+            const timeStr = `${now.getDate()}/${now.getMonth()+1}/${now.getFullYear()} ${now.getHours()}:${now.getMinutes()<10?'0':''}${now.getMinutes()}`;
+            localStorage.setItem('duritrade_violation_applied', 'true');
+            localStorage.setItem('duritrade_violation_party', partyText);
+            localStorage.setItem('duritrade_violation_flow', flowText);
+            localStorage.setItem('duritrade_violation_reason', `Phán quyết xử lý phạt trừ ${Math.round(rateVal * 100)}% cọc Escrow của Admin`);
             localStorage.setItem('duritrade_violation_deduct', deductedVal.toString());
             localStorage.setItem('duritrade_violation_remaining', remainingVal.toString());
             localStorage.setItem('duritrade_violation_time', timeStr);
@@ -2041,6 +2305,14 @@
         function saveSignature() {
             const contract = userContracts.find(c => c.id === currentContractId);
             if (!contract || !sigCanvas) return;
+            if (contract.isSigned || contract.signatureDataUrl) {
+                alert('🔒 Chữ ký hợp đồng đã được lưu và khóa cố định!');
+                return;
+            }
+            if (contract.isFinalized || contract.status === 'cancelled_deposit' || contract.isProcessed) {
+                alert('🔒 Hợp đồng đã chốt hoặc đã được xử lý, không thể ký thêm!');
+                return;
+            }
             const dataUrl = sigCanvas.toDataURL('image/png');
             contract.signatureDataUrl = dataUrl;
             contract.isSigned = true;
@@ -2151,46 +2423,90 @@
         function reportLateCut24h() {
             const contract = userContracts.find(c => c.id === currentContractId);
             if (!contract) return;
+            if (contract.status === 'cancelled_deposit' || contract.isProcessed) {
+                alert('ℹ️ Hợp đồng này đã hủy cọc và đã được xử lý.');
+                return;
+            }
+            const depositAmount = getActiveContractDepositAmount();
             const now = new Date();
+            const timeStr = `${now.getDate()}/${now.getMonth()+1}/${now.getFullYear()} ${now.getHours()}:${now.getMinutes()<10?'0':''}${now.getMinutes()}`;
             contract.status = 'cancelled_deposit';
+            contract.isProcessed = true;
+            contract.remainingDepositVal = 0;
             contract.cancelDepositRecord = {
                 partyText: '💼 Bên Mua Trễ Hạn Cắt 24h',
+                injuredPartyText: `🌾 Bên Bán (${contract.seller}) - Đã chuyển tiền đền bù cọc qua Ví Escrow MBBank`,
                 reason: 'Quá 24h từ mốc cắt cam kết không đến thu mua',
-                escrowActionText: `Tịch thu cọc Escrow ${Number(contract.depositVal).toLocaleString('vi-VN')} VNĐ đền bù Nhà Vườn`,
-                timeStr: `${now.getDate()}/${now.getMonth()+1}/${now.getFullYear()} ${now.getHours()}:${now.getMinutes()<10?'0':''}${now.getMinutes()}`
+                escrowActionText: `Đã chuyển ${depositAmount.toLocaleString('vi-VN')} VNĐ từ Ví Escrow MBBank đền bù cho Bên Bán`,
+                processedStatusText: 'Đã chuyển tiền lại cho bên thiệt hại & hợp đồng đã được xử lý',
+                timeStr
             };
             saveUserContractsState();
+            updateContractDropdown();
+            updatePortfolioSummary();
             renderActiveContractUI();
-            alert('⏰ Đã ghi nhận xử lý vi phạm trễ hạn cắt 24h!');
+            alert('✅ Đã chuyển tiền đền bù cho bên thiệt hại & hợp đồng trễ hạn 24h đã được xử lý!');
         }
 
         function openCancelDepositModal() {
+            const contract = userContracts.find(c => c.id === currentContractId);
+            if (!contract) return;
+            if (contract.status === 'cancelled_deposit' || contract.isProcessed) {
+                alert('ℹ️ Hợp đồng này đã được hủy cọc và xử lý trước đó.');
+                return;
+            }
             document.getElementById('modal-cancel-deposit').style.display = 'flex';
         }
 
         function executeCancelDeposit() {
             const contract = userContracts.find(c => c.id === currentContractId);
             if (!contract) return;
+            if (contract.status === 'cancelled_deposit' || contract.isProcessed) {
+                closeModal('modal-cancel-deposit');
+                alert('ℹ️ Hợp đồng này đã được xử lý.');
+                return;
+            }
             const party = document.getElementById('cancel-deposit-party-select').value;
             const reason = document.getElementById('cancel-deposit-reason').value.trim() || 'Tự ý hủy cọc hợp đồng';
+            const depositAmount = getActiveContractDepositAmount();
             const now = new Date();
+            const timeStr = `${now.getDate()}/${now.getMonth()+1}/${now.getFullYear()} ${now.getHours()}:${now.getMinutes()<10?'0':''}${now.getMinutes()}`;
+
+            const isBuyerCancel = party === 'buyer';
+            const partyText = isBuyerCancel ? '💼 Bên Mua Tự Ý Hủy Cọc' : '🌾 Bên Bán Tự Ý Hủy Cọc';
+            const injuredPartyText = isBuyerCancel
+                ? `🌾 Bên Bán (${contract.seller}) - Đã nhận tiền đền bù cọc`
+                : `💼 Bên Mua (${contract.buyer}) - Đã nhận lại tiền cọc & đền bù`;
+            const escrowActionText = isBuyerCancel
+                ? `Đã chuyển ${depositAmount.toLocaleString('vi-VN')} VNĐ từ Ví Escrow MBBank sang cho Bên Bán`
+                : `Đã chuyển hoàn trả + đền bù ${depositAmount.toLocaleString('vi-VN')} VNĐ từ Ví Escrow MBBank sang cho Bên Mua`;
+
             contract.status = 'cancelled_deposit';
+            contract.isProcessed = true;
+            contract.remainingDepositVal = 0;
             contract.cancelDepositRecord = {
-                partyText: party === 'buyer' ? '💼 Bên Mua Tự Ý Hủy Cọc' : '🌾 Bên Bán Tự Ý Hủy Cọc',
+                partyText,
+                injuredPartyText,
                 reason,
-                escrowActionText: `Xử lý phạt cọc Escrow ${Number(contract.depositVal).toLocaleString('vi-VN')} VNĐ theo Điều 328 BLDS`,
-                timeStr: `${now.getDate()}/${now.getMonth()+1}/${now.getFullYear()} ${now.getHours()}:${now.getMinutes()<10?'0':''}${now.getMinutes()}`
+                escrowActionText,
+                processedStatusText: 'Đã chuyển tiền lại cho bên thiệt hại & hợp đồng đã được xử lý',
+                timeStr
             };
             saveUserContractsState();
             closeModal('modal-cancel-deposit');
             updateContractDropdown();
+            updatePortfolioSummary();
             renderActiveContractUI();
-            alert('⚠️ Đã ghi nhận biên bản hủy cọc & xử lý phạt Escrow!');
+            alert(`✅ Đã hủy cọc & chuyển tiền lại cho bên thiệt hại (${depositAmount.toLocaleString('vi-VN')} VNĐ). Hợp đồng #DT-${contract.id.toString().slice(-4)} đã được xử lý!`);
         }
 
         function cancelDraftContract() {
             const contract = userContracts.find(c => c.id === currentContractId);
             if (!contract) return;
+            if (contract.isSigned || contract.isPaid || contract.status === 'locked_deposit' || contract.isFinalized || contract.isProcessed) {
+                alert('🔒 Hợp đồng đã ký / khóa cọc / chốt / xử lý — không thể hủy dự thảo trực tiếp!');
+                return;
+            }
             userContracts = userContracts.filter(c => c.id !== currentContractId);
             currentContractId = userContracts.length > 0 ? userContracts[0].id : null;
             saveUserContractsState();
@@ -2201,6 +2517,14 @@
         function finalizeContract() {
             const contract = userContracts.find(c => c.id === currentContractId);
             if (!contract) return;
+            if (contract.isFinalized) {
+                alert('🔒 Hợp đồng này đã được chốt và khóa SHA-256!');
+                return;
+            }
+            if (contract.status === 'cancelled_deposit' || contract.isProcessed) {
+                alert('🔒 Hợp đồng này đã hủy cọc và đã được xử lý!');
+                return;
+            }
             if (!contract.isSigned && !contract.signatureDataUrl) {
                 alert('⚠️ Vui lòng ký ngón tay và bấm "Lưu & Ký Hợp Đồng" trước khi chốt!');
                 return;
@@ -2263,6 +2587,19 @@
         function simulatePaymentSuccess() {
             const contract = userContracts.find(c => c.id === currentContractId);
             if (!contract) return;
+            if (contract.isPaid || contract.status === 'locked_deposit') {
+                closeModal('modal-payment');
+                alert('🔒 Cọc Escrow 10% của hợp đồng này đã được khóa!');
+                return;
+            }
+            if (contract.isFinalized || contract.status === 'cancelled_deposit' || contract.isProcessed) {
+                closeModal('modal-payment');
+                alert('🔒 Hợp đồng đã chốt hoặc đã được xử lý, không thể nộp cọc mới!');
+                return;
+            }
+            const exactDeposit = getActiveContractDepositAmount();
+            contract.depositVal = exactDeposit;
+            contract.remainingDepositVal = exactDeposit;
             contract.isPaid = true;
             contract.status = 'locked_deposit';
             saveUserContractsState();
@@ -2276,7 +2613,7 @@
                 buyerPhone: contract.buyerPhone || '0912.345.678',
                 sellerName: contract.seller,
                 recipient: 'DURITRADE ESCROW MBBANK (STK: 1012345678)',
-                amount: contract.depositVal,
+                amount: exactDeposit,
                 code: `DT${contract.id.toString().slice(-4)} COC BAO CHUNG`,
                 time: `${now.getDate()}/${now.getMonth()+1}/${now.getFullYear()} ${now.getHours()}:${now.getMinutes()<10?'0':''}${now.getMinutes()}`
             });
