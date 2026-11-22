@@ -282,7 +282,8 @@
                             </div>
                             <div class="form-group" style="flex: 1;">
                                 <label class="form-label">Giá Mong Muốn (đ/kg)</label>
-                                <input type="number" id="post-price" class="form-input" placeholder="55000" required>
+                                <input type="text" id="post-price" class="form-input" placeholder="55000" inputmode="numeric" pattern="[0-9]*" autocomplete="off" required>
+                                <div id="post-price-hint" style="font-size: 10.5px; color: #1b5e20; margin-top: 3px;">Chỉ cho phép nhập chữ số (0-9)</div>
                             </div>
                         </div>
                         <div style="display: flex; gap: 8px;">
@@ -671,6 +672,7 @@
                 <label class="form-label">Tiền Cọc Hiện Tại Của Hợp Đồng Đang Chọn: <span id="admin-arb-current-deposit-label" style="color:#1b5e20; font-weight:800;">82.500.000 VNĐ</span></label>
                 <label class="form-label" style="margin-top:4px;">Mức Phạt Khấu Trừ Tiền Cọc Escrow MBBank</label>
                 <select id="admin-deduct-rate-select" class="form-select">
+                    <option value="0.00">Khấu trừ 0% tiền cọc (0 VNĐ)</option>
                     <option value="0.20">Khấu trừ 20% tiền cọc</option>
                     <option value="0.30">Khấu trừ 30% tiền cọc</option>
                     <option value="0.50">Khấu trừ 50% tiền cọc</option>
@@ -1005,6 +1007,7 @@
             sessionStorage.setItem('duritrade_user_role', role);
             closeAuthGate();
             checkUserAuthSession();
+            initPriceDigitsOnlyRestriction();
         }
 
         function handleAuthRegister(event) {
@@ -1354,7 +1357,6 @@
                     map.set(key, { ...item });
                 } else {
                     const existing = map.get(key);
-                    // Keep the most advanced / locked / finalized / cancelled state
                     const priority = (c) => {
                         if (c.status === 'cancelled_deposit' || c.isProcessed) return 5;
                         if (c.isFinalized) return 4;
@@ -1503,7 +1505,6 @@
                 userContracts.push(contract);
                 saveUserContractsState();
             } else {
-                // Ensure exact deposit calculation (10% of quantity * 1000 * price)
                 const qty = Number(contract.quantity) || Number(item.quantity) || 10;
                 const price = Number(contract.price) || Number(item.price) || 50000;
                 const totalVal = qty * 1000 * price;
@@ -1615,7 +1616,6 @@
                 }
             }
 
-            // LOCK SIGNATURE WHEN SIGNED OR FINALIZED OR PROCESSED
             const btnSaveSig = document.getElementById('btn-save-sig');
             const btnClearSig = document.getElementById('btn-clear-sig');
             const sigLocked = isSignedLocked || isFinalLocked || isCancelledOrProcessed;
@@ -1640,7 +1640,6 @@
                 btnClearSig.style.cursor = sigLocked ? 'not-allowed' : 'pointer';
             }
 
-            // LOCK DEPOSIT PAYMENT WHEN ALREADY PAID / LOCKED OR FINALIZED OR CANCELLED/PROCESSED
             const btnPay = document.getElementById('btn-payment-modal');
             const payLocked = isDepositLocked || isFinalLocked || isCancelledOrProcessed;
             if (btnPay) {
@@ -1666,7 +1665,6 @@
                 }
             }
 
-            // LOCK FINALIZE BUTTON ONCE FINALIZED OR CANCELLED/PROCESSED
             const btnFinalize = document.getElementById('btn-finalize-contract');
             const finalizeLocked = isFinalLocked || isCancelledOrProcessed;
             if (btnFinalize) {
@@ -1685,7 +1683,6 @@
                 }
             }
 
-            // CANCEL DEPOSIT RESULT & REFUND / PROCESSED NOTICE
             const cancelResultCard = document.getElementById('cancel-deposit-result-card');
             if (cancelResultCard) {
                 if (contract.status === 'cancelled_deposit' && contract.cancelDepositRecord) {
@@ -1795,13 +1792,72 @@
             }
         }
 
+        
+        function enforceNumericOnlyInput(inputEl) {
+            if (!inputEl) return;
+            const raw = inputEl.value;
+            const digitsOnly = raw.replace(/[^0-9]/g, '');
+            if (raw !== digitsOnly) {
+                inputEl.value = digitsOnly;
+            }
+            const hintEl = document.getElementById('post-price-hint');
+            if (hintEl && inputEl.id === 'post-price') {
+                if (raw !== digitsOnly) {
+                    hintEl.style.color = '#d32f2f';
+                    hintEl.innerText = '⚠️ Chỉ cho phép viết chữ số (0-9) cho phần giá!';
+                } else {
+                    hintEl.style.color = '#1b5e20';
+                    hintEl.innerText = digitsOnly ? `Giá hợp lệ: ${Number(digitsOnly).toLocaleString('vi-VN')} đ/kg` : 'Chỉ cho phép nhập chữ số (0-9)';
+                }
+            }
+        }
+
+        function initPriceDigitsOnlyRestriction() {
+            const priceInput = document.getElementById('post-price');
+            if (!priceInput || priceInput.dataset.digitsOnlyBound === 'true') return;
+            priceInput.dataset.digitsOnlyBound = 'true';
+
+            priceInput.addEventListener('keydown', (e) => {
+                if (e.ctrlKey || e.metaKey || e.altKey) return;
+                const allowedControlKeys = ['Backspace', 'Delete', 'Tab', 'Escape', 'Enter', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home', 'End'];
+                if (allowedControlKeys.includes(e.key)) return;
+                if (!/^[0-9]$/.test(e.key)) {
+                    e.preventDefault();
+                    const hintEl = document.getElementById('post-price-hint');
+                    if (hintEl) {
+                        hintEl.style.color = '#d32f2f';
+                        hintEl.innerText = '⚠️ Phần giá chỉ cho phép viết chữ số (0-9)!';
+                    }
+                }
+            });
+
+            priceInput.addEventListener('input', () => enforceNumericOnlyInput(priceInput));
+            priceInput.addEventListener('paste', (e) => {
+                e.preventDefault();
+                const pasted = (e.clipboardData || window.clipboardData).getData('text') || '';
+                const digitsOnly = pasted.replace(/[^0-9]/g, '');
+                const start = priceInput.selectionStart || 0;
+                const end = priceInput.selectionEnd || 0;
+                priceInput.value = priceInput.value.slice(0, start) + digitsOnly + priceInput.value.slice(end);
+                enforceNumericOnlyInput(priceInput);
+            });
+        }
+
         function handleFormSubmit(event) {
             event.preventDefault();
             const role = document.getElementById('post-role').value;
             const title = document.getElementById('post-title').value.trim();
             const location = document.getElementById('post-location').value.trim();
             const quantity = Number(document.getElementById('post-quantity').value) || 10;
-            const price = Number(document.getElementById('post-price').value) || 50000;
+            const priceInputEl = document.getElementById('post-price');
+            enforceNumericOnlyInput(priceInputEl);
+            const rawPriceStr = priceInputEl ? priceInputEl.value.trim() : '';
+            if (!/^[0-9]+$/.test(rawPriceStr) || Number(rawPriceStr) <= 0) {
+                alert('⚠️ Phần giá chỉ được phép viết chữ số (0-9) và lớn hơn 0!');
+                if (priceInputEl) priceInputEl.focus();
+                return;
+            }
+            const price = Number(rawPriceStr);
             const brix = document.getElementById('post-brix').value.trim() || 'BRIX ≥ 32°';
             const gps = document.getElementById('post-gps').value.trim() || '12.6853° N, 108.2142° E';
             const dao1Date = document.getElementById('post-dao1-date').value.trim() || '01/12/2026';
@@ -1982,73 +2038,6 @@
             return calculated > 0 ? calculated : (Number(contract.depositVal) || 82500000);
         }
 
-        function openAdminArbitrateModal() {
-            const arbM = document.getElementById('modal-admin-arbitrate'); if (arbM) { arbM.style.zIndex = '900'; arbM.style.display = 'flex'; }
-        }
-
-        function executeAdminDeduction() {
-            const arbVal = document.getElementById('admin-arbitrator-select').value;
-            const partyVal = document.getElementById('admin-violating-party-select').value;
-            const rateVal = parseFloat(document.getElementById('admin-deduct-rate-select').value);
-            const originalDeposit = 82500000;
-            const deductedVal = originalDeposit * rateVal;
-            const remainingVal = originalDeposit - deductedVal;
-
-            let partyText = '', flowText = '';
-            if (partyVal === 'farmer') {
-                partyText = '🌾 Bên Bán (Nhà Vườn) Vi Phạm';
-                flowText = `Hoàn ${deductedVal.toLocaleString('vi-VN')} VNĐ từ Ví Escrow MBBank về Bên Mua.`;
-            } else if (partyVal === 'buyer') {
-                partyText = '💼 Bên Mua (Thương Lái) Vi Phạm';
-                flowText = `Tịch thu ${deductedVal.toLocaleString('vi-VN')} VNĐ từ Ví Escrow MBBank đền bù Bên Bán.`;
-            } else {
-                partyText = '🌧️ Thời Tiết Bất Khả Kháng';
-                flowText = `Hoàn 100% cọc (${originalDeposit.toLocaleString('vi-VN')} VNĐ) cho Bên Mua & miễn phạt.`;
-            }
-
-            const now = new Date();
-            const timeStr = `${now.getDate()}/${now.getMonth()+1}/${now.getFullYear()} ${now.getHours()}:${now.getMinutes()<10?'0':''}${now.getMinutes()}`;
-            localStorage.setItem('duritrade_violation_applied', 'true');
-            localStorage.setItem('duritrade_violation_party', partyText);
-            localStorage.setItem('duritrade_violation_flow', flowText);
-            localStorage.setItem('duritrade_violation_reason', 'Phán quyết xử lý phạt trừ cọc Escrow của Admin');
-            localStorage.setItem('duritrade_violation_deduct', deductedVal.toString());
-            localStorage.setItem('duritrade_violation_remaining', remainingVal.toString());
-            localStorage.setItem('duritrade_violation_time', timeStr);
-            localStorage.setItem('duritrade_arbitrator_selected', arbVal);
-            const reports = JSON.parse(localStorage.getItem('duritrade_admin_reports')) || [];
-            const idxToRemove = (typeof window._activeArbitrateReportIdx === 'number' && window._activeArbitrateReportIdx >= 0 && window._activeArbitrateReportIdx < reports.length)
-                ? window._activeArbitrateReportIdx : 0;
-            if (reports.length > 0) {
-                reports.splice(idxToRemove, 1);
-                localStorage.setItem('duritrade_admin_reports', JSON.stringify(reports));
-            }
-            if (contract) {
-                let escNotifs = JSON.parse(localStorage.getItem('duritrade_admin_escrow_notifs')) || [];
-                escNotifs = escNotifs.filter(n => String(n.contractId) !== String(contract.id));
-                localStorage.setItem('duritrade_admin_escrow_notifs', JSON.stringify(escNotifs));
-            }
-            renderAdminIncidentReports();
-            if (typeof renderAdminEscrowNotifications === 'function') renderAdminEscrowNotifications();
-            applyViolationState();
-            closeModal('modal-admin-arbitrate');
-            alert('⚖️ Đã xử lý trừ cọc & xóa thư tố cáo/thông tin đã giải quyết để giữ giao diện gọn nhẹ!');
-        }
-
-        function applyViolationState() {
-            if (localStorage.getItem('duritrade_violation_applied') !== 'true') return;
-            const vCard = document.getElementById('violation-result-card');
-            if (!vCard) return;
-            vCard.style.display = 'block';
-            document.getElementById('violation-party-text').innerText = localStorage.getItem('duritrade_violation_party') || '';
-            document.getElementById('violation-reason-text').innerText = localStorage.getItem('duritrade_violation_reason') || '';
-            document.getElementById('violation-deduct-text').innerText = `- ${Number(localStorage.getItem('duritrade_violation_deduct') || 0).toLocaleString('vi-VN')} VNĐ`;
-            document.getElementById('violation-flow-text').innerText = localStorage.getItem('duritrade_violation_flow') || '';
-            document.getElementById('violation-remaining-text').innerText = `${Number(localStorage.getItem('duritrade_violation_remaining') || 0).toLocaleString('vi-VN')} VNĐ`;
-            document.getElementById('violation-arb-text').innerText = localStorage.getItem('duritrade_arbitrator_selected') || '';
-            document.getElementById('violation-time-text').innerText = localStorage.getItem('duritrade_violation_time') || '';
-        }
-
         function openAdminArbitrateModal(reportIdx = 0) {
             window._activeArbitrateReportIdx = typeof reportIdx === 'number' ? reportIdx : 0;
             const originalDeposit = getActiveContractDepositAmount();
@@ -2056,11 +2045,13 @@
             if (depLabel) depLabel.innerText = `${originalDeposit.toLocaleString('vi-VN')} VNĐ`;
             const rateSelect = document.getElementById('admin-deduct-rate-select');
             if (rateSelect) {
-                const rates = [0.20, 0.30, 0.50, 1.00];
+                const rates = [0.00, 0.20, 0.30, 0.50, 1.00];
                 Array.from(rateSelect.options).forEach((opt, idx) => {
-                    const r = rates[idx] || 0.20;
+                    const r = rates[idx] !== undefined ? rates[idx] : 0.20;
                     const amt = Math.round(originalDeposit * r);
-                    opt.text = `Khấu trừ ${Math.round(r * 100)}% cọc (${amt.toLocaleString('vi-VN')} VNĐ)`;
+                    opt.text = r === 0
+                        ? `Khấu trừ 0% tiền cọc (0 VNĐ)`
+                        : `Khấu trừ ${Math.round(r * 100)}% tiền cọc (${amt.toLocaleString('vi-VN')} VNĐ)`;
                 });
             }
             const arbM = document.getElementById('modal-admin-arbitrate'); if (arbM) { arbM.style.zIndex = '900'; arbM.style.display = 'flex'; }
@@ -2078,13 +2069,19 @@
             let partyText = '', flowText = '';
             if (partyVal === 'farmer') {
                 partyText = '🌾 Bên Bán (Nhà Vườn) Vi Phạm';
-                flowText = `Hoàn ${deductedVal.toLocaleString('vi-VN')} VNĐ từ Ví Escrow MBBank về Bên Mua (${contract ? contract.buyer : 'Bên Mua'}).`;
+                flowText = rateVal === 0
+                    ? `Khấu trừ 0% (0 VNĐ) — Giữ nguyên tiền cọc (${originalDeposit.toLocaleString('vi-VN')} VNĐ) tại Ví Escrow MBBank.`
+                    : `Hoàn ${deductedVal.toLocaleString('vi-VN')} VNĐ từ Ví Escrow MBBank về Bên Mua (${contract ? contract.buyer : 'Bên Mua'}).`;
             } else if (partyVal === 'buyer') {
                 partyText = '💼 Bên Mua (Thương Lái) Vi Phạm';
-                flowText = `Tịch thu & chuyển ${deductedVal.toLocaleString('vi-VN')} VNĐ từ Ví Escrow MBBank đền bù Bên Bán (${contract ? contract.seller : 'Bên Bán'}).`;
+                flowText = rateVal === 0
+                    ? `Khấu trừ 0% (0 VNĐ) — Giữ nguyên tiền cọc (${originalDeposit.toLocaleString('vi-VN')} VNĐ) tại Ví Escrow MBBank.`
+                    : `Tịch thu & chuyển ${deductedVal.toLocaleString('vi-VN')} VNĐ từ Ví Escrow MBBank đền bù Bên Bán (${contract ? contract.seller : 'Bên Bán'}).`;
             } else {
                 partyText = '🌧️ Thời Tiết Bất Khả Kháng';
-                flowText = `Hoàn 100% cọc (${originalDeposit.toLocaleString('vi-VN')} VNĐ) cho Bên Mua & miễn phạt.`;
+                flowText = rateVal === 0
+                    ? `Khấu trừ 0% (0 VNĐ) & miễn phạt — Giữ nguyên ${originalDeposit.toLocaleString('vi-VN')} VNĐ cọc tại Ví Escrow MBBank.`
+                    : `Hoàn ${Math.round(rateVal * 100)}% cọc (${deductedVal.toLocaleString('vi-VN')} VNĐ) cho Bên Mua & miễn phạt.`;
             }
 
             if (contract) {
@@ -2099,7 +2096,7 @@
             localStorage.setItem('duritrade_violation_applied', 'true');
             localStorage.setItem('duritrade_violation_party', partyText);
             localStorage.setItem('duritrade_violation_flow', flowText);
-            localStorage.setItem('duritrade_violation_reason', `Phán quyết xử lý phạt trừ ${Math.round(rateVal * 100)}% cọc Escrow của Admin`);
+            localStorage.setItem('duritrade_violation_reason', rateVal === 0 ? 'Phán quyết khấu trừ 0% cọc Escrow (0 VNĐ) của Admin' : `Phán quyết xử lý phạt trừ ${Math.round(rateVal * 100)}% cọc Escrow của Admin`);
             localStorage.setItem('duritrade_violation_deduct', deductedVal.toString());
             localStorage.setItem('duritrade_violation_remaining', remainingVal.toString());
             localStorage.setItem('duritrade_violation_time', timeStr);
@@ -2120,7 +2117,7 @@
             if (typeof renderAdminEscrowNotifications === 'function') renderAdminEscrowNotifications();
             applyViolationState();
             closeModal('modal-admin-arbitrate');
-            alert('⚖️ Đã xử lý trừ cọc & xóa thư tố cáo/thông tin đã giải quyết để giữ giao diện gọn nhẹ!');
+            alert('⚖️ Đã áp dụng phán quyết khấu trừ cọc Escrow thành công!');
         }
 
         function applyViolationState() {
