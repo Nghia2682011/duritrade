@@ -451,7 +451,7 @@
 
                     <div style="display: flex; gap: 6px; margin-top: 8px;">
                         <button type="button" id="btn-weather-delay" class="btn btn-outline" style="border-color: #0288d1; color: #0288d1; font-weight: bold; flex: 1; font-size: 11px; padding: 7px;" onclick="openWeatherDelayModal()">🌧️ Gửi Yêu Cầu Dời Lịch Cắt</button>
-                        <button type="button" id="btn-late-cut-report" class="btn btn-outline" style="border-color: #d32f2f; color: #d32f2f; font-weight: bold; flex: 1; font-size: 11px; padding: 7px;" onclick="reportLateCut24h()">⏰ Phạt Trễ Hạn Cắt 24h</button>
+                        <button type="button" id="btn-late-cut-report" class="btn btn-outline" style="border-color: #d32f2f; color: #d32f2f; font-weight: bold; flex: 1; font-size: 11px; padding: 7px;" onclick="reportLateCut24h()">⏰ Phạt Trễ Hạn 24h (10-30%)</button>
                     </div>
                     <div id="weather-delay-status-badge" style="display: none; margin-top: 6px; font-size: 11px; color: #0288d1; background: #e1f5fe; padding: 6px; border-radius: 5px; border: 1px solid #81d4fa; text-align: center; font-weight: bold;">🌧️ <span id="weather-delay-text"></span></div>
 
@@ -569,30 +569,82 @@
         </nav>
     </div>
 
-    <!-- MODAL 1: PHÁP LÝ -->
+    <!-- MODAL 1: PHÁP LÝ & NỘI QUY CỌC -->
     <div id="modal-legal" class="modal-overlay">
         <div class="modal-card">
             <div class="modal-header">
-                <div class="modal-title">⚖️ Căn Cứ Pháp Lý & Quy Định Sàn DuriTrade</div>
+                <div class="modal-title">⚖️ Căn Cứ Pháp Lý & Nội Quy Cọc DuriTrade</div>
                 <button type="button" class="btn-close" onclick="closeModal('modal-legal')">✕</button>
             </div>
-            <div class="legal-item">
-                <h4>1. Quy Định Đặt Cọc & Phạt Cọc (Điều 328 Bộ Luật Dân Sự 2015)</h4>
-                <p>Tiền đặt cọc Escrow được phong tỏa tại Ngân hàng MBBank để bảo đảm thực hiện hợp đồng thu mua sầu riêng. Bên bẻ cọc hoặc vi phạm cam kết chịu phạt trừ cọc theo quy định.</p>
+
+            <div class="legal-item" style="background:#fff8e1; border:1.5px solid #fbc02d; border-radius:8px; padding:10px;">
+                <h4 style="color:#b78103; font-size:13px;">📜 1. NỘI QUY ĐẶT CỌC, GIỮ CỌC & XỬ LÝ VI PHẠM (ESCROW)</h4>
+                <p style="margin-bottom:6px;">
+                    Mức đặt cọc tiêu chuẩn là <strong>10% tổng giá trị hợp đồng</strong>, được khóa tại tài khoản trung gian bảo chứng <strong>MBBank – LE DINH NGHIA (SĐT: 0944762616)</strong>. Tiền cọc chỉ được giải ngân hoặc khấu trừ khi có xác nhận hoàn thành dao cắt hoặc phán quyết trọng tài trên hệ thống.
+                </p>
+                <table class="admin-table" style="background:#fff; border:1px solid #ffe082; margin-bottom:6px;">
+                    <thead>
+                        <tr>
+                            <th>Tình huống phát sinh</th>
+                            <th>Mức xử lý cọc</th>
+                            <th>Hướng giải ngân Escrow</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Giao dịch đúng hẹn & đạt BRIX</strong></td>
+                            <td>Hoàn / Đối trừ 100%</td>
+                            <td>Trừ vào tiền thanh toán đợt cuối cho Nông dân</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Trễ hạn cắt trong 24h đầu</strong></td>
+                            <td>Phạt 10% – 30% cọc</td>
+                            <td>Chuyển bù cho bên bị trễ; giữ phần còn lại tiếp tục HĐ</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Trễ quá 48h hoặc sai lệch BRIX/Hàng A</strong></td>
+                            <td>Phạt 30% – 70% cọc</td>
+                            <td>Bồi thường bên thiệt hại theo biên bản kiểm tra thực địa</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Tự ý bẻ cọc / Hủy ngang hợp đồng</strong></td>
+                            <td>Phạt 100% tiền cọc</td>
+                            <td>Bồi thường toàn bộ cọc cho bên tuân thủ (Điều 328 BLDS)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Bất khả kháng (bão lũ, thiên tai được duyệt)</strong></td>
+                            <td>Miễn phạt (0%)</td>
+                            <td>Dời lịch cắt theo thỏa thuận hoặc hoàn trả nguyên cọc</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <ul style="margin-left:16px; font-size:11.5px; line-height:1.5; color:#333;">
+                    <li>• <strong>Nguyên tắc không tịch thu nóng:</strong> Vi phạm trễ hạn lần đầu trong 24h chỉ khấu trừ 10%–30% để răn đe, bảo vệ quyền lợi tiếp tục thu hoạch cho cả hai bên.</li>
+                    <li>• <strong>Khóa thao tác sau khi hủy cọc:</strong> Khi biên bản hủy cọc/đền bù đã thực thi trên Server chung, trạng thái hợp đồng được khóa vĩnh viễn để chống gian lận.</li>
+                </ul>
             </div>
+
             <div class="legal-item">
-                <h4>2. Giá Trị Pháp Lý Hợp Đồng Điện Tử (Luật Giao Dịch Điện Tử 2023)</h4>
-                <p>Chữ ký điện tử cảm ứng ngón tay đính kèm dấu thời gian và tọa độ GPS vườn có giá trị đối soát rõ ràng khi phát sinh tranh chấp.</p>
+                <h4>2. Căn Cứ Bộ Luật Dân Sự 2015 (Điều 328 – Đặt Cọc)</h4>
+                <p>Nếu bên đặt cọc từ chối việc giao kết, thực hiện hợp đồng thì tài sản đặt cọc thuộc về bên nhận đặt cọc; nếu bên nhận đặt cọc từ chối việc giao kết, thực hiện hợp đồng thì phải trả cho bên đặt cọc tài sản đặt cọc và một khoản tiền tương đương giá trị tài sản đặt cọc (hoặc theo tỷ lệ thỏa thuận tại Nội quy cọc Mục 1).</p>
             </div>
+
             <div class="legal-item">
-                <h4>3. Bảo Mật Định Vị GPS & Thông Tin (Nghị định 13/2023/NĐ-CP)</h4>
-                <p>Thông tin định danh cá nhân SĐT/CCCD được bảo vệ và hiển thị đầy đủ khi hợp đồng bước vào trạng thái ký/khóa cọc hoặc trong Cổng Admin.</p>
+                <h4>3. Giá Trị Pháp Lý Hợp Đồng Điện Tử (Luật Giao Dịch Điện Tử 2023)</h4>
+                <p>Chữ ký điện tử cảm ứng ngón tay đính kèm mã băm <strong>SHA-256</strong>, dấu thời gian thực và tọa độ GPS vườn có giá trị pháp lý làm chứng cứ đối soát khi phát sinh tranh chấp.</p>
             </div>
+
             <div class="legal-item">
-                <h4>4. Cơ Chế Phân Xử Trọng Tài BRIX P2P & Ban Quản Trị Sàn</h4>
-                <p>Ban Quản Trị Sàn tiếp nhận khiếu nại qua Hộp thư Tố cáo Mail, phản hồi 2 bên và ra phán quyết khấu trừ tiền cọc Escrow.</p>
+                <h4>4. Bảo Mật Dữ Liệu eKYC & GPS (Nghị định 13/2023/NĐ-CP)</h4>
+                <p>SĐT và số CCCD chính chủ được mã hóa che một phần ở trạng thái nháp và chỉ mở khóa đầy đủ khi hợp đồng đã ký điện tử, khóa cọc hoặc phục vụ đối soát tại Cổng Admin.</p>
             </div>
-            <button type="button" class="btn btn-primary" onclick="closeModal('modal-legal')" style="margin-top: 8px;">✅ Tôi Đã Hiểu Rõ Quy Định</button>
+
+            <div class="legal-item">
+                <h4>5. Cơ Chế Trọng Tài BRIX P2P & Đồng Bộ Server Chung</h4>
+                <p>Mọi khiếu nại, lệnh cử cán bộ kiểm tra vườn và phán quyết trừ/hoàn cọc được cập nhật đồng bộ theo thời gian thực trên Server chung cho Nông dân, Thương lái và Ban Quản Trị.</p>
+            </div>
+
+            <button type="button" class="btn btn-primary" onclick="closeModal('modal-legal')" style="margin-top: 8px;">✅ Tôi Đã Đọc & Đồng Ý Nội Quy Cọc</button>
         </div>
     </div>
 
@@ -605,16 +657,17 @@
             </div>
             <div class="qr-box">
                 <div style="font-size: 13px; font-weight: bold; color: var(--primary);">NGÂN HÀNG TMCP QUÂN ĐỘI (MBBANK)</div>
-                <div style="font-size: 11px; color: #666; margin-bottom: 6px;">Tài Khoản Escrow Bảo Chứng Trung Gian DuriTrade</div>
+                <div style="font-size: 11px; color: #666; margin-bottom: 6px;">Tài Khoản Escrow - LE DINH NGHIA</div>
                 <div style="text-align: center; margin: 8px 0;">
-                    <img id="pay-modal-qr-img" src="https://img.vietqr.io/image/MB-1012345678-compact2.png?amount=82500000&addInfo=DT8892%20COC%20BAO%20CHUNG&accountName=DURITRADE%20ESCROW%20MBBANK" style="width: 195px; height: 195px; border-radius: 8px; border: 2px solid var(--primary); background: #fff; padding: 4px;" alt="Mã VietQR MBBank Payment">
+                    <img id="pay-modal-qr-img" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/Z" style="width: 195px; height: 195px; border-radius: 8px; border: 2px solid var(--primary); background: #fff; padding: 4px;" alt="Mã VietQR MBBank - LE DINH NGHIA">
                 </div>
                 <div style="font-size: 12px; line-height: 1.6; color: #333; text-align: left; background: #fff; padding: 8px; border-radius: 6px; border: 1px solid #e0e0e0;">
                     <p>📄 <strong>Hợp Đồng:</strong> <span id="pay-modal-contract-code" style="font-weight:bold; color:var(--primary);">#DT-8892</span></p>
-                    <p>💳 <strong>STK Escrow:</strong> <strong style="color: var(--danger);">1012345678</strong></p>
-                    <p>👤 <strong>Thụ Hưởng:</strong> <strong>DURITRADE ESCROW MBBANK</strong></p>
+                    <p>💳 <strong>SĐT / Liên hệ:</strong> <strong style="color: var(--danger);">0944762616</strong></p>
+                    <p>👤 <strong>Thụ Hưởng:</strong> <strong>LE DINH NGHIA (MBBank)</strong></p>
                     <p>💰 <strong>Tiền Cọc 10%:</strong> <strong id="pay-modal-amount" style="color: var(--danger);">82.500.000 VNĐ</strong></p>
                     <p>📝 <strong>Nội Dung CK:</strong> <span id="pay-modal-content" style="color: var(--primary); font-weight: bold;">DT8892 COC BAO CHUNG</span></p>
+                    <p style="font-size:10.5px; color:#666; margin-top:4px;">※ Quét mã QR bên trên để chuyển khoản đúng tài khoản Escrow.</p>
                 </div>
             </div>
             <button type="button" class="btn btn-primary" style="background: linear-gradient(135deg, #1b5e20, #2e7d32);" onclick="simulatePaymentSuccess()">✅ Xác Nhận Đã Chuyển Cọc Escrow</button>
@@ -1197,31 +1250,95 @@
             alert(decision === 'approved' ? '✅ Đã CHẤP NHẬN yêu cầu!' : '❌ Đã TỪ CHỐI yêu cầu!');
         }
 
+        function escapeAdminFileHtml(value) {
+            return String(value ?? '').replace(/[&<>"']/g, char => ({
+                '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+            }[char]));
+        }
+
+        function downloadAdminContractFile(contractId) {
+            const contract = loadAllContractsAcrossAccounts().find(c => String(c.id) === String(contractId));
+            if (!contract) {
+                alert('Không tìm thấy hồ sơ hợp đồng này.');
+                return;
+            }
+
+            const signature = contract.signatureDataUrl || localStorage.getItem('duritrade_sig_' + contract.id) || '';
+            const fields = [
+                ['Mã hợp đồng', `DT-${String(contract.id).slice(-4)}`],
+                ['Trạng thái', getContractStatusLabel(contract)],
+                ['Bên bán', contract.seller],
+                ['SĐT bên bán', contract.sellerPhone],
+                ['CCCD bên bán', contract.sellerCCCD || contract.sellerCccd],
+                ['Bên mua', contract.buyer],
+                ['SĐT bên mua', contract.buyerPhone],
+                ['CCCD/MST bên mua', contract.buyerCCCD || contract.buyerCccd],
+                ['Sản lượng', contract.quantity ? `${contract.quantity} Tấn` : ''],
+                ['Giá chốt', contract.price],
+                ['Tổng giá trị', contract.totalVal],
+                ['Tiền cọc', contract.depositVal],
+                ['GPS vườn', contract.gps],
+                ['Lịch thu hoạch', contract.harvestSchedule || contract.dao1Date],
+                ['Thời điểm ký/chốt', contract.finalizedTime || contract.signedTime],
+                ['Mã SHA-256', contract.hash || `DT-HASH-${contract.id}-SECURE`]
+            ].filter(([, value]) => value !== undefined && value !== null && value !== '');
+
+            const rows = fields.map(([label, value]) =>
+                `<tr><th>${escapeAdminFileHtml(label)}</th><td>${escapeAdminFileHtml(value)}</td></tr>`
+            ).join('');
+            const signatureSection = signature
+                ? `<section><h2>Chữ ký điện tử</h2><img class="signature" src="${signature}" alt="Chữ ký điện tử đã lưu"><p>Ảnh chữ ký được đính kèm trong hồ sơ này.</p></section>`
+                : '<section><h2>Chữ ký điện tử</h2><p>Không tìm thấy ảnh chữ ký được lưu.</p></section>';
+
+            const documentHtml = `<!doctype html>
+<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Hồ sơ hợp đồng DT-${escapeAdminFileHtml(String(contract.id).slice(-4))}</title>
+<style>
+body{font:15px/1.6 Arial,sans-serif;color:#1f2937;max-width:850px;margin:32px auto;padding:0 20px}
+h1{color:#166534;font-size:24px}h2{font-size:18px;color:#166534;margin-bottom:8px}
+table{width:100%;border-collapse:collapse;margin:18px 0}th,td{border:1px solid #d1d5db;padding:9px;text-align:left;vertical-align:top}
+th{width:30%;background:#f0fdf4}.signature{display:block;max-width:100%;max-height:220px;border:1px solid #d1d5db;background:#fff;padding:8px}
+.note{color:#64748b;font-size:12px;margin-top:24px}
+@media print{body{margin:0;max-width:none}}
+</style></head><body>
+<h1>HỒ SƠ HỢP ĐỒNG ĐIỆN TỬ DURITRADE</h1>
+<p>Hồ sơ hợp đồng và bằng chứng chữ ký được xuất từ khu vực quản trị.</p>
+<table>${rows}</table>${signatureSection}
+<p class="note">Tệp được tạo từ dữ liệu đang lưu trên trình duyệt. Vui lòng đối chiếu với hồ sơ giao dịch gốc khi cần xác minh.</p>
+</body></html>`;
+
+            const blob = new Blob([documentHtml], { type: 'text/html;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `DuriTrade_HopDong_${String(contract.id).replace(/[^a-zA-Z0-9_-]/g, '')}.html`;
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+            setTimeout(() => URL.revokeObjectURL(url), 1000);
+        }
+
         function renderAdminLegalVault() {
             const container = document.getElementById('admin-legal-vault-container');
             if (!container) return;
-            const keys = Object.keys(localStorage).filter(k => k.startsWith('duritrade_user_contracts_'));
-            let contracts = [];
-            keys.forEach(k => {
-                try { contracts = [...contracts, ...(JSON.parse(localStorage.getItem(k)) || [])]; } catch(e) {}
-            });
+            const contracts = loadAllContractsAcrossAccounts();
             if (contracts.length === 0) {
                 container.innerHTML = '<p style="color:#64748b; text-align:center; padding:10px; background:#fff; border-radius:6px;">Chưa có hợp đồng nào được tạo trong phiên hiện tại.</p>';
                 return;
             }
             container.innerHTML = contracts.map(c => {
                 const sigUrl = c.signatureDataUrl || localStorage.getItem('duritrade_sig_' + c.id);
+                const isSigned = Boolean(c.isSigned || c.isFinalized || c.isPaid || sigUrl);
                 return `
                 <div style="background:#fff; border:1px solid #c8e6c9; border-radius:8px; padding:8px; margin-bottom:7px; font-size:11px;">
-                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px;">
-                        <strong style="color:#1b5e20;">📄 HĐ #DT-${c.id.toString().slice(-4)} (${c.quantity} Tấn)</strong>
-                        <span class="badge ${c.isFinalized ? 'badge-success' : 'badge-escrow'}">${c.isFinalized ? 'Đã Chốt SHA-256' : 'Đang Xử Lý'}</span>
+                    <div style="display:flex; justify-content:space-between; align-items:center; gap:8px;">
+                        <div style="min-width:0;">
+                            <strong style="color:#1b5e20;">📄 HĐ #DT-${String(c.id).slice(-4)}</strong>
+                            <div style="color:#64748b; margin-top:3px;">${escapeAdminFileHtml(c.seller || 'Bên bán')} → ${escapeAdminFileHtml(c.buyer || 'Bên mua')} • ${escapeAdminFileHtml(c.quantity || '—')} Tấn</div>
+                        </div>
+                        <span class="badge ${c.isFinalized ? 'badge-success' : 'badge-escrow'}">${c.isFinalized ? 'Đã Chốt SHA-256' : (isSigned ? 'Đã ký' : 'Đang xử lý')}</span>
                     </div>
-                    <div style="color:#334155; line-height:1.5;">
-                        • Bán: ${c.seller} (${c.sellerPhone || '0987.654.321'}) | Mua: ${c.buyer} (${c.buyerPhone || '0912.345.678'})<br>
-                        • Cọc 10%: <strong>${Number(c.depositVal || 0).toLocaleString('vi-VN')} VNĐ</strong> • GPS: ${c.gps}
-                        ${sigUrl ? `<div style="margin-top:6px; padding-top:6px; border-top:1px dashed #cbd5e1;"><strong>✒️ Ảnh chữ ký:</strong><br><img src="${sigUrl}" alt="Chữ ký hợp đồng" style="max-height:70px; border:1px solid #cbd5e1; border-radius:4px; background:#fff; margin-top:3px;"></div>` : ''}
-                    </div>
+                    ${isSigned ? `<button type="button" class="btn btn-outline" style="margin-top:7px; width:100%; padding:7px; font-size:11px;" onclick="downloadAdminContractFile('${String(c.id).replace(/'/g, '')}')">📎 Tải hồ sơ hợp đồng + chữ ký (.HTML)</button>` : '<div style="margin-top:6px; color:#64748b;">Hợp đồng chưa ký — chưa có tệp hồ sơ.</div>'}
                 </div>
             `}).join('');
         }
@@ -1338,13 +1455,137 @@
             renderMarketList(role);
         }
 
+        // =========================================================================
+        // SHARED SERVER ARCHITECTURE (ĐỒNG BỘ SERVER CHUNG THAY VÌ ĐỘC LẬP TÀI KHOẢN)
+        // =========================================================================
+        const SHARED_SERVER_KEY = 'duritrade_shared_server_v1';
+        const SHARED_CHANNEL_NAME = 'duritrade_realtime_server_bus';
+        const sharedServerChannel = ('BroadcastChannel' in window) ? new BroadcastChannel(SHARED_CHANNEL_NAME) : null;
+
+        function getSharedServerState() {
+            try {
+                const raw = localStorage.getItem(SHARED_SERVER_KEY);
+                if (raw) {
+                    const parsed = JSON.parse(raw);
+                    return {
+                        version: parsed.version || 1,
+                        updatedAt: parsed.updatedAt || Date.now(),
+                        contracts: Array.isArray(parsed.contracts) ? parsed.contracts : [],
+                        marketItems: Array.isArray(parsed.marketItems) ? parsed.marketItems : null,
+                        adminReports: Array.isArray(parsed.adminReports) ? parsed.adminReports : [],
+                        escrowNotifs: Array.isArray(parsed.escrowNotifs) ? parsed.escrowNotifs : [],
+                        systemNotices: Array.isArray(parsed.systemNotices) ? parsed.systemNotices : [],
+                        requestsQueue: Array.isArray(parsed.requestsQueue) ? parsed.requestsQueue : [],
+                        adminPrices: parsed.adminPrices || null,
+                        signatures: parsed.signatures || {}
+                    };
+                }
+            } catch (e) {
+                console.warn('Lỗi đọc Server Chung:', e);
+            }
+            return {
+                version: 1,
+                updatedAt: Date.now(),
+                contracts: [],
+                marketItems: null,
+                adminReports: [],
+                escrowNotifs: [],
+                systemNotices: [],
+                requestsQueue: [],
+                adminPrices: null,
+                signatures: {}
+            };
+        }
+
+        function commitSharedServerState(patchObj, sourceTag = 'local') {
+            const current = getSharedServerState();
+            const nextState = {
+                ...current,
+                ...patchObj,
+                updatedAt: Date.now()
+            };
+            localStorage.setItem(SHARED_SERVER_KEY, JSON.stringify(nextState));
+
+            if (Array.isArray(nextState.contracts)) {
+                localStorage.setItem('duritrade_shared_contracts_v1', JSON.stringify(nextState.contracts));
+            }
+            if (Array.isArray(nextState.marketItems)) {
+                localStorage.setItem('duritrade_market_items', JSON.stringify(nextState.marketItems));
+            }
+            if (Array.isArray(nextState.adminReports)) {
+                localStorage.setItem('duritrade_admin_reports', JSON.stringify(nextState.adminReports));
+            }
+            if (Array.isArray(nextState.escrowNotifs)) {
+                localStorage.setItem('duritrade_admin_escrow_notifs', JSON.stringify(nextState.escrowNotifs));
+            }
+            if (Array.isArray(nextState.systemNotices)) {
+                localStorage.setItem('duritrade_system_contract_notices', JSON.stringify(nextState.systemNotices));
+            }
+            if (Array.isArray(nextState.requestsQueue)) {
+                localStorage.setItem('duritrade_admin_requests_queue', JSON.stringify(nextState.requestsQueue));
+            }
+            if (nextState.adminPrices) {
+                localStorage.setItem('duritrade_admin_prices', JSON.stringify(nextState.adminPrices));
+            }
+
+            if (sharedServerChannel) {
+                sharedServerChannel.postMessage({
+                    type: 'SERVER_SYNC_UPDATE',
+                    source: sourceTag,
+                    updatedAt: nextState.updatedAt
+                });
+            }
+            return nextState;
+        }
+
+        function migrateLegacyDataToSharedServer() {
+            const server = getSharedServerState();
+            let mergedContracts = [...server.contracts];
+
+            Object.keys(localStorage).forEach(k => {
+                if (k.startsWith('duritrade_user_contracts_') || k === 'duritrade_shared_contracts_v1') {
+                    try {
+                        const arr = JSON.parse(localStorage.getItem(k)) || [];
+                        mergedContracts = mergedContracts.concat(arr);
+                    } catch (e) {}
+                }
+                if (k.startsWith('duritrade_sig_')) {
+                    const sigId = k.replace('duritrade_sig_', '');
+                    const sigVal = localStorage.getItem(k);
+                    if (sigVal && !server.signatures[sigId]) {
+                        server.signatures[sigId] = sigVal;
+                    }
+                }
+            });
+
+            mergedContracts = deduplicateContractsList(mergedContracts);
+
+            const legacyMarket = JSON.parse(localStorage.getItem('duritrade_market_items') || 'null');
+            const legacyReports = JSON.parse(localStorage.getItem('duritrade_admin_reports') || '[]');
+            const legacyEscrow = JSON.parse(localStorage.getItem('duritrade_admin_escrow_notifs') || '[]');
+            const legacyNotices = JSON.parse(localStorage.getItem('duritrade_system_contract_notices') || '[]');
+            const legacyQueue = JSON.parse(localStorage.getItem('duritrade_admin_requests_queue') || '[]');
+            const legacyPrices = JSON.parse(localStorage.getItem('duritrade_admin_prices') || 'null');
+
+            commitSharedServerState({
+                contracts: mergedContracts,
+                marketItems: server.marketItems || legacyMarket,
+                adminReports: server.adminReports.length ? server.adminReports : legacyReports,
+                escrowNotifs: server.escrowNotifs.length ? server.escrowNotifs : legacyEscrow,
+                systemNotices: server.systemNotices.length ? server.systemNotices : legacyNotices,
+                requestsQueue: server.requestsQueue.length ? server.requestsQueue : legacyQueue,
+                adminPrices: server.adminPrices || legacyPrices,
+                signatures: server.signatures
+            }, 'migration');
+        }
+
         function getCurrentUserObj() {
             const loggedUserStr = sessionStorage.getItem('duritrade_logged_user');
             return loggedUserStr ? JSON.parse(loggedUserStr) : { username: 'nongdan01', role: 'farmer', fullname: 'Nguyễn Văn A (Hộ Nông Dân)' };
         }
 
         function getSharedContractsStorageKey() {
-            return 'duritrade_shared_contracts_v1';
+            return SHARED_SERVER_KEY;
         }
 
         function deduplicateContractsList(list) {
@@ -1373,38 +1614,18 @@
         }
 
         function loadAllContractsAcrossAccounts() {
-            let merged = [];
-            try {
-                const shared = JSON.parse(localStorage.getItem(getSharedContractsStorageKey())) || [];
-                merged = [...merged, ...shared];
-            } catch(e) {}
-            const userKeys = Object.keys(localStorage).filter(k => k.startsWith('duritrade_user_contracts_'));
-            userKeys.forEach(k => {
-                try {
-                    const arr = JSON.parse(localStorage.getItem(k)) || [];
-                    merged = [...merged, ...arr];
-                } catch(e) {}
-            });
-            return deduplicateContractsList(merged);
+            const server = getSharedServerState();
+            return deduplicateContractsList(server.contracts || []);
         }
 
         function saveUserContractsState() {
             userContracts = deduplicateContractsList(userContracts);
-            const serialized = JSON.stringify(userContracts);
-            localStorage.setItem(getSharedContractsStorageKey(), serialized);
-            const user = getCurrentUserObj();
-            if (user && user.username) {
-                localStorage.setItem('duritrade_user_contracts_' + user.username, serialized);
-            }
-            const role = sessionStorage.getItem('duritrade_user_role');
-            if (role) {
-                localStorage.setItem('duritrade_user_contracts_role_' + role, serialized);
-            }
+            commitSharedServerState({ contracts: userContracts }, 'contracts_update');
         }
 
         function initUserContracts() {
+            migrateLegacyDataToSharedServer();
             userContracts = loadAllContractsAcrossAccounts();
-            saveUserContractsState();
             if (userContracts.length > 0) {
                 const exists = userContracts.some(c => c.id === currentContractId);
                 if (!exists) currentContractId = userContracts[0].id;
@@ -1414,6 +1635,39 @@
             updateContractDropdown();
             updatePortfolioSummary();
             renderActiveContractUI();
+        }
+
+        function syncFromSharedServerNow() {
+            const server = getSharedServerState();
+            userContracts = deduplicateContractsList(server.contracts || []);
+            if (userContracts.length > 0 && !userContracts.some(c => c.id === currentContractId)) {
+                currentContractId = userContracts[0].id;
+            } else if (userContracts.length === 0) {
+                currentContractId = null;
+            }
+            if (typeof renderMarketList === 'function') renderMarketList();
+            if (typeof updateContractDropdown === 'function') updateContractDropdown();
+            if (typeof updatePortfolioSummary === 'function') updatePortfolioSummary();
+            if (typeof renderActiveContractUI === 'function') renderActiveContractUI();
+            if (typeof syncSystemContractBroadcastBanner === 'function') syncSystemContractBroadcastBanner();
+            if (typeof renderAdminIncidentReports === 'function') renderAdminIncidentReports();
+            if (typeof renderAdminEscrowNotifications === 'function') renderAdminEscrowNotifications();
+            if (typeof renderAdminRequestsQueue === 'function') renderAdminRequestsQueue();
+            if (typeof renderAdminLegalVault === 'function') renderAdminLegalVault();
+        }
+
+        window.addEventListener('storage', (e) => {
+            if (e.key === SHARED_SERVER_KEY || (e.key && e.key.startsWith('duritrade_'))) {
+                syncFromSharedServerNow();
+            }
+        });
+
+        if (sharedServerChannel) {
+            sharedServerChannel.onmessage = (event) => {
+                if (event.data && event.data.type === 'SERVER_SYNC_UPDATE') {
+                    syncFromSharedServerNow();
+                }
+            };
         }
 
         function getContractStatusLabel(c) {
@@ -2450,24 +2704,42 @@
                 return;
             }
             const depositAmount = getActiveContractDepositAmount();
+            // Phạt trễ hạn 24h đầu: chỉ 10% - 30% (mặc định 20%)
+            const penaltyRate = 0.20; // 20% cho lần báo cáo đầu tiên trong 24h
+            const penaltyAmount = Math.round(depositAmount * penaltyRate);
+            const remaining = Math.max(0, depositAmount - penaltyAmount);
+            
             const now = new Date();
             const timeStr = `${now.getDate()}/${now.getMonth()+1}/${now.getFullYear()} ${now.getHours()}:${now.getMinutes()<10?'0':''}${now.getMinutes()}`;
-            contract.status = 'cancelled_deposit';
-            contract.isProcessed = true;
-            contract.remainingDepositVal = 0;
+            
+            // Ghi nhận mức phạt hiện tại (không hủy hoàn toàn ngay)
+            contract.lateCutReports = (contract.lateCutReports || 0) + 1;
+            contract.remainingDepositVal = remaining;
+            contract.depositVal = depositAmount;
+            
+            // Nếu báo cáo nhiều lần có thể tăng mức phạt (ví dụ lần 2 trở lên)
+            let currentPenaltyText = `Phạt ${Math.round(penaltyRate*100)}% cọc (lần báo cáo #${contract.lateCutReports})`;
+            if (contract.lateCutReports >= 2) {
+                // Có thể tăng thêm, nhưng giữ logic cơ bản
+                currentPenaltyText += ' - Có thể tăng mức phạt nếu tiếp tục báo cáo';
+            }
+
             contract.cancelDepositRecord = {
                 partyText: '💼 Bên Mua Trễ Hạn Cắt 24h',
-                injuredPartyText: `🌾 Bên Bán (${contract.seller}) - Đã chuyển tiền đền bù cọc qua Ví Escrow MBBank`,
-                reason: 'Quá 24h từ mốc cắt cam kết không đến thu mua',
-                escrowActionText: `Đã chuyển ${depositAmount.toLocaleString('vi-VN')} VNĐ từ Ví Escrow MBBank đền bù cho Bên Bán`,
-                processedStatusText: 'Đã chuyển tiền lại cho bên thiệt hại & hợp đồng đã được xử lý',
+                injuredPartyText: `🌾 Bên Bán (${contract.seller}) - Đã nhận phạt cọc ${penaltyAmount.toLocaleString('vi-VN')} VNĐ`,
+                reason: 'Quá 24h từ mốc cắt cam kết không đến thu mua (phạt mức nhẹ 10-30%)',
+                escrowActionText: `Đã trừ ${penaltyAmount.toLocaleString('vi-VN')} VNĐ (${Math.round(penaltyRate*100)}%) từ Ví Escrow đền bù cho Bên Bán. Còn lại: ${remaining.toLocaleString('vi-VN')} VNĐ`,
+                processedStatusText: 'Đã xử lý phạt trễ hạn mức 10-30% (chưa tịch thu 100%)',
                 timeStr
             };
+            
+            // Không set status = cancelled_deposit ngay để cho phép báo cáo tiếp
+            // Chỉ khóa nếu muốn, nhưng theo yêu cầu thì giữ lại phần cọc
             saveUserContractsState();
             updateContractDropdown();
             updatePortfolioSummary();
             renderActiveContractUI();
-            alert('✅ Đã chuyển tiền đền bù cho bên thiệt hại & hợp đồng trễ hạn 24h đã được xử lý!');
+            alert(`✅ Đã áp dụng phạt trễ hạn 24h: Trừ ${Math.round(penaltyRate*100)}% cọc (${penaltyAmount.toLocaleString('vi-VN')} VNĐ) cho bên thiệt hại.\nCòn lại ${remaining.toLocaleString('vi-VN')} VNĐ trong Escrow.\nNếu có báo cáo tiếp theo có thể tăng mức phạt.`);
         }
 
         function openCancelDepositModal() {
@@ -2600,7 +2872,7 @@
             document.getElementById('pay-modal-contract-code').innerText = `#DT-${code}`;
             document.getElementById('pay-modal-amount').innerText = `${depositVal.toLocaleString('vi-VN')} VNĐ`;
             document.getElementById('pay-modal-content').innerText = addInfo;
-            document.getElementById('pay-modal-qr-img').src = `https://img.vietqr.io/image/MB-1012345678-compact2.png?amount=${depositVal}&addInfo=${encodeURIComponent(addInfo)}&accountName=DURITRADE%20ESCROW%20MBBANK`;
+            // QR đã cố định theo ảnh LE DINH NGHIA - không ghi đè src
             document.getElementById('modal-payment').style.display = 'flex';
         }
 
@@ -2634,7 +2906,7 @@
                 buyerName: contract.buyer,
                 buyerPhone: contract.buyerPhone || '0912.345.678',
                 sellerName: contract.seller,
-                recipient: 'DURITRADE ESCROW MBBANK (STK: 1012345678)',
+                recipient: 'LE DINH NGHIA - MBBank (SĐT: 0944762616)',
                 amount: exactDeposit,
                 code: `DT${contract.id.toString().slice(-4)} COC BAO CHUNG`,
                 time: `${now.getDate()}/${now.getMonth()+1}/${now.getFullYear()} ${now.getHours()}:${now.getMinutes()<10?'0':''}${now.getMinutes()}`
@@ -2661,7 +2933,7 @@
                     buyerName: 'Vựa Sầu Riêng XNK B',
                     buyerPhone: '0912.345.678',
                     sellerName: 'Nguyễn Văn A (Đắk Lắk)',
-                    recipient: 'DURITRADE ESCROW MBBANK (STK: 1012345678)',
+                    recipient: 'LE DINH NGHIA - MBBank (SĐT: 0944762616)',
                     amount: 82500000,
                     code: 'DT8892 COC BAO CHUNG',
                     time: '22/11/2026 08:00'
@@ -2700,6 +2972,191 @@
             }
             checkUserAuthSession();
         });
+
+
+        // =========================================================================
+        // DURITRADE - SUPABASE SHARED SERVER (GIAI ĐOẠN 1 - DEMO, KHÔNG ĐĂNG NHẬP)
+        // Điền Project URL và anon/public key từ Supabase vào hai hằng số dưới đây.
+        // TUYỆT ĐỐI KHÔNG đưa service_role key vào mã chạy trên trình duyệt.
+        // =========================================================================
+        const DURITRADE_SUPABASE_URL = 'YOUR_SUPABASE_PROJECT_URL';
+        const DURITRADE_SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+        const DURITRADE_SUPABASE_TABLE = 'duritrade_shared_state';
+        const DURITRADE_SYNC_INTERVAL_MS = 7000;
+        let duriRemoteReady = false;
+        let duriApplyingRemote = false;
+        let duriLastRemoteUpdatedAt = '';
+        let duriPushTimer = null;
+        let duriSyncTimer = null;
+        let duriSyncBusy = false;
+
+        function duriSupabaseConfigured() {
+            return /^https:\/\/[a-z0-9-]+\.supabase\.co$/i.test(DURITRADE_SUPABASE_URL) &&
+                DURITRADE_SUPABASE_ANON_KEY && !DURITRADE_SUPABASE_ANON_KEY.includes('YOUR_');
+        }
+
+        function duriSyncBanner(message, kind = 'info') {
+            let el = document.getElementById('duritrade-server-status');
+            if (!el) {
+                el = document.createElement('div');
+                el.id = 'duritrade-server-status';
+                el.style.cssText = 'position:sticky;top:0;z-index:99;padding:7px 12px;text-align:center;font-size:11px;font-weight:700;border-bottom:1px solid #ddd;';
+                const header = document.querySelector('header');
+                if (header && header.parentNode) header.parentNode.insertBefore(el, header.nextSibling);
+                else document.body.prepend(el);
+            }
+            const styles = {
+                info: 'background:#fff8e1;color:#805b00;',
+                ok: 'background:#e8f5e9;color:#1b5e20;',
+                error: 'background:#ffebee;color:#b71c1c;'
+            };
+            el.style.cssText += styles[kind] || styles.info;
+            el.textContent = message;
+        }
+
+        function duriCollectSharedData() {
+            const payload = {};
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key && key.startsWith('duritrade_')) {
+                    const value = localStorage.getItem(key);
+                    if (value !== null) payload[key] = value;
+                }
+            }
+            return payload;
+        }
+
+        function duriApplySharedData(payload) {
+            if (!payload || typeof payload !== 'object' || Array.isArray(payload)) return;
+            duriApplyingRemote = true;
+            try {
+                // Chỉ đồng bộ các khóa thuộc ứng dụng DuriTrade, không đụng dữ liệu website khác.
+                Object.keys(payload).forEach(key => {
+                    if (key.startsWith('duritrade_') && typeof payload[key] === 'string') {
+                        localStorage.setItem(key, payload[key]);
+                    }
+                });
+                // Xóa các bản ghi DuriTrade đã bị xóa ở server để các thiết bị cùng trạng thái.
+                const remoteKeys = new Set(Object.keys(payload).filter(k => k.startsWith('duritrade_')));
+                const localKeys = [];
+                for (let i = 0; i < localStorage.length; i++) {
+                    const key = localStorage.key(i);
+                    if (key && key.startsWith('duritrade_')) localKeys.push(key);
+                }
+                localKeys.forEach(key => { if (!remoteKeys.has(key)) localStorage.removeItem(key); });
+            } finally {
+                duriApplyingRemote = false;
+            }
+        }
+
+        function duriRestHeaders(extra = {}) {
+            return {
+                'apikey': DURITRADE_SUPABASE_ANON_KEY,
+                'Authorization': 'Bearer ' + DURITRADE_SUPABASE_ANON_KEY,
+                'Content-Type': 'application/json',
+                ...extra
+            };
+        }
+
+        async function duriFetchRemoteState() {
+            const endpoint = DURITRADE_SUPABASE_URL + '/rest/v1/' + DURITRADE_SUPABASE_TABLE + '?id=eq.1&select=payload,updated_at';
+            const response = await fetch(endpoint, { headers: duriRestHeaders(), cache: 'no-store' });
+            if (!response.ok) throw new Error('Không đọc được dữ liệu Supabase (' + response.status + ').');
+            const rows = await response.json();
+            return rows && rows.length ? rows[0] : null;
+        }
+
+        async function duriPushRemoteState() {
+            if (!duriSupabaseConfigured() || duriApplyingRemote || duriSyncBusy) return;
+            duriSyncBusy = true;
+            try {
+                const payload = duriCollectSharedData();
+                const endpoint = DURITRADE_SUPABASE_URL + '/rest/v1/' + DURITRADE_SUPABASE_TABLE + '?on_conflict=id';
+                const response = await fetch(endpoint, {
+                    method: 'POST',
+                    headers: duriRestHeaders({ 'Prefer': 'resolution=merge-duplicates,return=minimal' }),
+                    body: JSON.stringify({ id: 1, payload, updated_at: new Date().toISOString() })
+                });
+                if (!response.ok) {
+                    const detail = await response.text();
+                    throw new Error('Không ghi được dữ liệu Supabase (' + response.status + '): ' + detail.slice(0, 220));
+                }
+                duriLastRemoteUpdatedAt = new Date().toISOString();
+                duriSyncBanner('☁️ Đã kết nối server chung DuriTrade · Dữ liệu đang được đồng bộ', 'ok');
+            } catch (error) {
+                console.error('[DuriTrade Supabase]', error);
+                duriSyncBanner('⚠️ Chưa đồng bộ được lên server: ' + error.message, 'error');
+            } finally {
+                duriSyncBusy = false;
+            }
+        }
+
+        async function duriPullRemoteState() {
+            if (!duriSupabaseConfigured() || duriSyncBusy) return;
+            duriSyncBusy = true;
+            try {
+                const row = await duriFetchRemoteState();
+                if (row && row.payload && row.updated_at !== duriLastRemoteUpdatedAt) {
+                    duriLastRemoteUpdatedAt = row.updated_at || '';
+                    duriApplySharedData(row.payload);
+                    if (typeof syncFromSharedServerNow === 'function') syncFromSharedServerNow();
+                } else if (!row) {
+                    // Lần đầu: đẩy dữ liệu hiện có trên trình duyệt này lên server.
+                    duriSyncBusy = false;
+                    await duriPushRemoteState();
+                    return;
+                }
+                duriRemoteReady = true;
+                duriSyncBanner('☁️ Server chung đang hoạt động · Tự đồng bộ mỗi 7 giây', 'ok');
+            } catch (error) {
+                console.error('[DuriTrade Supabase]', error);
+                duriSyncBanner('⚠️ Lỗi kết nối server chung: ' + error.message, 'error');
+            } finally {
+                duriSyncBusy = false;
+            }
+        }
+
+        function duriSchedulePush() {
+            if (!duriSupabaseConfigured() || duriApplyingRemote) return;
+            clearTimeout(duriPushTimer);
+            duriPushTimer = setTimeout(() => duriPushRemoteState(), 900);
+        }
+
+        // Theo dõi các thay đổi localStorage để giữ nguyên cấu trúc code hiện tại của website.
+        // Các hàm cũ vẫn hoạt động, nhưng dữ liệu DuriTrade được đẩy lên Supabase sau mỗi thay đổi.
+        (function installDuriStorageSync() {
+            const originalSetItem = Storage.prototype.setItem;
+            const originalRemoveItem = Storage.prototype.removeItem;
+            Storage.prototype.setItem = function(key, value) {
+                originalSetItem.call(this, key, value);
+                if (this === window.localStorage && String(key).startsWith('duritrade_')) duriSchedulePush();
+            };
+            Storage.prototype.removeItem = function(key) {
+                originalRemoveItem.call(this, key);
+                if (this === window.localStorage && String(key).startsWith('duritrade_')) duriSchedulePush();
+            };
+            const originalClear = Storage.prototype.clear;
+            Storage.prototype.clear = function() {
+                const isLocal = this === window.localStorage;
+                originalClear.call(this);
+                if (isLocal) duriSchedulePush();
+            };
+        })();
+
+        async function duriStartSharedServer() {
+            if (!duriSupabaseConfigured()) {
+                duriSyncBanner('ℹ️ DuriTrade đang chạy chế độ cục bộ. Hãy điền Supabase Project URL và anon key để bật server chung.', 'info');
+                return;
+            }
+            duriSyncBanner('⏳ Đang kết nối server chung Supabase…', 'info');
+            await duriPullRemoteState();
+            if (duriSyncTimer) clearInterval(duriSyncTimer);
+            duriSyncTimer = setInterval(duriPullRemoteState, DURITRADE_SYNC_INTERVAL_MS);
+        }
+
+        // Gắn vào sự kiện load để các hàm khởi tạo cũ hoàn tất trước khi kéo dữ liệu chung.
+        window.addEventListener('load', () => { duriStartSharedServer(); });
+
     </script>
 </body>
 </html>
