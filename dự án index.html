@@ -19,7 +19,6 @@
             --success: #2e7d32;
             --warning: #ef6c00;
         }
-
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
         body { background-color: var(--bg); color: var(--text); padding-bottom: 70px; }
         
@@ -29,15 +28,11 @@
         
         .btn-header { background: rgba(255,255,255,0.2); border: none; color: white; padding: 6px 10px; border-radius: 20px; font-size: 11px; cursor: pointer; display: flex; align-items: center; gap: 4px; font-weight: 500; }
         .btn-header:hover { background: rgba(255,255,255,0.3); }
-
         main { padding: 12px; max-width: 600px; margin: 0 auto; }
-
         .tab-panel { display: none; }
         .tab-panel.active { display: block; }
-
         .card { background: var(--card-bg); border-radius: 12px; padding: 14px; margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); border: 1px solid var(--border); }
         .card-title { font-size: 15px; font-weight: bold; color: var(--primary); margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
-
         .badge { font-size: 10px; padding: 3px 8px; border-radius: 12px; font-weight: 600; text-transform: uppercase; }
         .badge-farmer { background: #e8f5e9; color: var(--primary); }
         .badge-buyer { background: #e3f2fd; color: #1565c0; }
@@ -45,14 +40,11 @@
         .badge-success { background: #e8f5e9; color: var(--success); }
         .badge-danger { background: #ffebee; color: var(--danger); }
         .badge-warning { background: #fff3e0; color: var(--warning); }
-
         .filter-bar { display: flex; gap: 6px; margin-bottom: 12px; overflow-x: auto; padding-bottom: 4px; }
         .filter-chip { padding: 6px 12px; background: white; border: 1px solid var(--border); border-radius: 16px; font-size: 12px; cursor: pointer; white-space: nowrap; color: var(--text-muted); }
         .filter-chip.active { background: var(--primary); color: white; border-color: var(--primary); font-weight: 600; }
-
         .search-box { width: 100%; padding: 10px 14px; border: 1px solid var(--border); border-radius: 20px; font-size: 13px; margin-bottom: 12px; outline: none; }
         .search-box:focus { border-color: var(--primary); }
-
         .listing-card { background: white; border-radius: 10px; border: 1px solid var(--border); overflow: hidden; margin-bottom: 10px; display: flex; flex-direction: column; }
         .listing-img { width: 100%; height: 160px; object-fit: cover; background: #eee; }
         .listing-body { padding: 12px; }
@@ -67,31 +59,24 @@
         .btn-accent { background: var(--accent); color: #333; }
         .btn-danger { background: var(--danger); color: white; }
         .btn-sm { padding: 5px 10px; font-size: 11px; width: auto; }
-
         .form-group { margin-bottom: 12px; }
         .form-label { display: block; font-size: 12px; font-weight: 600; margin-bottom: 4px; color: #444; }
         .form-input, .form-select, .form-textarea { width: 100%; padding: 10px; border: 1px solid var(--border); border-radius: 6px; font-size: 13px; outline: none; }
         .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--primary); }
-
         .chart-container { width: 100%; height: 140px; margin: 10px 0; position: relative; }
-
         .signature-pad-container { border: 2px dashed var(--primary); border-radius: 8px; background: #fafafa; margin-bottom: 8px; position: relative; touch-action: none; }
         canvas#signature-pad { width: 100%; height: 130px; display: block; }
-
         nav.bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: white; border-top: 1px solid var(--border); display: flex; justify-content: space-around; padding: 6px 0; z-index: 100; max-width: 600px; margin: 0 auto; }
         .nav-item { display: flex; flex-direction: column; align-items: center; font-size: 10px; color: var(--text-muted); background: none; border: none; cursor: pointer; flex: 1; }
         .nav-item.active { color: var(--primary); font-weight: bold; }
         .nav-item .icon { font-size: 18px; margin-bottom: 2px; }
-
         .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.6); z-index: 200; display: none; align-items: center; justify-content: center; padding: 16px; }
         .modal-card { background: white; border-radius: 12px; width: 100%; max-width: 480px; max-height: 90vh; overflow-y: auto; padding: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.2); }
         .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
         .modal-title { font-weight: bold; font-size: 15px; color: var(--primary); }
         .btn-close { background: none; border: none; font-size: 18px; cursor: pointer; color: #888; }
-
         .legal-item { margin-bottom: 10px; font-size: 12px; line-height: 1.5; color: #444; }
         .legal-item h4 { color: var(--primary); margin-bottom: 2px; }
-
         .qr-box { background: #f9f9f9; border: 2px solid #e0e0e0; border-radius: 12px; padding: 16px; text-align: center; margin-bottom: 12px; }
         .qr-img { width: 180px; height: 180px; margin: 8px auto; display: block; border-radius: 8px; border: 1px solid #ccc; }
         
@@ -119,17 +104,14 @@
         .demo-btn-group { display: flex; gap: 4px; margin-top: 6px; flex-wrap: wrap; }
         .demo-btn { flex: 1; min-width: 100px; padding: 4px 6px; font-size: 10px; font-weight: bold; border-radius: 4px; border: 1px solid #1b5e20; background: #fff; color: #1b5e20; cursor: pointer; text-align: center; }
         .demo-btn:hover { background: #1b5e20; color: #fff; }
-
 </style>
 </head>
 <body>
-
     <!-- AUTH GATE SCREEN (NEW IN V39) -->
     <div id="auth-gate-screen">
         <div class="auth-card">
             <div class="auth-logo">🍈 DuriTrade</div>
             <div class="auth-subtitle">Sàn Giao Dịch B2B & Bảo Chứng Cọc Sầu Riêng MBBank</div>
-
             <!-- DEMO QUICK LOGIN SUGGESTIONS (1-CLICK FILL) -->
             <div class="demo-account-box">
                 <div style="font-weight: bold; color: #1b5e20; margin-bottom: 4px;">⚡ GỢI Ý TÀI KHOẢN MẪU DÙNG THỬ NHANH (1-CLICK):</div>
@@ -140,12 +122,10 @@
                     <button class="demo-btn" onclick="quickFillDemo('admin', 'admin123', 'admin')" style="border-color:#c62828; color:#c62828;">🔑 Admin Portal</button>
                 </div>
             </div>
-
             <div class="auth-tab-group">
                 <button id="auth-tab-login-btn" class="auth-tab-btn active" onclick="switchAuthTab('login')">🔑 Đăng Nhập</button>
                 <button id="auth-tab-register-btn" class="auth-tab-btn" onclick="switchAuthTab('register')">📝 Đăng Ký Tài Khoản</button>
             </div>
-
             <!-- LOGIN FORM -->
             <form id="auth-login-form" onsubmit="handleAuthLogin(event)">
                 <div class="form-group">
@@ -166,7 +146,6 @@
                 </div>
                 <button type="submit" class="btn btn-primary" style="background: linear-gradient(135deg, #1b5e20, #2e7d32); margin-top: 8px; font-weight: bold; padding: 12px;">🚀 ĐĂNG NHẬP VÀO SÀN DURITRADE</button>
             </form>
-
             <!-- REGISTER FORM -->
             <form id="auth-register-form" style="display: none;" onsubmit="handleAuthRegister(event)">
                 <div class="form-group">
@@ -202,36 +181,32 @@
             </form>
         </div>
     </div>
-
     <!-- MAIN APP CONTAINER (VISIBLE AFTER LOGIN) -->
     <div id="main-app-container" style="display: none;">
         <header>
             <div class="logo">🍈 DuriTrade</div>
             <div class="header-actions">
-                <span id="header-user-badge" style="font-size: 11px; background: rgba(255,255,255,0.2); padding: 4px 8px; border-radius: 20px; color: #fff; font-weight: 600;">👤 nongdan01</span>
-                <button id="admin-header-lock-btn" class="btn-header" style="display: none; background: rgba(255,255,255,0.22); border: 1px solid rgba(255,255,255,0.4);" onclick="openAdminPortalModal()">🔐 Admin Vault</button>
+                <span id="header-user-badge" style="font-size: 11px; background: rgba(255,255,255,0.22); padding: 4px 8px; border-radius: 20px; color: #fff; font-weight: 700;">👤 nongdan01</span>
+                <button class="btn-header" style="background: rgba(255,255,255,0.25); font-weight: bold;" onclick="switchAccount('nongdan01')">🌾 Nick Nông Dân</button>
+                <button class="btn-header" style="background: rgba(255,255,255,0.25); font-weight: bold;" onclick="switchAccount('vuasaurieng01')">💼 Nick Thương Lái</button>
+                <button id="admin-header-lock-btn" class="btn-header" style="background: #1565c0; font-weight: bold;" onclick="switchAccount('admin')">🔑 Admin Vault</button>
                 <button class="btn-header" onclick="openLegalModal()">⚖️ Pháp Lý</button>
-                <button class="btn-header" style="background: rgba(255,255,255,0.25); border: 1px solid rgba(255,255,255,0.4);" onclick="resetAppData()">🔄 Reset Khôi Phục</button>
-                <button class="btn-header" style="background: #c62828;" onclick="handleUserLogout()">🚪 Đăng Xuất</button>
+                <button class="btn-header" style="background: #c62828; font-weight: bold;" onclick="resetAppData()">🔄 Reset Khôi Phục</button>
             </div>
         </header>
-
     <main>
         <!-- TAB 1: THỊ TRƯỜNG (MARKETPLACE) -->
         <section id="tab-market" class="tab-panel active">
             <input type="text" id="market-search" class="search-box" placeholder="🔍 Tìm theo khu vực (Đắk Lắk, Tiền Giang, Lâm Đồng...)..." onkeyup="renderMarketList()">
-
             <div class="filter-bar">
                 <button class="filter-chip active" onclick="filterMarket('all', this)">Tất Cả</button>
                 <button class="filter-chip" onclick="filterMarket('farmer', this)">🌾 Vườn Bán (Cung)</button>
                 <button class="filter-chip" onclick="filterMarket('buyer', this)">💼 Vựa Cần Mua (Cầu)</button>
             </div>
-
             <div id="market-listings-container">
                 <!-- Market items rendered by JS -->
             </div>
         </section>
-
         <!-- TAB 2: BIẾN ĐỘNG GIÁ (PRICE TRACKER & ADMIN MANAGER) -->
         <section id="tab-price" class="tab-panel">
             <div class="card">
@@ -253,17 +228,14 @@
                 </div>
                 
                 <div id="chart-tooltip-box" style="font-size: 11px; color: var(--primary); font-weight: bold; height: 18px; text-align: center;">Chạm/Rê chuột vào điểm mốc để xem giá từng ngày</div>
-
                 <div class="chart-container" id="chart-box">
                     <!-- SVG Line Chart injected by JS -->
                 </div>
-
                 <div style="display: flex; justify-content: space-between; font-size: 12px; padding: 6px 0; border-top: 1px dashed var(--border);">
                     <span>Giá hiện tại: <strong id="current-price-val" style="color: var(--danger);">55.000đ/kg</strong></span>
                     <span>Biến động 7 ngày: <strong id="price-trend-val" style="color: var(--success);">+4.5% ↗</strong></span>
                 </div>
             </div>
-
             <!-- MARKET PRICE INSIGHTS CARD -->
             <div class="card" style="background: #e8f5e9; border: 1px solid #c8e6c9; margin-top: 12px; font-size: 11px; color: #1b5e20; line-height: 1.6;">
                 <div style="font-weight: 700; font-size: 12px; margin-bottom: 4px;">📊 Cập Nhật Giá Thị Trường Cơm Sầu Riêng Tươi:</div>
@@ -271,7 +243,6 @@
                 <p>• Mức giá chốt trên Hợp đồng số được bảo lưu cố định bằng <strong>Ví Escrow MBBank (10% - 15%)</strong>, bảo vệ Nông dân không bị ép giá và Thương lái không bị bẻ cọc.</p>
             </div>
         </section>
-
         <!-- TAB 3: ĐĂNG TIN VƯỜN / NHU CẦU MUA (POST LISTING) -->
         <section id="tab-post" class="tab-panel">
             <div class="card">
@@ -284,17 +255,14 @@
                             <option value="buyer">💼 Doanh Nghiệp / Vựa Thu Mua (Đăng nhu cầu thu mua)</option>
                         </select>
                     </div>
-
                     <div class="form-group">
                         <label class="form-label">Tiêu Đề Bài Đăng</label>
                         <input type="text" id="post-title" class="form-input" placeholder="VD: Vườn Monthong 15 Tấn Krông Pắc đạt chuẩn Xuất Khẩu" required>
                     </div>
-
                     <div class="form-group">
                         <label class="form-label">Khu Vực (Tỉnh / Huyện)</label>
                         <input type="text" id="post-location" class="form-input" placeholder="VD: Krông Pắc, Đắk Lắk" required>
                     </div>
-
                     <div style="display: flex; gap: 8px;">
                         <div class="form-group" style="flex: 1;">
                             <label class="form-label">Sản Lượng (Tấn)</label>
@@ -305,7 +273,6 @@
                             <input type="number" id="post-price" class="form-input" placeholder="55000" required>
                         </div>
                     </div>
-
                     <div style="display: flex; gap: 8px;">
                         <div class="form-group" style="flex: 1;">
                             <label class="form-label">📱 Số Điện Thoại Chính Chủ</label>
@@ -316,12 +283,10 @@
                             <input type="text" id="post-cccd" class="form-input" placeholder="VD: 066092008892" value="066092008892" required>
                         </div>
                     </div>
-
                     <div class="form-group">
                         <label class="form-label">Cam Kết Chất Lượng Tổng Quan (BRIX & Tỷ Lệ Hàng A)</label>
                         <input type="text" id="post-brix" class="form-input" placeholder="VD: BRIX ≥ 33° (Hàng A > 85%)" value="BRIX ≥ 33° (Hàng A > 85%)" required>
                     </div>
-
                     <div class="form-group" style="background: #e8f5e9; padding: 10px; border-radius: 8px; border: 1px solid #c8e6c9;">
                         <label class="form-label" style="font-weight: 700; color: #1b5e20; margin-bottom: 6px;">📅 Lịch Cắt Nông Sản & Cam Kết Chất Lượng Chi Tiết Theo Dao:</label>
                         <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; font-size: 11px;">
@@ -342,7 +307,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="form-group">
                         <label class="form-label">Tọa Độ GPS Vườn (Cảm Biến Phần Cứng)</label>
                         <div style="display: flex; gap: 6px;">
@@ -351,7 +315,6 @@
                         </div>
                         <div id="gps-status" style="font-size: 11px; color: var(--success); margin-top: 4px;"></div>
                     </div>
-
                     <div class="form-group">
                         <label class="form-label">Hình Ảnh Thực Tế Vườn (Nén Canvas 90%)</label>
                         <input type="file" id="post-image-input" accept="image/*" class="form-input" onchange="handleImageCompression(event)">
@@ -361,12 +324,10 @@
                             <div id="compression-stats-text" style="font-size: 11px; color: var(--primary); font-weight: bold;"></div>
                         </div>
                     </div>
-
                     <button type="submit" class="btn btn-primary" style="margin-top: 8px;">🚀 Đăng Bài Lên Sàn DuriTrade</button>
                 </form>
             </div>
         </section>
-
         <!-- TAB 4: HỢP ĐỒNG ĐIỆN TỬ & DANH MỤC ĐẦU TƯ (PORTFOLIO & CONTRACTS) -->
         <section id="tab-contract" class="tab-panel">
             <!-- KHUNG TỔNG QUAN DANH MỤC ĐẦU TƯ CHO NHÀ ĐẦU TƯ / VỰA MUA -->
@@ -390,7 +351,6 @@
                     </div>
                 </div>
             </div>
-
             <!-- THANH CHỌN HỢP ĐỒNG TRONG DANH MỤC -->
             <div class="card" style="padding: 10px; margin-bottom: 12px; background: #fafafa; border: 1px solid var(--border);">
                 <label class="form-label" style="font-weight: 700; color: var(--primary); margin-bottom: 4px;">📂 Danh Mục Hợp Đồng Của Tôi (Nhà Đầu Tư / Vựa Mua):</label>
@@ -398,7 +358,6 @@
                     <!-- Dynamically populated contracts -->
                 </select>
             </div>
-
             <!-- EMPTY CONTRACT PLACEHOLDER CARD -->
             <div id="empty-contract-placeholder-card" class="card" style="display: none; text-align: center; padding: 28px 16px; background: #fafafa; border: 2px dashed #a5d6a7; border-radius: 12px; margin-bottom: 12px;">
                 <div style="font-size: 48px; margin-bottom: 8px;">🛒</div>
@@ -408,7 +367,6 @@
                 </div>
                 <button class="btn btn-primary" style="max-width: 240px; margin: 0 auto; background: linear-gradient(135deg, #1b5e20, #2e7d32);" onclick="switchTab(0, document.querySelectorAll('.nav-item')[0])">🛒 Đến Sàn Thị Trường Ngay</button>
             </div>
-
             <div id="active-contract-main-card" class="card">
                 <div class="card-title">
                     <span id="contract-code-title">📄 Hợp Đồng Điện Tử #DT-8892</span>
@@ -451,7 +409,6 @@
                             • 🔪 <strong>Dao 3 (20% SL - Cắt vét):</strong> <span id="contract-quality-dao3" style="font-weight: bold;">Hàng B / Dạt cho phép (Giảm 15% giá)</span>
                         </div>
                     </div>
-
                     <!-- HARVEST COUNTDOWN SENSOR COMPONENT (NEW IN V31) -->
                     <div id="harvest-countdown-sensor-card" style="margin-top: 10px; background: linear-gradient(135deg, #fff3e0, #ffe0b2); border: 2px solid #ff9800; border-radius: 8px; padding: 10px;">
                         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
@@ -465,7 +422,6 @@
                             📡 <strong>Trạng thái Cảm biến:</strong> Tự động phát hiện mốc cắt Dao 1 (<span id="countdown-next-dao-date" style="font-weight:bold; color:#1b5e20;">01/12/2026</span>) và kích hoạt đếm ngược 2-3 ngày. Hệ thống tự động gửi thông báo SMS/App nhắc nhở Thương lái bố trí xe container và Nông dân chuẩn bị mở cổng vườn.
                         </div>
                     </div>
-
                     <!-- END OF active-contract-main-card -->
             </div>
             
@@ -483,7 +439,6 @@
                             <button id="btn-reject-postpone" class="btn btn-danger" style="background: #c62828; flex: 1; font-weight: bold;" onclick="rejectPostponeRequest()">❌ Từ Chối Dời Lịch</button>
                         </div>
                     </div>
-
                     <div style="display: flex; gap: 6px; margin-top: 8px;">
                         <button id="btn-weather-delay" class="btn btn-outline" style="border-color: #0288d1; color: #0288d1; font-weight: bold; flex: 1; font-size: 11px; padding: 6px;" onclick="openWeatherDelayModal()">🌧️ Gửi Yêu Cầu Dời Lịch Cắt</button>
                         <button id="btn-late-cut-report" class="btn btn-outline" style="border-color: #d32f2f; color: #d32f2f; font-weight: bold; flex: 1; font-size: 11px; padding: 6px;" onclick="reportLateCut24h()">⏰ Phạt Trễ Hạn Cắt 24h (Bố Trí Trễ)</button>
@@ -491,7 +446,6 @@
                     <div id="weather-delay-status-badge" style="display: none; margin-top: 6px; font-size: 11px; color: #0288d1; background: #e1f5fe; padding: 6px; border-radius: 4px; border: 1px solid #81d4fa; text-align: center; font-weight: bold;">🌧️ <span id="weather-delay-text"></span></div>
                     <p><strong>Trọng tài BRIX P2P:</strong> <span id="contract-arbitrator" style="color: var(--primary); font-weight: 700;">Ban Quản Trị DuriTrade (Chỉ cử trọng tài khi có tranh chấp)</span></p>
                 </div>
-
                 <!-- SIGNATURE CANVAS AREA -->
                 <div class="form-group" id="signature-area-group">
                     <label class="form-label">Ký Điện Tử Ngón Tay (Định danh eKYC + SĐT & CCCD chính chủ + Timestamp)</label>
@@ -504,23 +458,19 @@
                     </div>
                     <div id="sig-status" style="font-size: 11px; color: var(--success); font-weight: 700; margin-top: 4px; text-align: center;"></div>
                 </div>
-
                 <!-- ACTION BUTTONS FOR DEPOSIT & FINALIZATION -->
                 <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 12px;">
-                    <button id="btn-payment-modal" class="btn btn-accent" onclick="openPaymentModal()">🔒 Nộp Cọc Bảo Chứng 10% (VietQR Escrow)</button>
+                    <button id="btn-payment-modal" class="btn btn-accent" onclick="handlePaymentButtonClick()">🔒 Nộp Cọc Bảo Chứng 10% (VietQR Escrow)</button>
                 </div>
-
                 <!-- FINALIZATION AREA -->
                 <div id="finalization-container" style="margin-top: 16px; padding-top: 12px; border-top: 2px dashed var(--primary);">
                     <button id="btn-finalize-contract" class="btn btn-primary" style="background: linear-gradient(135deg, #1b5e20, #2e7d32); font-size: 14px; padding: 12px; width: 100%; font-weight: bold; box-shadow: 0 4px 12px rgba(27,94,32,0.3);" onclick="finalizeContract()">🚀 CHỐT & GỬI HỢP ĐỒNG CHÍNH THỨC (KHÓA 100%)</button>
                 </div>
-
                 <!-- CANCEL DRAFT CONTRACT CONTAINER (ANTI-HANGING FEATURE IN V25) -->
                 <div id="cancel-actions-container" style="margin-top: 10px; display: flex; flex-direction: column; gap: 8px;">
                     <button id="btn-cancel-draft-contract" class="btn btn-outline" style="border-color: #d32f2f; color: #d32f2f; font-weight: bold; width: 100%; font-size: 13px;" onclick="cancelDraftContract()">❌ HỦY DỰ THẢO HỢP ĐỒNG (Chưa Ký & Chưa Cọc - Giải Phóng Bài Đăng Sàn)</button>
                     <button id="btn-cancel-deposit-contract" class="btn btn-danger" style="background: #c62828; color: #fff; font-weight: bold; width: 100%; font-size: 13px; display: none;" onclick="openCancelDepositModal()">⚠️ HỦY CỌC HỢP ĐỒNG & PHẠT PHÁP LÝ ESCROW (BẺ HỢP ĐỒNG)</button>
                 </div>
-
                 <!-- FINALIZED SUMMARY CARD -->
                 
                     <!-- CANCEL DEPOSIT RESULT CARD (NEW IN V26) -->
@@ -531,7 +481,6 @@
                         <p>💸 <strong>Xử lý Ví Escrow MBBank (82.500.000 VNĐ):</strong> <span id="cancel-escrow-action-text" style="font-weight:bold; color:#d32f2f;"></span></p>
                         <p>🕒 <strong>Thời điểm hủy cọc:</strong> <span id="cancel-time-text"></span></p>
                     </div>
-
 <div id="finalized-summary-card" style="display: none; margin-top: 16px; background: #e8f5e9; border: 2px solid #2e7d32; border-radius: 10px; padding: 14px;">
                     <div style="font-weight: 700; color: #1b5e20; font-size: 15px; margin-bottom: 8px; text-align: center;">✅ HỢP ĐỒNG ĐÃ ĐƯỢC 2 BÊN CHỐT & GỬI THÀNH CÔNG</div>
                     <div style="font-size: 12px; color: #333; line-height: 1.7;">
@@ -540,19 +489,16 @@
                         <p>💳 <strong>Trạng thái Ví Escrow:</strong> <span style="color:#1b5e20; font-weight:bold;">Đã phong tỏa 10% tại Ngân hàng MBBank</span></p>
                         <p>🕒 <strong>Thời gian chốt hiệu lực:</strong> <span id="final-timestamp" style="font-weight:bold;"></span></p>
                     </div>
-
                     <!-- REPORT ADMIN DISPUTE SECTION -->
                     <div id="dispute-resolution-container" style="margin-top: 12px; padding-top: 10px; border-top: 1px dashed #a5d6a7;">
                         <div style="font-weight: 700; color: #c62828; font-size: 13px; margin-bottom: 8px; text-align: center;">🚨 QUY TRÌNH BÁO CÁO KHIẾU NẠI VỀ ADMIN</div>
                         <button id="btn-report-admin-trigger" class="btn btn-accent" style="background: #d32f2f; color: #fff; font-weight: bold; width: 100%;" onclick="openReportAdminModal()">🚨 Gửi Báo Cáo Khiếu Nại Cho Admin</button>
                     </div>
-
                     <!-- ADMIN EMAIL RESPONSE DISPLAY -->
                     <div id="admin-email-response-card" style="display: none; margin-top: 12px; background: #e3f2fd; border: 2px solid #1565c0; border-radius: 8px; padding: 10px; font-size: 12px; color: #0d47a1;">
                         <div style="font-weight: 700; font-size: 13px; margin-bottom: 4px; text-align: center;">📧 THÔNG BÁO PHẢN HỒI TỪ BAN QUẢN TRỊ ADMIN</div>
                         <p id="admin-email-response-text" style="line-height: 1.5; font-style: italic;"></p>
                     </div>
-
                     <!-- ADMIN ARBITRATION RESULT CARD -->
                     <div id="violation-result-card" style="display: none; margin-top: 12px; background: #ffebee; border: 2px solid #c62828; border-radius: 8px; padding: 10px; font-size: 12px; color: #b71c1c;">
                         <div style="font-weight: 700; font-size: 13px; margin-bottom: 6px; text-align: center;">📋 BIÊN BẢN PHÁN QUYẾT TRỌNG TÀI BRIX P2P</div>
@@ -564,7 +510,6 @@
                         <p>👨‍⚖️ <strong>Trọng tài xác nhận:</strong> <span id="violation-arb-text" style="font-weight:bold;"></span></p>
                         <p>🕒 <strong>Thời điểm lập biên bản:</strong> <span id="violation-time-text"></span></p>
                     </div>
-
                     <div style="font-size: 11px; color: #666; font-style: italic; margin-top: 8px; text-align: center; border-top: 1px solid #a5d6a7; padding-top: 6px;">
                         🔒 Hợp đồng này đã được ghi nhận trên hệ thống DuriTrade. Mọi chỉnh sửa chữ ký hoặc thông tin pháp lý đã bị khóa vĩnh viễn.
                     </div>
@@ -572,7 +517,6 @@
             </div>
         </section>
     </main>
-
     <!-- BOTTOM NAVIGATION (4 TABS) -->
     <nav class="bottom-nav">
         <button class="nav-item active" onclick="switchTab(0, this)">
@@ -593,7 +537,6 @@
         </button>
     </nav>
     </div> <!-- END #main-app-container -->
-
     <!-- MODAL 1: BẢNG QUY ĐỊNH PHÁP LUẬT & ĐIỀU KHOẢN SỬ DỤNG APP -->
     <div id="modal-legal" class="modal-overlay">
         <div class="modal-card">
@@ -606,26 +549,21 @@
                 <h4>1. Quy Định Đặt Cọc & Phạt Cọc (Điều 328 Bộ Luật Dân Sự 2015)</h4>
                 <p>Tiền đặt cọc 10% Escrow được phong tỏa tại Ngân hàng MBBank để bảo đảm thực hiện hợp đồng thu mua sầu riêng. Bên bẻ cọc hoặc vi phạm cam kết sẽ chịu đền bù phạt cọc theo đúng quy định pháp luật.</p>
             </div>
-
             <div class="legal-item">
                 <h4>2. Giá Trị Pháp Lý Hợp Đồng Điện Tử (Luật Giao Dịch Điện Tử 2023)</h4>
                 <p>Chữ ký điện tử cảm ứng bằng ngón tay đính kèm Dấu thời gian (Timestamp `#DT-SIG-8892`) và tọa độ GPS vườn có giá trị chứng cứ hoàn chỉnh trước pháp luật và cơ quan Trọng tài.</p>
             </div>
-
             <div class="legal-item">
                 <h4>3. Bảo Mật Định Vị GPS & Thông Tin (Nghị định 13/2023/NĐ-CP)</h4>
                 <p>Tọa độ GPS chính xác và số điện thoại của nhà vườn được ẩn bảo mật đối với tài khoản vãn cảnh và chỉ hiển thị công khai khi đơn hàng được khóa cọc Escrow 10% thành công.</p>
             </div>
-
             <div class="legal-item">
                 <h4>4. Cơ Chế Phân Xử Trọng Tài BRIX P2P & Ban Quản Trị Sàn</h4>
                 <p>Khi phát sinh khiếu nại về tỷ lệ Hàng A hoặc độ BRIX, Ban Quản Trị Sàn DuriTrade tiếp nhận khiếu nại, phản hồi email và cử Chuyên gia Trọng tài BRIX độc lập xuống tọa độ GPS vườn đo thực tế để ra phán quyết giải ngân cọc.</p>
             </div>
-
             <button class="btn btn-primary" onclick="closeModal('modal-legal')" style="margin-top: 10px;">✅ Tôi Đã Hiểu Rõ Quy Định</button>
         </div>
     </div>
-
     <!-- MODAL 2: KHUNG VIETQR MBBANK CHUẨN CỌC ESCROW 10% -->
     <div id="modal-payment" class="modal-overlay">
         <div class="modal-card" style="text-align: center; max-width: 380px;">
@@ -633,7 +571,6 @@
                 <div class="modal-title">🔒 Nộp Cọc Escrow 10% (MBBank Napas247)</div>
                 <button class="btn-close" onclick="closeModal('modal-payment')">✕</button>
             </div>
-
             <div class="qr-box" style="padding: 12px; background: #f9f9f9; border-radius: 8px; border: 1px solid var(--border);">
                 <div style="font-size: 13px; font-weight: bold; color: var(--primary);">NGÂN HÀNG TMCP QUÂN ĐỘI (MBBANK)</div>
                 <div style="font-size: 11px; color: #666; margin-bottom: 6px;">Tài Khoản Escrow Bảo Chứng Trung Gian DuriTrade</div>
@@ -641,7 +578,6 @@
                 <div style="text-align: center; margin: 8px 0;">
                     <img id="pay-modal-qr-img" src="https://img.vietqr.io/image/MB-1012345678-compact2.png?amount=82500000&addInfo=DT8892%20COC%20BAO%20CHUNG&accountName=DURITRADE%20ESCROW%20MBBANK" style="width: 210px; height: 210px; border-radius: 8px; border: 2px solid var(--primary); background: #fff; padding: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);" alt="Mã VietQR MBBank Payment">
                 </div>
-
                 <div style="font-size: 12px; line-height: 1.6; color: #333; text-align: left; background: #fff; padding: 8px; border-radius: 6px; border: 1px solid #e0e0e0; margin-top: 6px;">
                     <p>📄 <strong>Áp dụng cho Hợp Đồng:</strong> <span id="pay-modal-contract-code" style="font-weight:bold; color:var(--primary);">#DT-8892</span></p>
                     <p>💳 <strong>Số Tài Khoản Escrow:</strong> <strong style="color: var(--danger); font-size: 14px;">1012345678</strong></p>
@@ -650,15 +586,12 @@
                     <p>📝 <strong>Nội Dung Chuyển Khoản:</strong> <span id="pay-modal-content" style="color: var(--primary); font-weight: bold; background: #e8f5e9; padding: 2px 6px; border-radius: 4px;">DT8892 COC BAO CHUNG</span></p>
                 </div>
             </div>
-
             <div style="font-size: 11px; color: #555; margin: 10px 0; font-style: italic;">
                 📲 Mở app Ngân hàng (MBBank, Vietcombank, Agribank, BIDV...) quét mã VietQR ở trên để nộp cọc an toàn.
             </div>
-
             <button class="btn btn-primary" style="background: linear-gradient(135deg, #1b5e20, #2e7d32); font-weight: bold;" onclick="simulatePaymentSuccess()">✅ Tôi Đã Quét Mã VietQR & Chuyển Cọc 10%</button>
         </div>
     </div>
-
     <!-- MODAL 3: GỬI BÁO CÁO KHIẾU NẠI CHO ADMIN -->
     <div id="modal-report-admin" class="modal-overlay">
         <div class="modal-card">
@@ -676,20 +609,16 @@
                     <option value="🥀 Lô sầu bị thối sượng hỏng nặng thực tế">🥀 Lô sầu bị thối sượng hỏng nặng thực tế</option>
                 </select>
             </div>
-
             <div class="form-group">
                 <label class="form-label">Mô Tả Chi Tiết Sự Cố Cần Admin Xử Lý</label>
                 <textarea id="report-detail-input" class="form-textarea" rows="3" placeholder="Nhập mô tả tình hình thực tế tại vườn sầu riêng..."></textarea>
             </div>
-
             <div style="font-size: 11px; color: #666; line-height: 1.5; margin-bottom: 12px; background: #fafafa; padding: 8px; border-radius: 8px;">
                 * Báo cáo này sẽ gửi trực tiếp về Dashboard Ban Quản Trị Admin DuriTrade. Admin sẽ gửi Email phản hồi cho 2 bên và cử Chuyên gia Trọng tài BRIX P2P xuống tọa độ GPS vườn kiểm định thực tế.
             </div>
-
             <button class="btn btn-danger" onclick="submitReportToAdmin()">🚀 Gửi Báo Cáo Sự Cố Cho Admin</button>
         </div>
     </div>
-
     <!-- MODAL 4: ADMIN CỬ TRỌNG TÀI & PHÁN QUYẾT TRỪ CỌC HAI CHIỀU (CHO ADMIN) -->
     <div id="modal-admin-arbitrate" class="modal-overlay">
         <div class="modal-card">
@@ -706,7 +635,6 @@
                     <option value="👨‍🌾 Hợp Tác Xóa Sầu Riêng Chuẩn VietGAP">👨‍🌾 Hợp Tác Xóa Sầu Riêng Chuẩn VietGAP</option>
                 </select>
             </div>
-
             <div class="form-group">
                 <label class="form-label">🚨 Xác Định Nguyên Nhân / Bên Vi Phạm Hợp Đồng</label>
                 <select id="admin-violating-party-select" class="form-select">
@@ -715,7 +643,6 @@
                     <option value="force_majeure">🌧️ Thiên Tai / Thời Tiết Bất Khả Kháng (Mưa dầm / BRIX giảm) -> Hoàn 100% Cọc Cho Bên Mua & Miễn Phạt Cho Nhà Vườn</option>
                 </select>
             </div>
-
             <div class="form-group">
                 <label class="form-label">Mức Phạt Khấu Trừ Tiền Cọc Escrow MBBank</label>
                 <select id="admin-deduct-rate-select" class="form-select">
@@ -725,19 +652,15 @@
                     <option value="1.00">Khấu trừ 100% toàn bộ cọc (82.500.000 VNĐ)</option>
                 </select>
             </div>
-
             <div style="font-size: 11px; color: #666; margin-bottom: 12px; background: #fff3e0; padding: 8px; border-radius: 6px; border: 1px solid #ffe0b2;">
                 <label style="display: flex; align-items: center; gap: 6px; cursor: pointer;">
                     <input type="checkbox" id="chk-admin-confirm" checked>
                     <span><strong>Xác nhận:</strong> Trọng tài BRIX P2P đã kiểm định thực tế và đồng thuận phán quyết 3 bên.</span>
                 </label>
             </div>
-
             <button class="btn btn-danger" onclick="executeAdminDeduction()">💥 Admin Ra Phán Quyết & Trừ Cọc Escrow</button>
         </div>
     </div>
-
-
     <!-- MODAL 6: GỬI YÊU CẦU DỜI LỊCH CẮT DO THỜI TIẾT / SỰ CỐ (DÙNG 2 BÊN GỬI QUA LẠI) -->
     <div id="modal-weather-delay" class="modal-overlay">
         <div class="modal-card">
@@ -753,7 +676,6 @@
                     <option value="buyer">💼 Bên Mua (Thương Lái / Vựa XNK) gửi yêu cầu cho Nhà Vườn</option>
                 </select>
             </div>
-
             <div class="form-group">
                 <label class="form-label">Chọn Đợt Cắt Cần Xin Gia Hạn Dời Lịch</label>
                 <select id="weather-delay-dao-select" class="form-select">
@@ -762,7 +684,6 @@
                     <option value="Dao 3">🔪 Dao 3 (Đợt cắt vét 20% SL)</option>
                 </select>
             </div>
-
             <div class="form-group">
                 <label class="form-label">Lý Do Thời Tiết / Thực Địa Bất Khả Kháng</label>
                 <select id="weather-delay-reason-select" class="form-select">
@@ -772,7 +693,6 @@
                     <option value="Thời tiết biến động bất thường khiến sầu chậm chín">🌡️ Thời tiết biến động bất thường khiến sầu chậm chín</option>
                 </select>
             </div>
-
             <div class="form-group">
                 <label class="form-label">Số Ngày Đề Xuất Gia Hạn Dời Lịch</label>
                 <select id="weather-delay-days-select" class="form-select">
@@ -781,15 +701,12 @@
                     <option value="5">Gia hạn dời thêm +5 ngày</option>
                 </select>
             </div>
-
             <div style="font-size: 11px; color: #0288d1; margin-bottom: 12px; background: #e1f5fe; padding: 8px; border-radius: 6px; border: 1px solid #81d4fa;">
                 💡 Yêu cầu này sẽ được chuyển sang giao diện Hợp đồng của bên đối tác để họ bấm <strong>✅ Đồng Ý</strong> hoặc <strong>❌ Từ Chối</strong> phê duyệt.
             </div>
-
             <button class="btn btn-primary" style="background: #0288d1; font-weight: bold;" onclick="submitPostponeRequest()">📤 Gửi Yêu Cầu Dời Lịch Sang Đối Tác</button>
         </div>
     </div>
-
     <!-- MODAL 5: HỦY CỌC HỢP ĐỒNG & PHẠT PHÁP LÝ ESCROW (KHI ĐÃ NỘP CỌC) -->
     <div id="modal-cancel-deposit" class="modal-overlay">
         <div class="modal-card">
@@ -802,7 +719,6 @@
                 <strong>⚠️ CHÚ Ý PHÁP LÝ (ĐIỀU 328 BLDS 2015):</strong><br>
                 Hợp đồng này đã được ký kết và <strong>phong tỏa 10% cọc Escrow MBBank</strong>. Việc HỦY CỌC lúc này là hành vi bẻ hợp đồng và sẽ kích hoạt chế tài phạt cọc tài chính!
             </div>
-
             <div class="form-group">
                 <label class="form-label">Chọn Bên Đột Ngột Hủy Cọc / Bẻ Hợp Đồng:</label>
                 <select id="cancel-deposit-party-select" class="form-select">
@@ -810,23 +726,19 @@
                     <option value="farmer">🌾 Bên Bán (Nông Dân) Tự Ý Hủy Cọc - Bẻ Bán Vựa Khác</option>
                 </select>
             </div>
-
             <div class="form-group">
                 <label class="form-label">Lý Do Hủy Cọc Hợp Đồng:</label>
                 <textarea id="cancel-deposit-reason" class="form-control" style="height: 60px;" placeholder="Ví dụ: Thương lái thay đổi kế hoạch thu mua / Nhà vườn muốn đổi vựa khác..."></textarea>
             </div>
-
             <div style="font-size: 11px; color: #333; margin-bottom: 12px; background: #fff3e0; padding: 8px; border-radius: 6px; border: 1px solid #ffe0b2;">
                 <label style="display: flex; align-items: center; gap: 6px; cursor: pointer;">
                     <input type="checkbox" id="chk-cancel-deposit-confirm" checked>
                     <span><strong>Xác nhận:</strong> Đồng ý xử lý chế tài tịch thu/đền bù 100% tiền cọc Escrow MBBank theo quy định pháp luật.</span>
                 </label>
             </div>
-
             <button class="btn btn-danger" style="background: #c62828; font-weight: bold; width: 100%;" onclick="executeCancelDeposit()">💥 XÁC NHẬN HỦY CỌC & TỊCH THU/BỒI THƯỜNG ESCROW</button>
         </div>
     </div>
-
 <!-- MODAL 7: CỔNG QUẢN TRỊ VIÊN ADMIN BẢO MẬT eKYC (DEDICATED SECURE MODAL) -->
     <div id="modal-admin-portal" class="modal-overlay">
         <div class="modal-card" style="max-width: 480px; max-height: 85vh; overflow-y: auto;">
@@ -834,7 +746,6 @@
                 <div class="modal-title" style="color: var(--primary); font-weight: 700;">🔐 Cổng Quản Trị Viên & Bảo Mật eKYC</div>
                 <button class="btn-close" onclick="closeModal('modal-admin-portal')">✕</button>
             </div>
-
             <div id="admin-login-box" style="display: block; padding: 12px; background: #fafafa; border-radius: 8px; border: 1px solid var(--border); margin-bottom: 8px;">
                 <div style="font-size: 12px; color: #555; margin-bottom: 8px; line-height: 1.5;">
                     🔒 Dữ liệu Hợp đồng, Chữ ký điện tử, SĐT và CCCD định danh eKYC được bảo mật nghiêm ngặt. Nhập mật khẩu Admin (Mặc định: <strong>admin123</strong>) để truy cập Cổng Quản trị:
@@ -844,13 +755,11 @@
                     <button class="btn btn-primary" style="width: 110px; padding: 8px; font-weight: bold;" onclick="loginAdmin()">🔑 Mở Khóa</button>
                 </div>
             </div>
-
             <div id="admin-panel-content" style="display: none;">
                 <div style="display: flex; justify-content: space-between; align-items: center; background: #e8f5e9; padding: 8px 10px; border-radius: 6px; border: 1px solid #c8e6c9; margin-bottom: 12px;">
                     <span style="font-size: 12px; font-weight: bold; color: #1b5e20;">✅ Đã Đăng Nhập Quản Trị Viên DuriTrade</span>
                     <button class="btn btn-danger btn-sm" style="padding: 3px 8px; font-size: 10px;" onclick="logoutAdmin()">🔒 Đăng Xuất</button>
                 </div>
-
                 <div class="form-group" style="background: #fff; padding: 10px; border-radius: 8px; border: 1px solid var(--border); margin-bottom: 12px;">
                     <label class="form-label" style="font-weight: 700; color: var(--primary);">📈 Cập Nhật Bảng Giá Trực Tiếp (VNĐ/kg):</label>
                     <div style="display: flex; gap: 6px; margin-bottom: 6px;">
@@ -866,17 +775,14 @@
                         <button class="btn btn-outline" style="padding: 6px; font-size: 11px; width: auto;" onclick="resetAdminPrice()">🔄 Khôi Phục</button>
                     </div>
                 </div>
-
                 <div style="background: #fff; padding: 10px; border-radius: 8px; border: 1px solid var(--border); margin-bottom: 12px;">
                     <div class="form-label" style="color: var(--primary); font-weight: 700; margin-bottom: 6px;">📋 Quản Lý & Xóa Bài Đăng Hệ Thống:</div>
                     <div id="admin-listings-table-container" style="max-height: 150px; overflow-y: auto; font-size: 11px;"></div>
                 </div>
-
                 <div style="background: #fff; padding: 10px; border-radius: 8px; border: 1px solid var(--border); margin-bottom: 12px;">
                     <div class="form-label" style="color: var(--danger); font-weight: 700; margin-bottom: 6px;">🚨 Hộp Thư Báo Cáo Khiếu Nại & Điều Động Trọng Tài:</div>
                     <div id="admin-incident-reports-container" style="max-height: 160px; overflow-y: auto; font-size: 11px;"></div>
                 </div>
-
                 <div style="background: #e3f2fd; border: 2px solid #1565c0; border-radius: 8px; padding: 10px; font-size: 11px; margin-bottom: 12px;">
                     <div style="font-weight: 700; color: #0d47a1; font-size: 12px; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center;">
                         <span>💳 HỘP THƯ THÔNG BÁO BIẾN ĐỘNG CỌC ESCROW MBBANK</span>
@@ -884,7 +790,6 @@
                     </div>
                     <div id="admin-escrow-notifications-container" style="max-height: 170px; overflow-y: auto;"></div>
                 </div>
-
                 <div style="background: #e8f5e9; border: 2px solid #2e7d32; border-radius: 8px; padding: 10px; font-size: 11px;">
                     <div style="font-weight: 700; color: #1b5e20; font-size: 12px; margin-bottom: 6px; text-align: center;">🏛️ KHO LƯU TRỮ VĨNH VIỄN HỢP ĐỒNG & CHỮ KÝ (PHÁP LÝ & eKYC)</div>
                     <div id="admin-legal-vault-container" style="max-height: 180px; overflow-y: auto;"></div>
@@ -893,16 +798,13 @@
             </div>
         </div>
     </div>
-
     <script>
-
     // AUTHENTICATION & LOGIN MANAGEMENT (NEW IN V39)
     function switchAuthTab(tab) {
         const loginBtn = document.getElementById('auth-tab-login-btn');
         const regBtn = document.getElementById('auth-tab-register-btn');
         const loginForm = document.getElementById('auth-login-form');
         const regForm = document.getElementById('auth-register-form');
-
         if (tab === 'login') {
             loginBtn.classList.add('active');
             regBtn.classList.remove('active');
@@ -915,7 +817,6 @@
             loginForm.style.display = 'none';
         }
     }
-
     function quickFillDemo(username, password, role) {
         const elU = document.getElementById('auth-login-username');
         const elP = document.getElementById('auth-login-password');
@@ -923,7 +824,6 @@
         if (elU) elU.value = username;
         if (elP) elP.value = password;
         if (elR) elR.value = role;
-
         if (role === 'admin' || username === 'admin') {
             const adminUser = { name: 'Ban Quản Trị Admin', username: 'admin', role: 'admin' };
             sessionStorage.setItem('duritrade_logged_user', JSON.stringify(adminUser));
@@ -932,12 +832,10 @@
             checkUserAuthSession();
             return;
         }
-
         let registeredUsers = JSON.parse(localStorage.getItem('duritrade_registered_users')) || [
             { fullname: 'Nguyễn Văn A (Hộ Nông Dân)', username: 'nongdan01', password: '123', role: 'farmer', phone: '0987.654.321', cccd: '066092008892' },
             { fullname: 'Vựa Sầu Riêng XNK B', username: 'vuasaurieng01', password: '123', role: 'buyer', phone: '0912.345.678', cccd: '040088009982' }
         ];
-
         let user = registeredUsers.find(u => u.username === username);
         if (!user) {
             user = {
@@ -948,63 +846,53 @@
                 cccd: role === 'farmer' ? '066092008892' : '040088009982'
             };
         }
-
         sessionStorage.setItem('duritrade_logged_user', JSON.stringify(user));
         sessionStorage.setItem('duritrade_user_role', user.role || role);
         sessionStorage.removeItem('duritrade_admin_logged');
         checkUserAuthSession();
     }
-
     function autoSyncAdminLoginState(roleVal) {
         if (roleVal === 'admin') {
             document.getElementById('auth-login-username').value = 'admin';
             document.getElementById('auth-login-password').value = 'admin123';
         }
     }
-
     function handleAuthLogin(event) {
         event.preventDefault();
         const username = document.getElementById('auth-login-username').value.trim();
         const password = document.getElementById('auth-login-password').value.trim();
         const role = document.getElementById('auth-login-role').value;
-
         if (role === 'admin' || username === 'admin') {
             if (password === 'admin123' || password === 'admin') {
                 const adminUser = { name: 'Ban Quản Trị Admin', username: 'admin', role: 'admin' };
                 sessionStorage.setItem('duritrade_logged_user', JSON.stringify(adminUser));
                 sessionStorage.setItem('duritrade_user_role', 'admin');
                 sessionStorage.setItem('duritrade_admin_logged', 'true');
-
-                alert('🔓 ĐĂNG NHẬP CỔNG QUẢN TRỊ VIÊN ADMIN THÀNH CÔNG!\n\nBạn có toàn quyền truy cập Cổng Admin, Bảng giá Live, Hộp thư Khiếu nại và Kho lưu trữ eKYC Pháp Lý.');
+                alert('🔓 ĐĂNG NHẬP CỔNG QUẢN TRỊ VIÊN ADMIN THÀNH CÔNG!\\n\\nBạn có toàn quyền truy cập Cổng Admin, Bảng giá Live, Hộp thư Khiếu nại và Kho lưu trữ eKYC Pháp Lý.');
                 checkUserAuthSession();
             } else {
                 alert('❌ Mật khẩu Admin không đúng! Vui lòng dùng mật khẩu: admin123');
             }
             return;
         }
-
         // Normal User Login
         let registeredUsers = JSON.parse(localStorage.getItem('duritrade_registered_users')) || [
             { fullname: 'Nguyễn Văn A (Hộ Nông Dân)', username: 'nongdan01', password: '123', role: 'farmer', phone: '0987.654.321', cccd: '066092008892' },
             { fullname: 'Vựa Sầu Riêng XNK B', username: 'vuasaurieng01', password: '123', role: 'buyer', phone: '0912.345.678', cccd: '040088009982' }
         ];
-
         const user = registeredUsers.find(u => (u.username === username || u.phone === username) && u.password === password);
-
         if (user) {
             sessionStorage.setItem('duritrade_logged_user', JSON.stringify(user));
             sessionStorage.setItem('duritrade_user_role', user.role || role);
             sessionStorage.removeItem('duritrade_admin_logged');
-
             const roleLabel = (user.role === 'farmer' || role === 'farmer') ? '🌾 Hộ Nông Dân' : '💼 Thương Lái Thu Mua';
-            alert('🎉 ĐĂNG NHẬP THÀNH CÔNG!\n\nXin chào: ' + (user.fullname || user.username) + '\nVai trò: ' + roleLabel + '\n\nChúc bạn giao dịch thành công & an toàn trên Sàn DuriTrade!');
+            alert('🎉 ĐĂNG NHẬP THÀNH CÔNG!\\n\\nXin chào: ' + (user.fullname || user.username) + '\\nVai trò: ' + roleLabel + '\\n\\nChúc bạn giao dịch thành công & an toàn trên Sàn DuriTrade!');
             checkUserAuthSession();
         } else {
-            alert('❌ Tên đăng nhập hoặc Mật khẩu không đúng!\n\nVui lòng nhập đúng Tên đăng nhập và Mật khẩu (hoặc bấm chọn nút chọn nhanh ở trên).');
+            alert('❌ Tên đăng nhập hoặc Mật khẩu không đúng!\\n\\nVui lòng nhập đúng Tên đăng nhập và Mật khẩu (hoặc bấm chọn nút chọn nhanh ở trên).');
             return;
         }
     }
-
     function handleAuthRegister(event) {
         event.preventDefault();
         const fullname = document.getElementById('auth-reg-fullname').value.trim();
@@ -1013,61 +901,154 @@
         const role = document.getElementById('auth-reg-role').value;
         const username = document.getElementById('auth-reg-username').value.trim();
         const password = document.getElementById('auth-reg-password').value.trim();
-
         if (!fullname || !username || !password) {
             alert('Vui lòng điền đầy đủ thông tin đăng ký!');
             return;
         }
-
         const newUser = { fullname, phone, cccd, role, username, password };
         let registeredUsers = JSON.parse(localStorage.getItem('duritrade_registered_users')) || [];
         registeredUsers.push(newUser);
         localStorage.setItem('duritrade_registered_users', JSON.stringify(registeredUsers));
-
         sessionStorage.setItem('duritrade_logged_user', JSON.stringify(newUser));
         sessionStorage.setItem('duritrade_user_role', role);
         sessionStorage.removeItem('duritrade_admin_logged');
-
-        alert('🎉 ĐĂNG KÝ TÀI KHOẢN MỚI THÀNH CÔNG!\n\nHọ & Tên: ' + fullname + '\nTên Đăng Nhập: ' + username + '\nĐã tự động đăng nhập vào DuriTrade.');
+        alert('🎉 ĐĂNG KÝ TÀI KHOẢN MỚI THÀNH CÔNG!\\n\\nHọ & Tên: ' + fullname + '\\nTên Đăng Nhập: ' + username + '\\nĐã tự động đăng nhập vào DuriTrade.');
         checkUserAuthSession();
     }
-
+    
+    function fastSwitchAccount(username) {
+        if (!username) return;
+        let user;
+        if (username === 'admin') {
+            user = { fullname: 'Ban Quản Trị Admin', username: 'admin', role: 'admin' };
+            sessionStorage.setItem('duritrade_admin_logged', 'true');
+        } else if (username === 'nongdan01') {
+            user = { fullname: 'Nguyễn Văn A (Hộ Nông Dân)', username: 'nongdan01', role: 'farmer', phone: '0987.654.321', cccd: '066092008892' };
+            sessionStorage.removeItem('duritrade_admin_logged');
+        } else if (username === 'vuasaurieng01') {
+            user = { fullname: 'Vựa Sầu Riêng XNK B', username: 'vuasaurieng01', role: 'buyer', phone: '0912.345.678', cccd: '040088009982' };
+            sessionStorage.removeItem('duritrade_admin_logged');
+        }
+        sessionStorage.setItem('duritrade_logged_user', JSON.stringify(user));
+        sessionStorage.setItem('duritrade_user_role', user.role);
+        resetContractDomForSwitch();
+        checkUserAuthSession();
+        switchTab(0, document.querySelectorAll('.nav-item')[0]);
+        alert('🎉 ĐÃ CHUYỂN SANG TÀI KHOẢN: ' + user.fullname + ' (' + user.username + ')!');
+    }
     function handleUserLogout() {
         if (confirm('🔒 Bạn có chắc chắn muốn đăng xuất khỏi DuriTrade?')) {
             sessionStorage.removeItem('duritrade_logged_user');
             sessionStorage.removeItem('duritrade_user_role');
             sessionStorage.removeItem('duritrade_admin_logged');
-            userContracts = [];
-            currentContractId = null;
+            resetContractDomForSwitch();
             alert('🔒 Đã đăng xuất thành công!');
             checkUserAuthSession();
         }
     }
 
+    function resetContractDomForSwitch() {
+        userContracts = [];
+        currentContractId = null;
+        isSignatureSaved = false;
+        isDrawing = false;
+
+        if (sigCanvas && sigCtx) {
+            sigCtx.clearRect(0, 0, sigCanvas.width, sigCanvas.height);
+        }
+
+        const textFields = [
+            'contract-code-title', 'contract-seller', 'contract-seller-phone', 'contract-seller-cccd',
+            'contract-buyer', 'contract-buyer-phone', 'contract-buyer-cccd', 'contract-qty',
+            'contract-price', 'contract-total-val', 'contract-deposit-val', 'contract-gps',
+            'contract-harvest-schedule', 'contract-dao1-info', 'contract-dao2-info', 'contract-dao3-info',
+            'contract-quality-dao1', 'contract-quality-dao2', 'contract-quality-dao3',
+            'sig-status', 'final-hash-code', 'final-timestamp', 'admin-email-response-text',
+            'violation-party-text', 'violation-reason-text', 'violation-deduct-text',
+            'violation-flow-text', 'violation-remaining-text', 'violation-arb-text', 'violation-time-text',
+            'cancel-party-text', 'cancel-reason-text', 'cancel-escrow-action-text', 'cancel-time-text',
+            'weather-delay-text'
+        ];
+        textFields.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.innerText = '';
+        });
+
+        const hiddenBlocks = [
+            'finalized-summary-card', 'dispute-resolution-container', 'admin-email-response-card',
+            'violation-result-card', 'cancel-deposit-result-card', 'weather-delay-status-badge',
+            'postpone-request-approval-card'
+        ];
+        hiddenBlocks.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.style.display = 'none';
+        });
+
+        const dropdown = document.getElementById('contract-select-dropdown');
+        if (dropdown) {
+            dropdown.innerHTML = '<option value="">🛒 Danh mục trống - Chưa chọn bài đăng nào</option>';
+        }
+        const elGardens = document.getElementById('portfolio-total-gardens');
+        const elQty = document.getElementById('portfolio-total-qty');
+        const elEscrow = document.getElementById('portfolio-total-escrow');
+        if (elGardens) elGardens.innerText = '0 Vườn';
+        if (elQty) elQty.innerText = '0 Tấn';
+        if (elEscrow) elEscrow.innerText = '0.0 Tr đ';
+    }
+    
+    // DIRECT 1-TOUCH ACCOUNT SWITCHER (NO LOGIN SCREEN REQUIRED)
+    function switchAccount(username) {
+        let userObj = null;
+        let msg = '';
+        if (username === 'nongdan01') {
+            userObj = { fullname: 'Nguyễn Văn A (Hộ Nông Dân)', username: 'nongdan01', role: 'farmer', phone: '0987.654.321', cccd: '066092008892' };
+            sessionStorage.setItem('duritrade_logged_user', JSON.stringify(userObj));
+            sessionStorage.setItem('duritrade_user_role', 'farmer');
+            sessionStorage.removeItem('duritrade_admin_logged');
+            msg = '🌾 ĐÃ CHUYỂN SANG TÀI KHOẢN HỘ NÔNG DÂN (nongdan01)!\\n\\n2 nick độc lập: danh mục hợp đồng & chữ ký của nick này hoàn toàn tách biệt.';
+        } else if (username === 'vuasaurieng01') {
+            userObj = { fullname: 'Vựa Sầu Riêng XNK B', username: 'vuasaurieng01', role: 'buyer', phone: '0912.345.678', cccd: '040088009982' };
+            sessionStorage.setItem('duritrade_logged_user', JSON.stringify(userObj));
+            sessionStorage.setItem('duritrade_user_role', 'buyer');
+            sessionStorage.removeItem('duritrade_admin_logged');
+            msg = '💼 ĐÃ CHUYỂN SANG TÀI KHOẢN THƯƠNG LÁI THU MUA (vuasaurieng01)!\\n\\n2 nick độc lập: danh mục hợp đồng & chữ ký của nick này hoàn toàn tách biệt.';
+        } else if (username === 'admin') {
+            userObj = { fullname: 'Ban Quản Trị Admin', username: 'admin', role: 'admin' };
+            sessionStorage.setItem('duritrade_logged_user', JSON.stringify(userObj));
+            sessionStorage.setItem('duritrade_user_role', 'admin');
+            sessionStorage.setItem('duritrade_admin_logged', 'true');
+            msg = '🔑 ĐÃ MỞ CỔNG BAN QUẢN TRỊ ADMIN SYSTEM!\\n\\nBạn có quyền Giám sát Giao dịch, Xem Kho eKYC Pháp Lý và Giải quyết Khiếu nại.';
+        }
+        resetContractDomForSwitch();
+        checkUserAuthSession();
+        switchTab(0, document.querySelectorAll('.nav-item')[0]);
+        if (msg) alert(msg);
+    }
     function checkUserAuthSession() {
         const loggedUserStr = sessionStorage.getItem('duritrade_logged_user');
         const authScreen = document.getElementById('auth-gate-screen');
         const mainApp = document.getElementById('main-app-container');
         const userBadge = document.getElementById('header-user-badge');
         const adminBtn = document.getElementById('admin-header-lock-btn');
-
         if (!loggedUserStr) {
-            if (authScreen) authScreen.style.display = 'flex';
-            if (mainApp) mainApp.style.display = 'none';
+            if (mainApp) mainApp.style.display = 'block';
         } else {
             const user = JSON.parse(loggedUserStr);
             if (authScreen) authScreen.style.display = 'none';
             if (mainApp) mainApp.style.display = 'block';
-
             if (userBadge) {
                 const roleIcon = user.role === 'admin' ? '🔑' : (user.role === 'farmer' ? '🌾' : '💼');
                 userBadge.innerText = roleIcon + ' ' + (user.username || user.fullname);
             }
-
-            if (adminBtn) {
-                adminBtn.style.display = (user.role === 'admin' || sessionStorage.getItem('duritrade_admin_logged') === 'true') ? 'inline-block' : 'none';
+            const isAdmin = (user.role === 'admin' && sessionStorage.getItem('duritrade_admin_logged') === 'true');
+            if (!isAdmin) {
+                sessionStorage.removeItem('duritrade_admin_logged');
+                const adminModal = document.getElementById('modal-admin-portal');
+                if (adminModal) adminModal.style.display = 'none';
             }
-
+            if (adminBtn) {
+                adminBtn.style.display = isAdmin ? 'inline-block' : 'none';
+            }
             renderMarketList();
             updatePriceChart();
             initSignaturePad();
@@ -1079,11 +1060,8 @@
             applyAdminEscrowNotificationsState();
         }
     }
-
-
     // DEFAULT PLACEHOLDER DURIAN SVG IMAGE DATA URL
     const SVG_DURIAN_PLACEHOLDER = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='250' viewBox='0 0 400 250'><rect width='400' height='250' fill='%231b5e20'/><circle cx='200' cy='125' r='70' fill='%23fbc02d'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' fill='%231b5e20' font-size='20' font-weight='bold'>🍈 DuriTrade</text></svg>";
-
     // INITIAL APP STATE
     const DEFAULT_MARKET_DATA = [
         {
@@ -1186,41 +1164,39 @@
             image: SVG_DURIAN_PLACEHOLDER
         }
     ];
-
     let currentCompressedImageData = null;
     let isSignatureSaved = false;
-
     // INITIALIZE DATA ON LOAD
     document.addEventListener('DOMContentLoaded', () => {
         if (!localStorage.getItem('duritrade_market_items')) {
             localStorage.setItem('duritrade_market_items', JSON.stringify(DEFAULT_MARKET_DATA));
         }
+        // Auto-set default user to nongdan01 if no user active
+        if (!sessionStorage.getItem('duritrade_logged_user')) {
+            const defaultUser = { fullname: 'Nguyễn Văn A (Hộ Nông Dân)', username: 'nongdan01', role: 'farmer', phone: '0987.654.321', cccd: '066092008892' };
+            sessionStorage.setItem('duritrade_logged_user', JSON.stringify(defaultUser));
+            sessionStorage.setItem('duritrade_user_role', 'farmer');
+        }
         checkUserAuthSession();
     });
-
-
     // ADMIN LEGAL VAULT & COURT EVIDENCE EXPORT (NEW IN V31)
     function renderAdminLegalVault() {
         const container = document.getElementById('admin-legal-vault-container');
         if (!container) return;
-
         const contracts = JSON.parse(localStorage.getItem('duritrade_user_contracts')) || [];
         if (contracts.length === 0) {
             container.innerHTML = '<p style="color:#888; text-align:center; padding:10px;">Chưa có dữ liệu hợp đồng trong kho lưu trữ.</p>';
             return;
         }
-
         let html = '';
         contracts.forEach(c => {
             const sigUrl = c.signatureDataUrl || localStorage.getItem('duritrade_sig_' + c.id);
             const sigImgHtml = sigUrl 
                 ? `<img src="${sigUrl}" style="height:32px; border:1px solid #a5d6a7; border-radius:4px; background:#fff; vertical-align:middle;" alt="Chữ ký">`
                 : `<span style="color:#d32f2f; font-weight:bold;">[Chưa có chữ ký]</span>`;
-
             const statusBadge = c.isFinalized
                 ? `<span class="badge badge-success">✅ Đã Chốt Pháp Lý</span>`
                 : (c.status === 'locked_deposit' ? `<span class="badge badge-success">🔒 Phong Tỏa 10% Escrow</span>` : `<span class="badge badge-warning">⏳ Nháp Chờ Ký</span>`);
-
             html += `
                 <div style="background:#fff; border:1px solid #c8e6c9; border-radius:8px; padding:8px; margin-bottom:8px; font-size:11px;">
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
@@ -1239,18 +1215,14 @@
                 </div>
             `;
         });
-
         container.innerHTML = html;
     }
-
     function exportCourtEvidence(contractId) {
         const contracts = JSON.parse(localStorage.getItem('duritrade_user_contracts')) || [];
         const c = contracts.find(item => item.id === contractId) || contracts[0];
         const sigUrl = c.signatureDataUrl || localStorage.getItem('duritrade_sig_' + c.id);
-
-        alert(`🏛️ TRÍCH XUẤT HỒ SƠ BẰNG CHỨNG PHÁP LÝ CHO CƠ QUAN TRỌNG TÀI / TÒA ÁN:\n\n📌 Mã Hợp đồng: #DT-${c.id}\n🔑 Mã SHA-256 Niêm Phong: #DT-HASH-${c.id}-SECURE\n🌾 Bên Bán: ${c.seller}\n💼 Bên Mua: ${c.buyer}\n📍 Tọa độ GPS Vườn: ${c.gps}\n💳 Tiền Cọc Escrow: ${(c.depositVal || 82500000).toLocaleString('vi-VN')} VNĐ (Khóa an toàn MBBank)\n📅 Lịch Cắt: Dao 1 (${c.dao1Date || '01/12/2026'}) | Dao 2 (${c.dao2Date || '11/12/2026'}) | Dao 3 (${c.dao3Date || '21/12/2026'})\n✍️ Trạng Thái Chữ Ký Điện Tử Canvas: ${sigUrl ? 'ĐÃ NẠP MÃ HÓA TIMESTAMP NGUYÊN BẢN' : 'Chưa ký'}\n\nHồ sơ chứng cứ mã hóa SHA-256 đã sẵn sàng xuất file niêm phong đối soát trước pháp luật.`);
+        alert(`🏛️ TRÍCH XUẤT HỒ SƠ BẰNG CHỨNG PHÁP LÝ CHO CƠ QUAN TRỌNG TÀI / TÒA ÁN:\\n\\n📌 Mã Hợp đồng: #DT-${c.id}\\n🔑 Mã SHA-256 Niêm Phong: #DT-HASH-${c.id}-SECURE\\n🌾 Bên Bán: ${c.seller}\\n💼 Bên Mua: ${c.buyer}\\n📍 Tọa độ GPS Vườn: ${c.gps}\\n💳 Tiền Cọc Escrow: ${(c.depositVal || 82500000).toLocaleString('vi-VN')} VNĐ (Khóa an toàn MBBank)\\n📅 Lịch Cắt: Dao 1 (${c.dao1Date || '01/12/2026'}) | Dao 2 (${c.dao2Date || '11/12/2026'}) | Dao 3 (${c.dao3Date || '21/12/2026'})\\n✍️ Trạng Thái Chữ Ký Điện Tử Canvas: ${sigUrl ? 'ĐÃ NẠP MÃ HÓA TIMESTAMP NGUYÊN BẢN' : 'Chưa ký'}\\n\\nHồ sơ chứng cứ mã hóa SHA-256 đã sẵn sàng xuất file niêm phong đối soát trước pháp luật.`);
     }
-
     // LIVE HARVEST COUNTDOWN TIMER & SENSOR (UPDATED FOR REAL-TIME ACCURACY IN V35)
     function parseDao1Timestamp(dateStr) {
         if (!dateStr) return Date.now() + 11 * 86400 * 1000;
@@ -1261,51 +1233,39 @@
         }
         return Date.now() + 11 * 86400 * 1000;
     }
-
     function updateHarvestCountdown() {
         const contract = userContracts.find(c => c.id === currentContractId);
         const display = document.getElementById('countdown-timer-display');
         const dateLabel = document.getElementById('countdown-next-dao-date');
         if (!display) return;
-
         if (!contract) {
             display.innerText = 'ℹ️ Chưa chọn hợp đồng';
             return;
         }
-
         const isActivated = contract.isSigned || contract.status === 'locked_deposit' || contract.isFinalized;
         const dao1Str = contract.dao1Date || '01/12/2026';
         if (dateLabel) dateLabel.innerText = dao1Str;
-
         if (!isActivated) {
             display.innerText = '📝 Chưa ký hợp đồng (Đồng hồ đếm ngược thu hoạch sầu riêng sẽ tự động kích hoạt live ngay sau khi ký & nộp cọc)';
             display.style.color = '#e65100';
             return;
         }
-
         display.style.color = 'var(--primary)';
-
-        // Calculate dynamic harvest target timestamp based on contract dao1Date
         const targetTime = parseDao1Timestamp(dao1Str);
         const now = Date.now();
         let diff = targetTime - now;
-
         if (diff <= 0) {
             display.innerText = '🔔 ĐÃ ĐẾN MỐC CẮT DAO 1! Cửa sổ thu hoạch (2-3 ngày) đang diễn ra. Yêu cầu Thương lái điều xe container cắt sầu trong 24h.';
             display.style.color = '#c62828';
             return;
         }
-
         const days = Math.floor(diff / (1000 * 60 * 60 * 24));
         const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
         display.innerText = `⏳ ĐẾM NGƯỢC THU HOẠCH LIVE: ${days} Ngày ${hours < 10 ? '0' : ''}${hours} Giờ ${minutes < 10 ? '0' : ''}${minutes} Phút ${seconds < 10 ? '0' : ''}${seconds} Giây (Cửa sổ thu hoạch Dao 1: ${days} - ${days + 3} ngày)`;
     }
-
     setInterval(updateHarvestCountdown, 1000);
-
     // TAB SWITCHING
     function switchTab(idx, element) {
         document.querySelectorAll('.tab-panel').forEach(el => el.classList.remove('active'));
@@ -1313,27 +1273,22 @@
         
         document.querySelectorAll('.tab-panel')[idx].classList.add('active');
         if (element) element.classList.add('active');
-
         if (idx === 3) {
             setTimeout(resizeSignatureCanvas, 100);
         }
     }
-
     // RENDER MARKETPLACE LISTINGS FROM LOCALSTORAGE
     function viewListingDetail(id) {
         const items = JSON.parse(localStorage.getItem('duritrade_market_items')) || DEFAULT_MARKET_DATA;
         const item = items.find(i => i.id === id) || items[0];
-        alert(`📍 THÔNG TIN BÀI ĐĂNG NÔNG SẢN #DT-${id}:\n\n📌 Tiêu đề: ${item.title}\n📍 Khu vực: ${item.location}\n⚖️ Sản lượng: ${item.quantity} Tấn\n💰 Giá chốt: ${Number(item.price).toLocaleString('vi-VN')} VNĐ/kg\n📅 Lịch cắt: ${item.harvestSchedule || 'Dao 1: 01/12/2026 | Dao 2: 11/12/2026 | Dao 3: 21/12/2026'}\n📍 GPS Vườn: ${item.gps || '12.6853° N, 108.2142° E'}`);
+        alert(`📍 THÔNG TIN BÀI ĐĂNG NÔNG SẢN #DT-${id}:\\n\\n📌 Tiêu đề: ${item.title}\\n📍 Khu vực: ${item.location}\\n⚖️ Sản lượng: ${item.quantity} Tấn\\n💰 Giá chốt: ${Number(item.price).toLocaleString('vi-VN')} VNĐ/kg\\n📅 Lịch cắt: ${item.harvestSchedule || 'Dao 1: 01/12/2026 | Dao 2: 11/12/2026 | Dao 3: 21/12/2026'}\\n📍 GPS Vườn: ${item.gps || '12.6853° N, 108.2142° E'}`);
     }
-
     function registerSupplyForBuyer(id) {
-        alert(`🌾 NÔNG DÂN ĐĂNG KÝ CUNG CẤP CHO VỰA #DT-${id}:\n\nHệ thống đã gửi thông tin vườn của bạn tới Vựa Thu Mua! Khi Vựa Thu Mua chấp nhận và nộp cọc 10% Escrow MBBank, Hợp đồng sẽ tự động xuất hiện tại Tab Hợp Đồng của bạn.`);
+        alert(`🌾 NÔNG DÂN ĐĂNG KÝ CUNG CẤP CHO VỰA #DT-${id}:\\n\\nHệ thống đã gửi thông tin vườn của bạn tới Vựa Thu Mua! Khi Vựa Thu Mua chấp nhận và nộp cọc 10% Escrow MBBank, Hợp đồng sẽ tự động xuất hiện tại Tab Hợp Đồng của bạn.`);
     }
-
     function renderMarketList(filterRole = 'all') {
         const container = document.getElementById('market-listings-container');
         if (!container) return;
-
         const searchInput = document.getElementById('market-search');
         const searchVal = searchInput ? searchInput.value.toLowerCase() : '';
         
@@ -1345,17 +1300,13 @@
             items = DEFAULT_MARKET_DATA;
             localStorage.setItem('duritrade_market_items', JSON.stringify(DEFAULT_MARKET_DATA));
         }
-
         const currentUser = getCurrentUserObj();
-
         let html = '';
         items.forEach(item => {
             if (filterRole !== 'all' && item.role !== filterRole) return;
             if (searchVal && !item.location.toLowerCase().includes(searchVal) && !item.title.toLowerCase().includes(searchVal)) return;
-
             let badgeClass = 'badge-farmer';
             let badgeText = '🌾 VƯỜN BÁN (CUNG)';
-
             if (item.role === 'buyer_wholesale') {
                 badgeClass = 'badge-buyer';
                 badgeText = '📦 VỰA BÁN SỈ HÀNG A/B';
@@ -1366,7 +1317,6 @@
                 badgeClass = 'badge-buyer';
                 badgeText = '💼 VỰA CẦN MUA (CẦU)';
             }
-
             let actionBtnHtml = '';
             if (currentUser.role === 'admin' || currentUser.username === 'admin') {
                 actionBtnHtml = `<button class="btn btn-outline" style="border-color:#1565c0; color:#1565c0; font-weight:bold;" onclick="openAdminPortalModal()">🔍 Giám Sát Giao Dịch (Cổng Admin)</button>`;
@@ -1375,7 +1325,6 @@
             } else {
                 actionBtnHtml = `<button class="btn btn-primary" style="background:linear-gradient(135deg, #1b5e20, #2e7d32); color:#fff; font-weight:700;" onclick="selectListingForContract(${item.id})">🤝 Tạo Hợp Đồng Bao Tiêu</button>`;
             }
-
             html += `
                 <div class="listing-card">
                     <img src="${item.image || SVG_DURIAN_PLACEHOLDER}" class="listing-img" alt="Ảnh nông sản">
@@ -1398,32 +1347,26 @@
                 </div>
             `;
         });
-
         container.innerHTML = html || '<p style="text-align:center; padding:20px; color:#888;">Không tìm thấy bài đăng phù hợp.</p>';
     }
-
     function filterMarket(role, element) {
         document.querySelectorAll('.filter-chip').forEach(el => el.classList.remove('active'));
         element.classList.add('active');
         renderMarketList(role);
     }
-
     // MULTI-CONTRACT MANAGEMENT FOR INVESTORS & TRADERS (V23)
     let userContracts = [];
     let currentContractId = null;
-
     function getCurrentUserObj() {
         const loggedUserStr = sessionStorage.getItem('duritrade_logged_user');
         return loggedUserStr ? JSON.parse(loggedUserStr) : { username: 'nongdan01', role: 'farmer', fullname: 'Nguyễn Văn A' };
     }
-
     function saveUserContractsState() {
         const user = getCurrentUserObj();
+        if (!user || !user.username) return;
         const userKey = 'duritrade_user_contracts_' + user.username;
         localStorage.setItem(userKey, JSON.stringify(userContracts));
-        saveUserContractsState();
     }
-
     function initUserContracts() {
         try {
             const user = getCurrentUserObj();
@@ -1435,7 +1378,6 @@
                 renderActiveContractUI();
                 return;
             }
-
             if (user.role === 'admin' || user.username === 'admin') {
                 const keys = Object.keys(localStorage).filter(k => k.startsWith('duritrade_user_contracts_'));
                 let allContracts = [];
@@ -1458,28 +1400,23 @@
                     localStorage.setItem(userKey, JSON.stringify([]));
                 }
             }
-
             if (userContracts.length > 0) {
                 currentContractId = userContracts[0].id;
             } else {
                 currentContractId = null;
             }
-
             updateContractDropdown();
             updatePortfolioSummary();
             renderActiveContractUI();
         } catch(e) { console.error('initUserContracts error:', e); }
     }
-
     function updateContractDropdown() {
         const select = document.getElementById('contract-select-dropdown');
         if (!select) return;
-
         if (userContracts.length === 0) {
             select.innerHTML = '<option value="">🛒 Danh mục trống - Chưa chọn bài đăng nào</option>';
             return;
         }
-
         let html = '';
         userContracts.forEach(c => {
             let statusLabel = '📝 Nháp (Chờ Ký)';
@@ -1496,48 +1433,36 @@
             }
             html += `<option value="${c.id}" ${c.id === currentContractId ? 'selected' : ''}>📄 Hợp Đồng #DT-${c.id.toString().slice(-4)} - ${c.quantity} Tấn (${statusLabel})</option>`;
         });
-
         select.innerHTML = html;
     }
-
     function updatePortfolioSummary() {
         const totalGardens = userContracts.length;
         let totalQty = 0;
         let totalEscrow = 0;
-
         userContracts.forEach(c => {
             totalQty += Number(c.quantity) || 0;
             totalEscrow += Number(c.depositVal) || 0;
         });
-
         const elGardens = document.getElementById('portfolio-total-gardens');
         const elQty = document.getElementById('portfolio-total-qty');
         const elEscrow = document.getElementById('portfolio-total-escrow');
-
         if (elGardens) elGardens.innerText = `${totalGardens} Vườn`;
         if (elQty) elQty.innerText = `${totalQty} Tấn`;
         if (elEscrow) elEscrow.innerText = `${(totalEscrow / 1000000).toFixed(1)} Tr đ`;
     }
-
     function switchActiveContract(contractId) {
         currentContractId = Number(contractId);
         updateContractDropdown();
         renderActiveContractUI();
     }
-
-    // SELECT LISTING FROM MARKET & POPULATE OR CREATE CONTRACT IN PORTFOLIO
     function selectListingForContract(id) {
         const items = JSON.parse(localStorage.getItem('duritrade_market_items')) || DEFAULT_MARKET_DATA;
         const item = items.find(i => i.id === id) || items[0];
-
-        // Check if contract already exists in investor portfolio
         let contract = userContracts.find(c => c.id === item.id);
-
         if (!contract) {
             const totalKg = item.quantity * 1000;
             const totalVal = totalKg * item.price;
             const depositVal = totalVal * 0.10;
-
             contract = {
                 id: item.id,
                 title: item.title,
@@ -1563,31 +1488,24 @@
                 incidentReport: null,
                 violationResult: null
             };
-
             userContracts.push(contract);
             saveUserContractsState();
-            alert(`🎉 NHÀ ĐẦU TƯ THÊM HỢP ĐỒNG THÀNH CÔNG!\n\nĐã khởi tạo Hợp đồng mới #DT-${contract.id.toString().slice(-4)} cho dự án: "${item.title}".\n\nHợp đồng đã được thêm vào Danh mục Đầu tư của bạn!`);
+            alert(`🎉 NHÀ ĐẦU TƯ THÊM HỢP ĐỒNG THÀNH CÔNG!\\n\\nĐã khởi tạo Hợp đồng mới #DT-${contract.id.toString().slice(-4)} cho dự án: "${item.title}".\\n\\nHợp đồng đã được thêm vào Danh mục Đầu tư của bạn!`);
         } else {
             alert(`📂 Đã chuyển sang Hợp đồng #DT-${contract.id.toString().slice(-4)} trong Danh mục Đầu tư của bạn!`);
         }
-
         currentContractId = contract.id;
         updateContractDropdown();
         updatePortfolioSummary();
         renderActiveContractUI();
-
-        // SWITCH TO CONTRACT TAB
         switchTab(3, document.querySelectorAll('.nav-item')[3]);
     }
-
     function renderActiveContractUI() {
         const btnCancelDraft = document.getElementById('btn-cancel-draft-contract');
         const btnCancelDeposit = document.getElementById('btn-cancel-deposit-contract');
         const btnFinalizeContainer = document.getElementById('finalization-container');
-
         const emptyCard = document.getElementById('empty-contract-placeholder-card');
         const mainContractCard = document.getElementById('active-contract-main-card');
-
         if (userContracts.length === 0) {
             if (emptyCard) emptyCard.style.display = 'block';
             if (mainContractCard) mainContractCard.style.display = 'none';
@@ -1600,12 +1518,9 @@
             if (emptyCard) emptyCard.style.display = 'none';
             if (mainContractCard) mainContractCard.style.display = 'block';
         }
-
         if (btnFinalizeContainer) btnFinalizeContainer.style.display = 'block';
-
         const contract = userContracts.find(c => c.id === currentContractId) || userContracts[0];
         if (!contract) return;
-
         document.getElementById('contract-code-title').innerText = `📄 Hợp Đồng Điện Tử #DT-${contract.id.toString().slice(-4)}`;
         
         const badge = document.getElementById('contract-status-badge');
@@ -1632,7 +1547,6 @@
                 badge.innerText = '📝 NHÁP (CHỜ KÝ & NỘP CỌC)';
             }
         }
-
         document.getElementById('contract-seller').innerText = contract.seller;
         document.getElementById('contract-buyer').innerText = contract.buyer;
         
@@ -1651,14 +1565,11 @@
         
         const elBuyerCCCD = document.getElementById('contract-buyer-cccd');
         if (elBuyerCCCD) elBuyerCCCD.innerText = isSignedOrLocked ? (contract.buyerCCCD || '040088009982') : maskedCCCD;
-
         document.getElementById('contract-qty').innerText = `${contract.quantity} Tấn (${contract.title.split(' ')[1] || 'Sầu Riêng'})`;
         document.getElementById('contract-price').innerText = `${Number(contract.price).toLocaleString('vi-VN')}đ/kg`;
         document.getElementById('contract-total-val').innerText = `${Number(contract.totalVal).toLocaleString('vi-VN')} VNĐ`;
         document.getElementById('contract-deposit-val').innerText = `${Number(contract.depositVal).toLocaleString('vi-VN')} VNĐ`;
         document.getElementById('contract-gps').innerText = contract.gps || '12.6853° N, 108.2142° E';
-
-        // WEATHER DELAY BADGE DISPLAY
         const wBadge = document.getElementById('weather-delay-status-badge');
         if (wBadge) {
             if (contract.weatherDelayNote) {
@@ -1668,21 +1579,17 @@
                 wBadge.style.display = 'none';
             }
         }
-
-        // BUTTON LOCKING & COLOR CHANGING RULES (UPDATED IN V55):
         const btnClear = document.getElementById('btn-clear-sig');
         const btnSaveSig = document.getElementById('btn-save-sig');
         const btnPaymentModal = document.getElementById('btn-payment-modal');
         const btnFinalize = document.getElementById('btn-finalize-contract');
         const summaryCard = document.getElementById('finalized-summary-card');
         const disputeContainer = document.getElementById('dispute-resolution-container');
-
-        // 1. Signature Button State
-        if (contract.isSigned || contract.status === 'signed' || contract.isFinalized) {
+        if (contract.isFinalized) {
             if (btnClear) { btnClear.disabled = true; btnClear.style.opacity = '0.5'; btnClear.style.cursor = 'not-allowed'; }
             if (btnSaveSig) {
                 btnSaveSig.disabled = true;
-                btnSaveSig.style.background = '#2e7d32'; // Green background when signed
+                btnSaveSig.style.background = '#2e7d32';
                 btnSaveSig.style.color = '#fff';
                 btnSaveSig.style.cursor = 'not-allowed';
                 btnSaveSig.innerText = '✅ ĐÃ KÝ CHỮ KÝ NGÓN TAY (ĐÃ KHÓA)';
@@ -1691,21 +1598,27 @@
             if (btnClear) { btnClear.disabled = false; btnClear.style.opacity = '1'; btnClear.style.cursor = 'pointer'; }
             if (btnSaveSig) {
                 btnSaveSig.disabled = false;
-                btnSaveSig.style.background = 'linear-gradient(135deg, #1b5e20, #2e7d32)';
+                btnSaveSig.style.background = (contract.isSigned || contract.status === 'signed') ? '#1565c0' : 'linear-gradient(135deg, #1b5e20, #2e7d32)';
                 btnSaveSig.style.color = '#fff';
                 btnSaveSig.style.cursor = 'pointer';
-                btnSaveSig.innerText = '✍️ Lưu & Ký Hợp Đồng';
+                btnSaveSig.innerText = (contract.isSigned || contract.status === 'signed') ? '✍️ Cập Nhật Chữ Ký' : '✍️ Lưu & Ký Hợp Đồng';
             }
         }
-
-        // 2. Deposit Payment Button State
-        if (contract.isPaid || contract.status === 'locked_deposit' || contract.isFinalized) {
+        if (contract.isFinalized) {
             if (btnPaymentModal) {
                 btnPaymentModal.disabled = true;
-                btnPaymentModal.style.background = '#1565c0'; // Deep Blue when paid
+                btnPaymentModal.style.background = '#1565c0';
                 btnPaymentModal.style.color = '#fff';
                 btnPaymentModal.style.cursor = 'not-allowed';
                 btnPaymentModal.innerText = '✅ ĐÃ NỘP 10% CỌC ESCROW MBBANK (ĐÃ KHÓA AN TOÀN)';
+            }
+        } else if (contract.isPaid || contract.status === 'locked_deposit') {
+            if (btnPaymentModal) {
+                btnPaymentModal.disabled = false;
+                btnPaymentModal.style.background = '#d84315';
+                btnPaymentModal.style.color = '#fff';
+                btnPaymentModal.style.cursor = 'pointer';
+                btnPaymentModal.innerText = '↩️ Hủy Trạng Thái Nộp Cọc (Nộp Lại)';
             }
         } else {
             if (btnPaymentModal) {
@@ -1716,8 +1629,6 @@
                 btnPaymentModal.innerText = '🔒 Nộp Cọc Bảo Chứng 10% (VietQR Escrow)';
             }
         }
-
-        // 3. Finalize Button State & Dispute Report Display
         if (contract.isFinalized) {
             if (btnFinalize) {
                 btnFinalize.disabled = true;
@@ -1733,7 +1644,6 @@
                 const elTime = document.getElementById('final-timestamp');
                 if (elTime) elTime.innerText = contract.finalizedTime || `${new Date().getDate()}/${new Date().getMonth()+1}/${new Date().getFullYear()} lúc ${new Date().getHours()}:${new Date().getMinutes()<10?'0':''}${new Date().getMinutes()}`;
             }
-            // SHOW DISPUTE / REPORT TO ADMIN SECTION WHEN FINALIZED!
             if (disputeContainer) disputeContainer.style.display = 'block';
         } else {
             if (btnFinalize) {
@@ -1744,13 +1654,10 @@
                 btnFinalize.innerText = '🚀 CHỐT & GỬI HỢP ĐỒNG CHÍNH THỨC (KHÓA 100%)';
             }
             if (summaryCard) summaryCard.style.display = 'none';
-            // Also show dispute container if deposit locked or arbitration active
             if (disputeContainer) {
                 disputeContainer.style.display = (contract.status === 'locked_deposit' || contract.status === 'admin_arbitrated' || contract.isPaid) ? 'block' : 'none';
             }
         }
-
-        // BUTTON VISIBILITY FOR CANCEL / DRAFT
         if (isSignedOrLocked) {
             if (btnCancelDraft) btnCancelDraft.style.display = 'none';
             if (btnCancelDeposit) {
@@ -1760,8 +1667,6 @@
             if (btnCancelDraft) btnCancelDraft.style.display = 'block';
             if (btnCancelDeposit) btnCancelDeposit.style.display = 'none';
         }
-
-        // POSTPONE REQUEST APPROVAL CARD DISPLAY
         const postponeCard = document.getElementById('postpone-request-approval-card');
         if (postponeCard) {
             if (contract.postponeRequest && contract.postponeRequest.status === 'pending') {
@@ -1775,20 +1680,16 @@
                 postponeCard.style.display = 'none';
             }
         }
-
-        applyReportState();
+        if (typeof applyReportState === 'function') applyReportState();
         applyViolationState();
         redrawCurrentContractSignature();
         updateHarvestCountdown();
     }
-
     function handleImageCompression(event) {
         const file = event.target.files[0];
         if (!file) return;
-
         const originalSizeMB = (file.size / (1024 * 1024)).toFixed(2);
         const reader = new FileReader();
-
         reader.onload = function(e) {
             const img = new Image();
             img.src = e.target.result;
@@ -1799,23 +1700,18 @@
                 const maxWidth = 800;
                 let width = img.width;
                 let height = img.height;
-
                 if (width > maxWidth) {
                     height = Math.round((height * maxWidth) / width);
                     width = maxWidth;
                 }
-
                 canvas.width = width;
                 canvas.height = height;
                 ctx.drawImage(img, 0, 0, width, height);
-
                 currentCompressedImageData = canvas.toDataURL('image/jpeg', 0.65);
                 const compressedSizeKB = Math.round((currentCompressedImageData.length * 0.75) / 1024);
-
                 const previewBox = document.getElementById('image-preview-container');
                 const previewImg = document.getElementById('compressed-image-preview');
                 const statsText = document.getElementById('compression-stats-text');
-
                 previewImg.src = currentCompressedImageData;
                 statsText.innerHTML = `✅ Đã nén Canvas: <strong>${originalSizeMB} MB ➔ ${compressedSizeKB} KB</strong> (Giảm ~90% dung lượng)`;
                 previewBox.style.display = 'block';
@@ -1823,13 +1719,10 @@
         };
         reader.readAsDataURL(file);
     }
-
-    // HARDWARE GPS LIVE API CALL
     function fetchLiveGPS() {
         const statusText = document.getElementById('gps-status');
         const gpsInput = document.getElementById('post-gps');
         statusText.innerText = '📡 Đang lấy tọa độ GPS từ thiết bị...';
-
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
                 (pos) => {
@@ -1848,8 +1741,6 @@
             statusText.innerText = '✅ GPS Vườn: 12.6853° N, 108.2142° E';
         }
     }
-
-    // FORM SUBMISSION (SAVING TO LOCALSTORAGE)
     function handleFormSubmit(event) {
         event.preventDefault();
         
@@ -1868,11 +1759,8 @@
         const dao1Quality = document.getElementById('post-dao1-quality').value.trim() || 'BRIX ≥ 33°';
         const dao2Quality = document.getElementById('post-dao2-quality').value.trim() || 'BRIX ≥ 31°';
         const dao3Quality = document.getElementById('post-dao3-quality').value.trim() || 'Hàng B/Dạt';
-
         const harvestSched = `Dao 1: ${dao1Date} (30%) | Dao 2: ${dao2Date} (50%) | Dao 3: ${dao3Date} (20%)`;
-
         const currentUser = getCurrentUserObj();
-
         const newListing = {
             id: Date.now(),
             role: role,
@@ -1892,28 +1780,22 @@
             ownerUsername: currentUser.username,
             image: currentCompressedImageData || SVG_DURIAN_PLACEHOLDER
         };
-
         let items = [];
         try {
             items = JSON.parse(localStorage.getItem('duritrade_market_items')) || DEFAULT_MARKET_DATA;
         } catch(e) { items = DEFAULT_MARKET_DATA; }
         items.unshift(newListing);
         localStorage.setItem('duritrade_market_items', JSON.stringify(items));
-
-        alert('🎉 ĐĂNG BÀI THÀNH CÔNG!\n\nBài đăng của bạn đã hiển thị công khai trên Sàn DuriTrade.');
+        alert('🎉 ĐĂNG BÀI THÀNH CÔNG!\\n\\nBài đăng của bạn đã hiển thị công khai trên Sàn DuriTrade.');
         document.getElementById('post-form').reset();
         currentCompressedImageData = null;
-
         renderMarketList();
         switchTab(0, document.querySelectorAll('.nav-item')[0]);
     }
-
-    // ADMIN MANAGER WITH LOGIN & LOCALSTORAGE
     function toggleAdminLogin() {
         const box = document.getElementById('admin-login-box');
         if (box) box.style.display = box.style.display === 'none' ? 'block' : 'none';
     }
-
     function loginAdmin() {
         const pass = document.getElementById('admin-pass-input').value;
         if (pass === 'admin123' || pass === 'admin') {
@@ -1924,25 +1806,20 @@
             alert('❌ Mật khẩu Admin không đúng! Vui lòng nhập: admin123');
         }
     }
-
     function logoutAdmin() {
         sessionStorage.removeItem('duritrade_admin_logged');
         alert('🔒 Đã đăng xuất khỏi Cổng Quản trị viên!');
         checkAdminSession();
     }
-
     function checkAdminSession() {
-        const isLogged = sessionStorage.getItem('duritrade_admin_logged') === 'true';
+        const user = getCurrentUserObj();
+        const isLogged = (user.role === 'admin' || user.username === 'admin') && sessionStorage.getItem('duritrade_admin_logged') === 'true';
         const panel = document.getElementById('admin-panel-content');
         const loginBox = document.getElementById('admin-login-box');
-        // Admin login modal used in v36
-
         if (panel) panel.style.display = isLogged ? 'block' : 'none';
         if (loginBox) loginBox.style.display = isLogged ? 'none' : 'block';
-        // toggleBtn removed
         const headerBtn = document.getElementById('admin-header-lock-btn');
         if (headerBtn) headerBtn.innerHTML = isLogged ? '✅ Admin' : '🔐 Admin';
-
         if (isLogged) {
             renderAdminListingsTable();
             renderAdminIncidentReports();
@@ -1950,34 +1827,27 @@
             renderAdminEscrowNotifications();
         }
     }
-
     function saveAdminPrice() {
         const type = document.getElementById('admin-price-type').value;
         const val = document.getElementById('admin-price-input').value;
-
         if (!val || val <= 0) {
             alert('Vui lòng nhập số tiền hợp lệ!');
             return;
         }
-
         const prices = JSON.parse(localStorage.getItem('duritrade_admin_prices')) || { ri6: 55000, monthong: 75000, musang: 120000 };
         prices[type] = Number(val);
         localStorage.setItem('duritrade_admin_prices', JSON.stringify(prices));
-
         alert(`✅ Đã lưu giá mới cho ${type.toUpperCase()}: ${Number(val).toLocaleString('vi-VN')} đ/kg vào LocalStorage!`);
         updatePriceChart();
     }
-
     function resetAdminPrice() {
         localStorage.removeItem('duritrade_admin_prices');
         alert('🔄 Đã khôi phục bảng giá mặc định!');
         updatePriceChart();
     }
-
     function renderAdminListingsTable() {
         const container = document.getElementById('admin-listings-table-container');
         if (!container) return;
-
         const items = JSON.parse(localStorage.getItem('duritrade_market_items')) || DEFAULT_MARKET_DATA;
         let html = `<table class="admin-table">
             <thead>
@@ -1996,11 +1866,9 @@
                 <td><button class="btn btn-danger btn-sm" onclick="deleteListingByAdmin(${item.id})">🗑️ Xóa</button></td>
             </tr>`;
         });
-
         html += `</tbody></table>`;
         container.innerHTML = html;
     }
-
     function deleteListingByAdmin(id) {
         if (!confirm('⚠️ Bạn có chắc muốn xóa bài đăng này khỏi hệ thống?')) return;
         let items = JSON.parse(localStorage.getItem('duritrade_market_items')) || DEFAULT_MARKET_DATA;
@@ -2010,18 +1878,14 @@
         renderAdminListingsTable();
         renderMarketList();
     }
-
-    // ADMIN INCIDENT REPORTS MANAGEMENT
     function renderAdminIncidentReports() {
         const container = document.getElementById('admin-incident-reports-container');
         if (!container) return;
-
         const reports = JSON.parse(localStorage.getItem('duritrade_admin_reports')) || [];
         if (reports.length === 0) {
             container.innerHTML = '<p style="color:#888; text-align:center; padding:10px;">Chưa có báo cáo sự cố nào gửi về.</p>';
             return;
         }
-
         let html = '';
         reports.forEach((rep, idx) => {
             html += `<div style="background:#fff; border:1px solid #ffcdd2; padding:8px; border-radius:6px; margin-bottom:6px;">
@@ -2037,40 +1901,32 @@
         });
         container.innerHTML = html;
     }
-
     function adminSendEmailResponse(idx) {
         const responseText = prompt('📧 Nhập nội dung Email phản hồi chính thức từ Admin gửi tới 2 bên:', 'Ban Quản Trị DuriTrade đã tiếp nhận khiếu nại và đã điều động Chuyên gia Trọng tài BRIX P2P xuống tọa độ GPS vườn kiểm định thực tế trong 24h.');
         if (!responseText) return;
-
         localStorage.setItem('duritrade_admin_email_response', responseText);
         alert(`📧 ĐÃ GỬI EMAIL PHẢN HỒI THÀNH CÔNG!
-
 Thông báo phản hồi của Admin đã được cập nhật trực tiếp lên giao diện Hợp đồng số.`);
         applyAdminEmailResponseState();
     }
-
     function applyAdminEmailResponseState() {
         const respText = localStorage.getItem('duritrade_admin_email_response');
         const card = document.getElementById('admin-email-response-card');
         const textElem = document.getElementById('admin-email-response-text');
-
         if (respText && card && textElem) {
             card.style.display = 'block';
             textElem.innerText = respText;
         }
     }
-
     function openAdminArbitrateModal(idx) {
         document.getElementById('modal-admin-arbitrate').style.display = 'flex';
     }
-
     function executeAdminDeduction() {
         const chk = document.getElementById('chk-admin-confirm');
         if (!chk || !chk.checked) {
             alert('⚠️ Vui lòng tích chọn ô xác nhận Trọng tài đã kiểm định trước khi ra phán quyết!');
             return;
         }
-
         const arbVal = document.getElementById('admin-arbitrator-select').value;
         const partyVal = document.getElementById('admin-violating-party-select').value;
         const rateVal = parseFloat(document.getElementById('admin-deduct-rate-select').value);
@@ -2078,7 +1934,6 @@ Thông báo phản hồi của Admin đã được cập nhật trực tiếp l�
         const originalDeposit = 82500000;
         const deductedVal = originalDeposit * rateVal;
         const remainingVal = originalDeposit - deductedVal;
-
         let partyText = '';
         let flowText = '';
         if (partyVal === 'farmer') {
@@ -2091,10 +1946,8 @@ Thông báo phản hồi của Admin đã được cập nhật trực tiếp l�
             partyText = '🌧️ Sự Cố Thiên Tai / Thời Tiết Bất Khả Kháng (BRIX giảm do mưa dầm)';
             flowText = `💳 HOÀN TRẢ 100% TIỀN CỌC ESCROW (${originalDeposit.toLocaleString('vi-VN')} VNĐ) VỀ BÊN MUA (Thương lái) & MIỄN PHẠT CHO BÊN BÁN (Nhà vườn) do sự cố thời tiết bất khả kháng.`;
         }
-
         const now = new Date();
         const timeStr = `${now.getDate()}/${now.getMonth()+1}/${now.getFullYear()} lúc ${now.getHours()}:${now.getMinutes()<10?'0':''}${now.getMinutes()}`;
-
         localStorage.setItem('duritrade_violation_applied', 'true');
         localStorage.setItem('duritrade_violation_party', partyText);
         localStorage.setItem('duritrade_violation_flow', flowText);
@@ -2103,33 +1956,24 @@ Thông báo phản hồi của Admin đã được cập nhật trực tiếp l�
         localStorage.setItem('duritrade_violation_remaining', remainingVal.toString());
         localStorage.setItem('duritrade_violation_time', timeStr);
         localStorage.setItem('duritrade_arbitrator_selected', arbVal);
-
         applyViolationState();
         closeModal('modal-admin-arbitrate');
-
         alert(`⚖️ ADMIN RA PHÁN QUYẾT VI PHẠM THÀNH CÔNG!
-
 🚨 Bên vi phạm: ${partyText}
 👨‍⚖️ Trọng tài cử: ${arbVal}
 💸 Tiền phạt khấu trừ: ${deductedVal.toLocaleString('vi-VN')} VNĐ
 🔄 Hướng dòng tiền Escrow: ${flowText}
-
 Biên bản phán quyết đã được niêm phong vĩnh viễn trên Hợp đồng.`);
     }
-
-    // INTERACTIVE SVG LINE CHART WITH DAY TOOLTIPS
     function updatePriceChart() {
         const type = document.getElementById('price-type-select').value;
         const region = document.getElementById('price-region-select').value;
         const prices = JSON.parse(localStorage.getItem('duritrade_admin_prices')) || { ri6: 55000, monthong: 75000, musang: 120000 };
         const baseVal = prices[type] || 55000;
-
         const regionMultipliers = { daklak: 1.0, tiengiang: 1.05, lamdong: 0.98 };
         const mult = regionMultipliers[region] || 1.0;
         const currentVal = Math.round(baseVal * mult);
-
         document.getElementById('current-price-val').innerText = `${Number(currentVal).toLocaleString('vi-VN')}đ/kg`;
-
         const days = ['Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ 5', 'Thứ 6', 'Thứ 7', 'CN'];
         const factors = [0.93, 0.95, 0.94, 0.97, 0.96, 0.99, 1.0];
         const points = days.map((day, idx) => {
@@ -2138,12 +1982,10 @@ Biên bản phán quyết đã được niêm phong vĩnh viễn trên Hợp đ�
             const y = 120 - Math.round(((p - currentVal * 0.9) / (currentVal * 0.2)) * 90);
             return { day, price: p, x, y };
         });
-
         let pathD = `M ${points[0].x} ${points[0].y}`;
         for (let i = 1; i < points.length; i++) {
             pathD += ` L ${points[i].x} ${points[i].y}`;
         }
-
         const chartBox = document.getElementById('chart-box');
         let svgHtml = `
             <svg viewBox="0 0 300 140" style="width:100%; height:100%;">
@@ -2160,7 +2002,6 @@ Biên bản phán quyết đã được niêm phong vĩnh viễn trên Hợp đ�
                 <path d="${pathD}" fill="none" stroke="#1b5e20" stroke-width="3"/>
                 <path d="${pathD} L ${points[points.length-1].x} 130 L ${points[0].x} 130 Z" fill="url(#grad)"/>
         `;
-
         points.forEach((pt) => {
             svgHtml += `
                 <g class="chart-point" onclick="showChartTooltip('${pt.day}', ${pt.price})" onmouseover="showChartTooltip('${pt.day}', ${pt.price})" style="cursor:pointer;">
@@ -2169,11 +2010,9 @@ Biên bản phán quyết đã được niêm phong vĩnh viễn trên Hợp đ�
                 </g>
             `;
         });
-
         svgHtml += `</svg>`;
         chartBox.innerHTML = svgHtml;
     }
-
     function showChartTooltip(day, price) {
         const box = document.getElementById('chart-tooltip-box');
         if (box) {
@@ -2181,24 +2020,19 @@ Biên bản phán quyết đã được niêm phong vĩnh viễn trên Hợp đ�
             box.style.color = '#d32f2f';
         }
     }
-
-    // SIGNATURE CANVAS (PER-CONTRACT FIXED LOGIC IN V31)
     let sigCanvas, sigCtx, isDrawing = false;
     function initSignaturePad() {
         sigCanvas = document.getElementById('signature-pad');
         if (!sigCanvas) return;
         sigCtx = sigCanvas.getContext('2d');
         resizeSignatureCanvas();
-
         sigCanvas.addEventListener('mousedown', startSig);
         sigCanvas.addEventListener('mousemove', drawSig);
         sigCanvas.addEventListener('mouseup', stopSig);
-
         sigCanvas.addEventListener('touchstart', (e) => { e.preventDefault(); startSig(e.touches[0]); });
         sigCanvas.addEventListener('touchmove', (e) => { e.preventDefault(); drawSig(e.touches[0]); });
         sigCanvas.addEventListener('touchend', stopSig);
     }
-
     function resizeSignatureCanvas() {
         if (!sigCanvas) return;
         const parentW = sigCanvas.parentElement ? sigCanvas.parentElement.clientWidth : 300;
@@ -2207,26 +2041,24 @@ Biên bản phán quyết đã được niêm phong vĩnh viễn trên Hợp đ�
         sigCtx.strokeStyle = '#1b5e20';
         sigCtx.lineWidth = 2.5;
         sigCtx.lineCap = 'round';
-
         redrawCurrentContractSignature();
     }
-
     function redrawCurrentContractSignature() {
         if (!sigCanvas || !sigCtx) return;
         const contract = userContracts.find(c => c.id === currentContractId);
         sigCtx.clearRect(0, 0, sigCanvas.width, sigCanvas.height);
-
-        if (contract && (contract.signatureDataUrl || localStorage.getItem('duritrade_sig_' + contract.id))) {
-            const dataUrl = contract.signatureDataUrl || localStorage.getItem('duritrade_sig_' + contract.id);
+        const userObj = getCurrentUserObj();
+        const userPrefix = (userObj && userObj.username) ? userObj.username : 'default';
+        const scopedSigKey = 'duritrade_sig_' + userPrefix + '_' + (contract ? contract.id : '');
+        if (contract && (contract.signatureDataUrl || localStorage.getItem(scopedSigKey))) {
+            const dataUrl = contract.signatureDataUrl || localStorage.getItem(scopedSigKey);
             contract.signatureDataUrl = dataUrl;
             contract.isSigned = true;
-
             const img = new Image();
             img.onload = function() {
                 sigCtx.drawImage(img, 0, 0, sigCanvas.width, sigCanvas.height);
             };
             img.src = dataUrl;
-
             const statusEl = document.getElementById('sig-status');
             if (statusEl) {
                 statusEl.innerText = `✅ Chữ Ký Điện Tử Ngón Tay Đã Khóa Niêm Phong (#DT-SIG-${contract.id})`;
@@ -2236,16 +2068,15 @@ Biên bản phán quyết đã được niêm phong vĩnh viễn trên Hợp đ�
         } else {
             const statusEl = document.getElementById('sig-status');
             if (statusEl) {
-                statusEl.innerText = '✍️ Vui lòng dùng ngón tay vẽ chữ ký trên khung bên trên';
+                statusEl.innerText = contract ? '✍️ Vui lòng dùng ngón tay vẽ chữ ký trên khung bên trên' : '';
                 statusEl.style.color = '#666';
             }
             isSignatureSaved = false;
         }
     }
-
     function startSig(e) { 
         const contract = userContracts.find(c => c.id === currentContractId);
-        if (contract && (contract.isSigned || contract.isFinalized)) {
+        if (!contract || contract.isFinalized) {
             return;
         }
         isDrawing = true; 
@@ -2253,16 +2084,14 @@ Biên bản phán quyết đã được niêm phong vĩnh viễn trên Hợp đ�
         const rect = sigCanvas.getBoundingClientRect(); 
         sigCtx.moveTo(e.clientX - rect.left, e.clientY - rect.top); 
     }
-
     function drawSig(e) { 
         if (!isDrawing) return; 
         const contract = userContracts.find(c => c.id === currentContractId);
-        if (contract && (contract.isSigned || contract.isFinalized)) return;
+        if (!contract || contract.isFinalized) return;
         const rect = sigCanvas.getBoundingClientRect(); 
         sigCtx.lineTo(e.clientX - rect.left, e.clientY - rect.top); 
         sigCtx.stroke(); 
     }
-
     function stopSig() { isDrawing = false; }
     
     function clearSignature() { 
@@ -2271,18 +2100,17 @@ Biên bản phán quyết đã được niêm phong vĩnh viễn trên Hợp đ�
             alert('🔒 Hợp đồng đã chốt! Không thể xóa chữ ký.');
             return;
         }
-
         if (sigCtx && sigCanvas) {
             sigCtx.clearRect(0, 0, sigCanvas.width, sigCanvas.height);
         }
-
         if (contract) {
+            const uObj = getCurrentUserObj();
+            const uPref = (uObj && uObj.username) ? uObj.username : 'default';
             contract.signatureDataUrl = null;
             contract.isSigned = false;
-            localStorage.removeItem('duritrade_sig_' + contract.id);
+            localStorage.removeItem('duritrade_sig_' + uPref + '_' + contract.id);
             saveUserContractsState();
         }
-
         isSignatureSaved = false;
         const statusEl = document.getElementById('sig-status');
         if (statusEl) {
@@ -2297,66 +2125,50 @@ Biên bản phán quyết đã được niêm phong vĩnh viễn trên Hợp đ�
             alert('⚠️ Chưa chọn hợp đồng để ký!');
             return;
         }
-
         if (contract.isFinalized) {
             alert('🔒 Hợp đồng này đã CHỐT PHÁP LÝ HOÀN TẤT! Chữ ký đã được niêm phong vĩnh viễn.');
             return;
         }
 
-        if (contract.isSigned) {
-            alert('✍️ Hợp đồng này đã có chữ ký ngón tay xác nhận rồi! Không thể ký đè.');
-            return;
-        }
-
         if (!sigCanvas) return;
-
         const dataUrl = sigCanvas.toDataURL();
+        const uObjSave = getCurrentUserObj();
+        const uPrefSave = (uObjSave && uObjSave.username) ? uObjSave.username : 'default';
         contract.signatureDataUrl = dataUrl;
         contract.isSigned = true;
         if (contract.status === 'draft') {
             contract.status = 'signed';
         }
-
-        localStorage.setItem('duritrade_sig_' + contract.id, dataUrl);
+        localStorage.setItem('duritrade_sig_' + uPrefSave + '_' + contract.id, dataUrl);
         saveUserContractsState();
-
         isSignatureSaved = true;
-
         const statusEl = document.getElementById('sig-status');
         if (statusEl) {
             statusEl.innerText = '✅ ĐÃ KÝ NGÓN TAY XÁC NHẬN';
             statusEl.style.color = 'var(--primary)';
         }
-
-        alert(`✍️ LƯU CHỮ KÝ NGÓN TAY THÀNH CÔNG!\n\nChữ ký điện tử đã được mã hóa và đóng dấu thời gian nguyên bản vào Hợp đồng #DT-${contract.id.toString().slice(-4)}.`);
-
+        alert(`✍️ LƯU CHỮ KÝ NGÓN TAY THÀNH CÔNG!\\n\\nChữ ký điện tử đã được mã hóa và đóng dấu thời gian nguyên bản vào Hợp đồng #DT-${contract.id.toString().slice(-4)}.`);
         updateContractDropdown();
         renderActiveContractUI();
     }
-
     function openWeatherDelayModal() {
         const contract = userContracts.find(c => c.id === currentContractId);
         if (!contract) return;
-
         if (contract.status === 'cancelled_deposit') {
             alert('🔒 Hợp đồng này đã bị hủy cọc/xử lý vi phạm trước đó!');
             return;
         }
         document.getElementById('modal-weather-delay').style.display = 'flex';
     }
-
     function submitPostponeRequest() {
         const sender = document.getElementById('weather-request-sender-select').value;
         const dao = document.getElementById('weather-delay-dao-select').value;
         const reason = document.getElementById('weather-delay-reason-select').value;
         const days = parseInt(document.getElementById('weather-delay-days-select').value) || 3;
-
         const contract = userContracts.find(c => c.id === currentContractId);
         if (!contract) return;
-
         const senderName = sender === 'farmer' ? contract.seller : contract.buyer;
         const receiverName = sender === 'farmer' ? contract.buyer : contract.seller;
-
         contract.postponeRequest = {
             senderRole: sender,
             senderName: senderName,
@@ -2366,59 +2178,42 @@ Biên bản phán quyết đã được niêm phong vĩnh viễn trên Hợp đ�
             reason: reason,
             status: 'pending'
         };
-
         saveUserContractsState();
-
         closeModal('modal-weather-delay');
         renderActiveContractUI();
-
-        alert(`📤 ĐÃ GỬI YÊU CẦU DỜI LỊCH CẮT THÀNH CÔNG!\n\n👤 Bên gửi: ${senderName}\n🔪 Đợt cắt: ${dao}\n⏱️ Số ngày xin dời: +${days} ngày\n🌧️ Lý do: ${reason}\n\nYêu cầu đã được gửi tới ${receiverName} để phê duyệt.`);
+        alert(`📤 ĐÃ GỬI YÊU CẦU DỜI LỊCH CẮT THÀNH CÔNG!\\n\\n👤 Bên gửi: ${senderName}\\n🔪 Đợt cắt: ${dao}\\n⏱️ Số ngày xin dời: +${days} ngày\\n🌧️ Lý do: ${reason}\\n\\nYêu cầu đã được gửi tới ${receiverName} để phê duyệt.`);
     }
-
     function approvePostponeRequest() {
         const contract = userContracts.find(c => c.id === currentContractId);
         if (!contract || !contract.postponeRequest) return;
-
         const req = contract.postponeRequest;
         req.status = 'approved';
         contract.weatherDelayed = true;
         contract.weatherDelayInfo = `Đã đồng thuận gia hạn ${req.dao} thêm +${req.days} ngày (${req.reason})`;
-
         saveUserContractsState();
         renderActiveContractUI();
-
-        alert(`✅ ĐÃ CHÍNH THỨC ĐỒNG THUẬN DỜI LỊCH CẮT!\n\n🔪 Đợt cắt: ${req.dao}\n⏱️ Đã dời thêm: +${req.days} ngày\n🌧️ Lý do: ${req.reason}\n\nHai bên nhất trí gia hạn lịch cắt, không phạt cọc Escrow.`);
+        alert(`✅ ĐÃ CHÍNH THỨC ĐỒNG THUẬN DỜI LỊCH CẮT!\\n\\n🔪 Đợt cắt: ${req.dao}\\n⏱️ Đã dời thêm: +${req.days} ngày\\n🌧️ Lý do: ${req.reason}\\n\\nHai bên nhất trí gia hạn lịch cắt, không phạt cọc Escrow.`);
     }
-
     function rejectPostponeRequest() {
         const contract = userContracts.find(c => c.id === currentContractId);
         if (!contract || !contract.postponeRequest) return;
-
         const req = contract.postponeRequest;
         req.status = 'rejected';
-
         saveUserContractsState();
         renderActiveContractUI();
-
-        alert(`❌ ĐÃ TỪ CHỐI YÊU CẦU DỜI LỊCH CẮT!\n\nLịch cắt ${req.dao} giữ nguyên mốc thời gian ban đầu. Nếu quá 24h không thực hiện cắt sầu, bên trễ hạn sẽ bị áp dụng chế tài bẻ cọc Escrow.`);
+        alert(`❌ ĐÃ TỪ CHỐI YÊU CẦU DỜI LỊCH CẮT!\\n\\nLịch cắt ${req.dao} giữ nguyên mốc thời gian ban đầu. Nếu quá 24h không thực hiện cắt sầu, bên trễ hạn sẽ bị áp dụng chế tài bẻ cọc Escrow.`);
     }
-
     function reportLateCut24h() {
         const contract = userContracts.find(c => c.id === currentContractId);
         if (!contract) return;
-
         if (contract.status === 'cancelled_deposit') {
             alert('🔒 Hợp đồng này đã bị hủy cọc/xử lý vi phạm trước đó!');
             return;
         }
-
-        const confirmLate = confirm(`⚠️ BÁO CÁO VI PHẠM TRỄ HẠN CẮT 24H:\n\nĐã quá 24h kể từ ngày cắt cam kết nhưng Thương lái không đến cắt và không dời lịch do thời tiết?\n\nChế tài Escrow MBBank:\n- TỊCH THU 100% CỌC ESCROW (82.500.000 VNĐ) GIẢI NGÂN TRỰC TIẾP CHO NÔNG DÂN đền bù phạt cọc do Thương lái trễ cắt sầu riêng!\n\nBạn có chắc chắn muốn kích hoạt phán quyết vi phạm?`);
-
+        const confirmLate = confirm(`⚠️ BÁO CÁO VI PHẠM TRỄ HẠN CẮT 24H:\\n\\nĐã quá 24h kể từ ngày cắt cam kết nhưng Thương lái không đến cắt và không dời lịch do thời tiết?\\n\\nChế tài Escrow MBBank:\\n- TỊCH THU 100% CỌC ESCROW (82.500.000 VNĐ) GIẢI NGÂN TRỰC TIẾP CHO NÔNG DÂN đền bù phạt cọc do Thương lái trễ cắt sầu riêng!\\n\\nBạn có chắc chắn muốn kích hoạt phán quyết vi phạm?`);
         if (!confirmLate) return;
-
         const now = new Date();
         const timeStr = `${now.getDate()}/${now.getMonth()+1}/${now.getFullYear()} lúc ${now.getHours()}:${now.getMinutes()<10?'0':''}${now.getMinutes()}`;
-
         contract.status = 'cancelled_deposit';
         contract.cancelDepositInfo = {
             party: '💼 Bên Mua (Thương Lái) Vi Phạm Trễ Hạn Cắt 24h',
@@ -2426,13 +2221,10 @@ Biên bản phán quyết đã được niêm phong vĩnh viễn trên Hợp đ�
             flow: 'TỊCH THU 100% CỌC ESCROW MBBANK (82.500.000 VNĐ) GIẢI NGÂN CHO NÔNG DÂN ĐỀN BÙ PHẠT CỌC (Điều 328 BLDS)',
             time: timeStr
         };
-
         saveUserContractsState();
-
         renderActiveContractUI();
-        alert(`🚨 ĐÃ XỬ LÝ VI PHẠM TRỄ HẠN CẮT 24H THÀNH CÔNG!\n\nTiền cọc Escrow 82.500.000 VNĐ đã được chuyển giải ngân đền bù cho Nông dân.`);
+        alert(`🚨 ĐÃ XỬ LÝ VI PHẠM TRỄ HẠN CẮT 24H THÀNH CÔNG!\\n\\nTiền cọc Escrow 82.500.000 VNĐ đã được chuyển giải ngân đền bù cho Nông dân.`);
     }
-
     function openCancelDepositModal() {
         const contract = userContracts.find(c => c.id === currentContractId);
         if (!contract) return;
@@ -2442,26 +2234,20 @@ Biên bản phán quyết đã được niêm phong vĩnh viễn trên Hợp đ�
         }
         document.getElementById('modal-cancel-deposit').style.display = 'flex';
     }
-
     function executeCancelDeposit() {
         const chk = document.getElementById('chk-cancel-deposit-confirm');
         if (!chk || !chk.checked) {
             alert('⚠️ Vui lòng tích chọn ô xác nhận đồng ý chế tài phạt cọc theo Điều 328 BLDS 2015!');
             return;
         }
-
         const contract = userContracts.find(c => c.id === currentContractId);
         if (!contract) return;
-
         const party = document.getElementById('cancel-deposit-party-select').value;
         const reason = document.getElementById('cancel-deposit-reason').value.trim() || 'Thay đổi kế hoạch thu mua / Bẻ hợp đồng';
-
         const now = new Date();
         const timeStr = now.getDate() + '/' + (now.getMonth() + 1) + '/' + now.getFullYear() + ' lúc ' + now.getHours() + ':' + (now.getMinutes() < 10 ? '0' : '') + now.getMinutes();
-
         let partyText = '';
         let escrowActionText = '';
-
         if (party === 'buyer') {
             partyText = '💼 Bên Mua (Thương Lái) Tự Ý Hủy Cọc';
             escrowActionText = 'TỊCH THU 100% CỌC ESCROW (82.500.000 VNĐ) GIẢI NGÂN ĐỀN BÙ CHO NÔNG DÂN (Điều 328 BLDS)';
@@ -2469,135 +2255,106 @@ Biên bản phán quyết đã được niêm phong vĩnh viễn trên Hợp đ�
             partyText = '🌾 Bên Bán (Nông Dân) Tự Ý Hủy Cọc (Bẻ Bán Vựa Khác)';
             escrowActionText = 'HOÀN CỌC ESCROW 82.500.000 VNĐ + PHẠT PHẠM CỌC ĐỀN BÙ CHO THƯƠNG LÁI (Điều 328 BLDS)';
         }
-
         contract.cancelDepositRecord = {
             partyText: partyText,
             reason: reason,
             escrowActionText: escrowActionText,
             timeStr: timeStr
         };
-
         contract.status = 'cancelled_deposit';
-
         saveUserContractsState();
-
         closeModal('modal-cancel-deposit');
         updateContractDropdown();
         renderActiveContractUI();
-
-        alert();
+        alert(`📋 ĐÃ LẬP BIÊN BẢN HỦY CỌC: ${partyText}`);
     }
-
     function cancelDraftContract() {
         const contract = userContracts.find(c => c.id === currentContractId);
         if (!contract) return;
-
         if (contract.isFinalized) {
             alert('🔒 Hợp đồng này đã CHỐT HOÀN TẤT & KHÓA PHÁP LÝ! Không thể hủy dự thảo.');
             return;
         }
-
-        const confirmCancel = confirm(`⚠️ XÁC NHẬN HỦY DỰ THẢO HỢP ĐỒNG #DT-${contract.id.toString().slice(-4)}:\n\nBạn có chắc chắn muốn HỦY DỰ THẢO hợp đồng này?\n\n- Bài đăng "${contract.title}" sẽ được GIẢI PHÓNG ngay lập tức trên Sàn DuriTrade.\n- Tránh tình trạng bài bị "treo" chờ xử lý làm ảnh hưởng giao dịch của Nông dân/Thương lái.`);
-
+        const confirmCancel = confirm(`⚠️ XÁC NHẬN HỦY DỰ THẢO HỢP ĐỒNG #DT-${contract.id.toString().slice(-4)}:\\n\\nBạn có chắc chắn muốn HỦY DỰ THẢO hợp đồng này?\\n\\n- Bài đăng "${contract.title}" sẽ được GIẢI PHÓNG ngay lập tức trên Sàn DuriTrade.\\n- Tránh tình trạng bài bị "treo" chờ xử lý làm ảnh hưởng giao dịch của Nông dân/Thương lái.`);
         if (!confirmCancel) return;
-
         userContracts = userContracts.filter(c => c.id !== currentContractId);
-
         if (userContracts.length === 0) {
             currentContractId = null;
         } else {
             currentContractId = userContracts[0].id;
         }
-
         saveUserContractsState();
-
         initUserContracts();
         renderMarketList();
-
-        alert('✅ ĐÃ HỦY DỰ THẢO HỢP ĐỒNG THÀNH CÔNG!\n\nBài đăng đã được giải phóng tự do trên Sàn Giao Dịch DuriTrade.');
-
+        alert('✅ ĐÃ HỦY DỰ THẢO HỢP ĐỒNG THÀNH CÔNG!\\n\\nBài đăng đã được giải phóng tự do trên Sàn Giao Dịch DuriTrade.');
         if (userContracts.length === 0) {
             switchTab(0, document.querySelectorAll('.nav-item')[0]);
         }
     }
-
     function finalizeContract() {
         const contract = userContracts.find(c => c.id === currentContractId);
         if (!contract) {
             alert('⚠️ Chưa chọn hợp đồng!');
             return;
         }
-
         if (contract.isFinalized) {
             alert(`ℹ️ Hợp đồng #DT-${contract.id.toString().slice(-4)} này đã được 2 bên chốt & khóa hiệu lực pháp lý trước đó!`);
             return;
         }
-
-        const hasSig = contract.isSigned || contract.signatureDataUrl || localStorage.getItem('duritrade_sig_' + contract.id);
+        const uObjFin = getCurrentUserObj();
+        const uPrefFin = (uObjFin && uObjFin.username) ? uObjFin.username : 'default';
+        const hasSig = contract.isSigned || contract.signatureDataUrl || localStorage.getItem('duritrade_sig_' + uPrefFin + '_' + contract.id);
         if (!hasSig) {
             alert('⚠️ Vui lòng ký ngón tay và bấm "✍️ Lưu & Ký Hợp Đồng" trước khi chốt hợp đồng!');
             return;
         }
-
-        const confirmChot = confirm(`📜 XÁC NHẬN CHỐT & GỬI HỢP ĐỒNG PHÁP LÝ:\n\nBạn có chắc chắn muốn CHỐT HỢP ĐỒNG #DT-${contract.id.toString().slice(-4)} này?\n\nSau khi chốt:\n1. Chữ ký điện tử ngón tay sẽ bị KHÓA VĨNH VIỄN.\n2. Mã băm mã hóa SHA-256 (#DT-HASH-${contract.id}-SECURE) sẽ được tạo làm chứng cứ pháp lý.\n3. Hợp đồng chính thức có hiệu lực ràng buộc 2 bên.\n4. TỰ ĐỘNG KÍCH HOẠT MỞ PHẦN TỐ CÁO / BÁO CÁO KHIẾU NẠI VỀ BAN QUẢN TRỊ ADMIN.`);
-
+        const confirmChot = confirm(`📜 XÁC NHẬN CHỐT & GỬI HỢP ĐỒNG PHÁP LÝ:\\n\\nBạn có chắc chắn muốn CHỐT HỢP ĐỒNG #DT-${contract.id.toString().slice(-4)} này?\\n\\nSau khi chốt:\\n1. Chữ ký điện tử ngón tay sẽ bị KHÓA VĨNH VIỄN.\\n2. Mã băm mã hóa SHA-256 (#DT-HASH-${contract.id}-SECURE) sẽ được tạo làm chứng cứ pháp lý.\\n3. Hợp đồng chính thức có hiệu lực ràng buộc 2 bên.\\n4. TỰ ĐỘNG KÍCH HOẠT MỞ PHẦN TỐ CÁO / BÁO CÁO KHIẾU NẠI VỀ BAN QUẢN TRỊ ADMIN.`);
         if (!confirmChot) return;
-
         contract.isFinalized = true;
         const now = new Date();
         contract.finalizedTime = `${now.getDate()}/${now.getMonth()+1}/${now.getFullYear()} lúc ${now.getHours()}:${now.getMinutes()<10?'0':''}${now.getMinutes()}`;
-
         localStorage.removeItem('duritrade_contract_finalized');
         saveUserContractsState();
-
         updateContractDropdown();
         updatePortfolioSummary();
         renderActiveContractUI();
-
-        alert(`🎉 CHỐT HỢP ĐỒNG THÀNH CÔNG!\n\nHợp đồng #DT-${contract.id.toString().slice(-4)} đã được 2 BÊN CHỐT & GỬI THÀNH CÔNG.\n\nDữ liệu đã được khóa mã hóa an toàn 100%.\nPhần Báo cáo Khiếu nại & Tố cáo vi phạm về Admin đã được mở ngay bên dưới.`);
+        alert(`🎉 CHỐT HỢP ĐỒNG THÀNH CÔNG!\\n\\nHợp đồng #DT-${contract.id.toString().slice(-4)} đã được 2 BÊN CHỐT & GỬI THÀNH CÔNG.\\n\\nDữ liệu đã được khóa mã hóa an toàn 100%.\\nPhần Báo cáo Khiếu nại & Tố cáo vi phạm về Admin đã được mở ngay bên dưới.`);
     }
-
     function applyFinalizedContractState() {
         renderActiveContractUI();
     }
-
-    // REPORT ADMIN DISPUTE MODAL
     function openReportAdminModal() {
         document.getElementById('modal-report-admin').style.display = 'flex';
     }
-
     function submitReportToAdmin() {
         const reason = document.getElementById('report-reason-select').value;
         const detail = document.getElementById('report-detail-input').value;
         const gps = document.getElementById('contract-gps').innerText;
-
         if (!detail) {
             alert('Vui lòng nhập mô tả chi tiết sự cố!');
             return;
         }
-
         const now = new Date();
         const timeStr = `${now.getDate()}/${now.getMonth()+1}/${now.getFullYear()} lúc ${now.getHours()}:${now.getMinutes()<10?'0':''}${now.getMinutes()}`;
-
         const newReport = { reason, detail, gps, time: timeStr };
-
         const reports = JSON.parse(localStorage.getItem('duritrade_admin_reports')) || [];
         reports.unshift(newReport);
         localStorage.setItem('duritrade_admin_reports', JSON.stringify(reports));
-
         closeModal('modal-report-admin');
         alert(`🚨 BÁO CÁO KHIẾU NẠI ĐÃ ĐƯỢC GỬI THÀNH CÔNG VỀ ADMIN!
-
 Ban Quản Trị DuriTrade sẽ xem xét, gửi Email phản hồi và điều động Chuyên gia Trọng tài BRIX P2P xuống tọa độ GPS vườn kiểm định thực tế.`);
         
         if (sessionStorage.getItem('duritrade_admin_logged') === 'true') {
             renderAdminIncidentReports();
         }
     }
-
     function applyViolationState() {
-        if (localStorage.getItem('duritrade_violation_applied') !== 'true') return;
-
+        const vCard = document.getElementById('violation-result-card');
+        const activeContract = userContracts.find(c => c.id === currentContractId);
+        if (!activeContract || localStorage.getItem('duritrade_violation_applied') !== 'true') {
+            if (vCard) vCard.style.display = 'none';
+            return;
+        }
         const partyText = localStorage.getItem('duritrade_violation_party') || '🌾 Bên Bán (Nhà Vườn / Nông Dân)';
         const flowText = localStorage.getItem('duritrade_violation_flow') || 'Hoàn cọc / Giải ngân đền bù Escrow';
         const reason = localStorage.getItem('duritrade_violation_reason') || 'Ban Quản Trị Admin ra phán quyết vi phạm thực tế';
@@ -2605,15 +2362,12 @@ Ban Quản Trị DuriTrade sẽ xem xét, gửi Email phản hồi và điều �
         const remVal = parseFloat(localStorage.getItem('duritrade_violation_remaining') || '66000000');
         const timeStr = localStorage.getItem('duritrade_violation_time') || '';
         const arbName = localStorage.getItem('duritrade_arbitrator_selected') || 'KS. Trần Văn Hùng (Chuyên gia Đắk Lắk)';
-
         const badge = document.getElementById('contract-status-badge');
         if (badge) {
             badge.className = 'badge badge-warning';
             badge.innerText = '🚨 ADMIN ĐÃ RA PHÁN QUYẾT TRỪ CỌC ESCROW';
             badge.style.background = '#c62828';
         }
-
-        const vCard = document.getElementById('violation-result-card');
         if (vCard) {
             vCard.style.display = 'block';
             if (document.getElementById('violation-party-text')) document.getElementById('violation-party-text').innerText = partyText;
@@ -2625,8 +2379,6 @@ Ban Quản Trị DuriTrade sẽ xem xét, gửi Email phản hồi và điều �
             if (document.getElementById('violation-time-text')) document.getElementById('violation-time-text').innerText = timeStr;
         }
     }
-
-    // MODAL CONTROL
     function openLegalModal() { document.getElementById('modal-legal').style.display = 'flex'; }
     function openPaymentModal() {
         const contract = userContracts.find(c => c.id === currentContractId);
@@ -2634,57 +2386,83 @@ Ban Quản Trị DuriTrade sẽ xem xét, gửi Email phản hồi và điều �
             alert('⚠️ Vui lòng chọn hợp đồng trước khi nộp cọc!');
             return;
         }
-
         if (contract.status === 'cancelled_deposit') {
             alert('🔒 Hợp đồng này đã bị hủy cọc/xử lý vi phạm trước đó!');
             return;
         }
-
         const depositVal = Number(contract.depositVal) || 82500000;
         const contractCode = contract.id ? contract.id.toString().slice(-4) : '8892';
         const addInfo = 'DT' + contractCode + ' COC BAO CHUNG';
-
         const elCode = document.getElementById('pay-modal-contract-code');
         if (elCode) elCode.innerText = '#DT-' + contractCode;
-
         const elAmount = document.getElementById('pay-modal-amount');
         if (elAmount) elAmount.innerText = depositVal.toLocaleString('vi-VN') + ' VNĐ';
-
         const elContent = document.getElementById('pay-modal-content');
         if (elContent) elContent.innerText = addInfo;
-
         const qrImg = document.getElementById('pay-modal-qr-img');
         if (qrImg) {
             qrImg.src = 'https://' + 'img.' + 'vietqr' + '.io/image/MB-1012345678-compact2.png?amount=' + depositVal + '&addInfo=' + encodeURIComponent(addInfo) + '&accountName=DURITRADE%20ESCROW%20MBBANK';
         }
-
         document.getElementById('modal-payment').style.display = 'flex';
     }
-
     function openAdminPortalModal() {
+        const user = getCurrentUserObj();
+        if (user.role !== 'admin' || sessionStorage.getItem('duritrade_admin_logged') !== 'true') {
+            alert('🔒 Chỉ tài khoản Admin mới có quyền mở Cổng Quản Trị Viên!');
+            return;
+        }
         checkAdminSession();
         document.getElementById('modal-admin-portal').style.display = 'flex';
     }
     function closeModal(id) { document.getElementById(id).style.display = 'none'; }
-
+    function handlePaymentButtonClick() {
+        const contract = userContracts.find(c => c.id === currentContractId);
+        if (contract && !contract.isFinalized && (contract.isPaid || contract.status === 'locked_deposit')) {
+            const undoConfirm = confirm('Bạn có muốn HỦY trạng thái đã nộp cọc để nộp lại không?');
+            if (undoConfirm) {
+                contract.isPaid = false;
+                contract.status = contract.isSigned ? 'signed' : 'draft';
+                saveUserContractsState();
+                updateContractDropdown();
+                updatePortfolioSummary();
+                renderActiveContractUI();
+                alert('↩️ Đã hủy trạng thái đã nộp cọc.');
+            }
+            return;
+        }
+        openPaymentModal();
+    }
     function simulatePaymentSuccess() {
         const contract = userContracts.find(c => c.id === currentContractId);
         let depositVal = 82500000;
         let contractCodeStr = '8892';
-
         if (contract) {
-            if (contract.isPaid || contract.status === 'locked_deposit') {
-                alert('ℹ️ Hợp đồng này đã được nộp 10% tiền cọc Escrow MBBank thành công trước đó!');
+            if (contract.isFinalized) {
+                alert('🔒 Hợp đồng đã chốt pháp lý! Không thể thay đổi trạng thái nộp cọc.');
                 closeModal('modal-payment');
                 return;
             }
-
+            if (contract.isPaid || contract.status === 'locked_deposit') {
+                const undoConfirm = confirm('ℹ️ Hợp đồng này đang ở trạng thái ĐÃ NỘP CỌC. Bạn có muốn HỦY trạng thái đã nộp cọc để nộp lại không?');
+                if (undoConfirm) {
+                    contract.isPaid = false;
+                    contract.status = contract.isSigned ? 'signed' : 'draft';
+                    saveUserContractsState();
+                    closeModal('modal-payment');
+                    updateContractDropdown();
+                    updatePortfolioSummary();
+                    renderActiveContractUI();
+                    alert('↩️ Đã hủy trạng thái đã nộp cọc. Bạn có thể nộp cọc lại bất cứ lúc nào.');
+                } else {
+                    closeModal('modal-payment');
+                }
+                return;
+            }
             contract.status = 'locked_deposit';
             contract.isPaid = true;
             depositVal = Number(contract.depositVal) || 82500000;
             contractCodeStr = contract.id ? contract.id.toString().slice(-4) : '8892';
             saveUserContractsState();
-
             const now = new Date();
             const timeStr = `${now.getDate()}/${now.getMonth()+1}/${now.getFullYear()} lúc ${now.getHours()}:${now.getMinutes()<10?'0':''}${now.getMinutes()}:${now.getSeconds()<10?'0':''}${now.getSeconds()}`;
             
@@ -2698,7 +2476,6 @@ Ban Quản Trị DuriTrade sẽ xem xét, gửi Email phản hồi và điều �
                 amount: depositVal,
                 time: timeStr
             };
-
             let notifs = [];
             try {
                 notifs = JSON.parse(localStorage.getItem('duritrade_admin_escrow_notifs')) || [];
@@ -2706,19 +2483,16 @@ Ban Quản Trị DuriTrade sẽ xem xét, gửi Email phản hồi và điều �
             notifs.unshift(notif);
             localStorage.setItem('duritrade_admin_escrow_notifs', JSON.stringify(notifs));
         }
-
-        alert(`🎉 XÁC NHẬN CHUYỂN CỌC THÀNH CÔNG!\n\n1. Người thụ hưởng nhận cọc: VÍ ESCROW BẢO CHỨNG MBBANK (STK: 1012345678 - DURITRADE ESCROW MBBANK).\n\n2. Số tiền cọc 10%: ${depositVal.toLocaleString('vi-VN')} VNĐ.\n\n3. Hệ thống đã tự động gửi THÔNG BÁO TỚI BAN QUẢN TRỊ ADMIN xác nhận Napas247!\n\nHợp đồng #DT-${contractCodeStr} đã chính thức KHÓA CỌC BẢO CHỨNG AN TOÀN 100%.`);
+        alert(`🎉 XÁC NHẬN CHUYỂN CỌC THÀNH CÔNG!\\n\\n1. Người thụ hưởng nhận cọc: VÍ ESCROW BẢO CHỨNG MBBANK (STK: 1012345678 - DURITRADE ESCROW MBBANK).\\n\\n2. Số tiền cọc 10%: ${depositVal.toLocaleString('vi-VN')} VNĐ.\\n\\n3. Hệ thống đã tự động gửi THÔNG BÁO TỚI BAN QUẢN TRỊ ADMIN xác nhận Napas247!\\n\\nHợp đồng #DT-${contractCodeStr} đã chính thức KHÓA CỌC BẢO CHỨNG AN TOÀN 100%.`);
         closeModal('modal-payment');
         updateContractDropdown();
         updatePortfolioSummary();
         renderActiveContractUI();
     }
-
     function renderAdminEscrowNotifications() {
         const container = document.getElementById('admin-escrow-notifications-container');
         const badgeEl = document.getElementById('admin-escrow-notif-badge');
         if (!container) return;
-
         let notifs = JSON.parse(localStorage.getItem('duritrade_admin_escrow_notifs'));
         if (!notifs || notifs.length === 0) {
             notifs = [{
@@ -2735,9 +2509,7 @@ Ban Quản Trị DuriTrade sẽ xem xét, gửi Email phản hồi và điều �
             }];
             localStorage.setItem('duritrade_admin_escrow_notifs', JSON.stringify(notifs));
         }
-
         if (badgeEl) badgeEl.innerText = `${notifs.length} Cọc Mới`;
-
         let html = '';
         notifs.forEach(n => {
             html += `
@@ -2756,11 +2528,8 @@ Ban Quản Trị DuriTrade sẽ xem xét, gửi Email phản hồi và điều �
                     </div>
                 </div>`;
         });
-
         container.innerHTML = html;
     }
-
-    // RESET ALL LOCALSTORAGE APP DATA
     function resetAppData() {
         if (confirm('⚠️ Bạn có chắc muốn khôi phục toàn bộ ứng dụng DuriTrade về trạng thái ban đầu?')) {
             localStorage.clear();
@@ -2770,6 +2539,5 @@ Ban Quản Trị DuriTrade sẽ xem xét, gửi Email phản hồi và điều �
         }
     }
 </script>
-
 </body>
 </html>
