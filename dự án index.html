@@ -204,7 +204,7 @@
                 <button type="button" class="btn-header" style="background: rgba(255,255,255,0.28);" onclick="switchAccount('nongdan01')">🌾💼 Vựa &amp; Nông Dân</button>
                 <button type="button" id="admin-header-lock-btn" class="btn-header" style="background: #fbc02d; color: #1b5e20; font-weight: 800;" onclick="openAdminPortalModal()">🛡️ Admin Modal</button>
                 <button type="button" class="btn-header" onclick="openLegalModal()">⚖️ Pháp Lý</button>
-                <button type="button" class="btn-header" style="background: #c62828;" onclick="resetAppData()">🔄 Reset</button>
+                <button type="button" class="btn-header" style="background: #c62828;" onclick="resetAppData()">🗑️ Reset toàn hệ thống</button>
             </div>
         </header>
 
@@ -2948,12 +2948,51 @@ th{width:30%;background:#f0fdf4}.signature{display:block;max-width:100%;max-heig
             `).join('');
         }
 
-        function resetAppData() {
-            if (!confirm('⚠️ Khôi phục toàn bộ dữ liệu DuriTrade về mặc định?')) return;
-            localStorage.clear();
-            sessionStorage.clear();
-            localStorage.setItem('duritrade_market_items', JSON.stringify(DEFAULT_MARKET_DATA));
-            location.reload();
+        async function resetAppData() {
+            if (!duriSupabaseConfigured()) {
+                alert('Chưa cấu hình Supabase. Không thể reset dữ liệu dùng chung. Vui lòng kiểm tra Project URL và Publishable/anon key.');
+                return;
+            }
+
+            const confirmed = confirm(
+                '⚠️ RESET TOÀN HỆ THỐNG DURITRADE?\\n\\n' +
+                'Thao tác này sẽ xóa dữ liệu DuriTrade đang lưu trên trình duyệt NÀY và ghi trạng thái mặc định lên Supabase. ' +
+                'Các thiết bị khác sẽ nhận trạng thái đã reset ở lần đồng bộ tiếp theo.\\n\\n' +
+                'Hãy chắc chắn đây chỉ là dữ liệu thử nghiệm và bạn đã sao lưu nếu cần.'
+            );
+            if (!confirmed) return;
+
+            const phrase = prompt('Để xác nhận, hãy nhập chính xác RESET (viết hoa):');
+            if (phrase !== 'RESET') {
+                alert('Đã hủy. Cụm xác nhận không khớp.');
+                return;
+            }
+
+            // Dừng các lần đồng bộ đang chờ để tránh dữ liệu cũ ghi đè trạng thái reset.
+            clearTimeout(duriPushTimer);
+            if (duriSyncTimer) clearInterval(duriSyncTimer);
+            duriApplyingRemote = true;
+
+            try {
+                // Xóa mọi khóa dữ liệu của ứng dụng trên trình duyệt hiện tại.
+                localStorage.clear();
+                sessionStorage.clear();
+
+                // Khởi tạo lại dữ liệu mặc định giống chức năng reset cũ.
+                localStorage.setItem('duritrade_market_items', JSON.stringify(DEFAULT_MARKET_DATA));
+            } finally {
+                duriApplyingRemote = false;
+            }
+
+            // Ghi trạng thái mặc định lên bản ghi dùng chung id=1.
+            // Các thiết bị khác sẽ nhận payload mới khi polling Supabase.
+            const saved = await duriPushRemoteState();
+            if (saved) {
+                alert('✅ Đã reset dữ liệu DuriTrade trên Supabase. Các thiết bị khác sẽ cập nhật trong tối đa khoảng 7 giây.');
+                location.reload();
+            } else {
+                alert('⚠️ Chưa ghi được trạng thái reset lên Supabase. Dữ liệu trên máy này đã được làm mới, nhưng máy khác có thể vẫn còn dữ liệu cũ. Hãy kiểm tra quyền INSERT/UPDATE (RLS) và kết nối Supabase trước khi thử lại.');
+            }
         }
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -3050,9 +3089,10 @@ th{width:30%;background:#f0fdf4}.signature{display:block;max-width:100%;max-heig
         }
 
         function duriRestHeaders(extra = {}) {
+            // Publishable key (sb_publishable_...) chỉ gửi qua apikey.
+            // Không gửi nó dưới dạng Bearer vì đây không phải JWT.
             return {
                 'apikey': DURITRADE_SUPABASE_ANON_KEY,
-                'Authorization': 'Bearer ' + DURITRADE_SUPABASE_ANON_KEY,
                 'Content-Type': 'application/json',
                 ...extra
             };
@@ -3083,9 +3123,11 @@ th{width:30%;background:#f0fdf4}.signature{display:block;max-width:100%;max-heig
                 }
                 duriLastRemoteUpdatedAt = new Date().toISOString();
                 duriSyncBanner('☁️ Đã kết nối server chung DuriTrade · Dữ liệu đang được đồng bộ', 'ok');
+                return true;
             } catch (error) {
                 console.error('[DuriTrade Supabase]', error);
                 duriSyncBanner('⚠️ Chưa đồng bộ được lên server: ' + error.message, 'error');
+                return false;
             } finally {
                 duriSyncBusy = false;
             }
