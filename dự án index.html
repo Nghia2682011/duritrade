@@ -518,8 +518,9 @@
                                 <div>• <strong>Thông báo hệ thống áp dụng:</strong> <span id="evidence-notice-info"></span></div>
                             </div>
                             <div style="display: flex; gap: 6px;">
-                                <button type="button" class="btn btn-outline btn-sm" style="flex: 1; font-size: 11px; padding: 7px;" onclick="downloadSignatureImage()">🖼️ Tải Ảnh Chữ Ký (.PNG)</button>
-                                <button type="button" class="btn btn-primary btn-sm" style="flex: 1.2; font-size: 11px; padding: 7px;" onclick="exportAuthorityDossier()">🏛️ Xuất Hồ Sơ Cho Cơ Quan Chức Năng</button>
+                                <button type="button" class="btn btn-primary" style="width: 100%; font-size: 13px; padding: 10px; font-weight: 700;" onclick="exportAuthorityHtmlDossier()">
+                                    🏛️ Xuất Hồ Sơ HTML Đầy Đủ (Ảnh Chữ Ký + Chi Tiết) Cho Cơ Quan Chức Năng
+                                </button>
                             </div>
                         </div>
 
@@ -2654,6 +2655,111 @@ th{width:30%;background:#f0fdf4}.signature{display:block;max-width:100%;max-heig
             document.body.removeChild(a);
             URL.revokeObjectURL(url);
             alert('🏛️ Đã xuất hồ sơ đối soát (kèm hình ảnh chữ ký Base64 & thông báo hệ thống) cho cơ quan chức năng!');
+        }
+
+
+        function exportAuthorityHtmlDossier() {
+            const contract = userContracts.find(c => c.id === currentContractId);
+            if (!contract) {
+                alert('⚠️ Không tìm thấy hợp đồng để xuất hồ sơ!');
+                return;
+            }
+            const sigDataUrl = contract.signatureDataUrl || localStorage.getItem('duritrade_sig_' + contract.id) || '';
+            if (!sigDataUrl) {
+                alert('⚠️ Hợp đồng chưa có chữ ký điện tử. Vui lòng ký và lưu chữ ký trước khi xuất hồ sơ HTML.');
+                return;
+            }
+
+            let sysNotices = [];
+            try { sysNotices = JSON.parse(localStorage.getItem('duritrade_system_contract_notices')) || []; } catch(e) {}
+
+            const noticesHtml = sysNotices.length
+                ? sysNotices.map(n => `<li>${n}</li>`).join('')
+                : '<li>Không có thông báo hệ thống bổ sung.</li>';
+
+            const html = `<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hồ Sơ Đối Soát Hợp Đồng DT-${contract.id} - DuriTrade</title>
+<style>
+    body { font-family: Arial, sans-serif; max-width: 800px; margin: 20px auto; padding: 20px; background: #f9f9f9; color: #222; }
+    .header { text-align: center; border-bottom: 3px solid #1b5e20; padding-bottom: 10px; margin-bottom: 20px; }
+    .header h1 { color: #1b5e20; margin: 0; font-size: 22px; }
+    .section { background: white; border: 1px solid #ddd; border-radius: 8px; padding: 15px; margin-bottom: 15px; }
+    .section h2 { color: #1b5e20; font-size: 16px; margin-top: 0; border-bottom: 1px solid #eee; padding-bottom: 5px; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    table td { padding: 6px 4px; vertical-align: top; }
+    table td:first-child { font-weight: bold; width: 40%; color: #333; }
+    .signature-box { text-align: center; background: #fafafa; border: 2px dashed #1b5e20; padding: 15px; border-radius: 8px; }
+    .signature-box img { max-width: 100%; max-height: 200px; border: 1px solid #ccc; background: white; }
+    .footer { text-align: center; font-size: 11px; color: #666; margin-top: 30px; border-top: 1px solid #ddd; padding-top: 10px; }
+    .badge { background: #e8f5e9; color: #1b5e20; padding: 3px 8px; border-radius: 12px; font-size: 11px; font-weight: bold; }
+</style>
+</head>
+<body>
+<div class="header">
+    <h1>🍈 HỒ SƠ ĐỐI SOÁT HỢP ĐỒNG ĐIỆN TỬ</h1>
+    <p style="margin: 5px 0; font-weight: bold; color: #d32f2f;">Mã Hợp Đồng: #DT-${contract.id}</p>
+    <p style="margin: 0; font-size: 13px;">Nền tảng DuriTrade - Bảo chứng Escrow MBBank</p>
+    <span class="badge">EVIDENCE DOCUMENT - CƠ QUAN CHỨC NĂNG</span>
+</div>
+
+<div class="section">
+    <h2>📄 Thông Tin Hợp Đồng</h2>
+    <table>
+        <tr><td>Mã băm SHA-256:</td><td>#DT-HASH-${contract.id}-SECURE</td></tr>
+        <tr><td>Bên Bán (Nông dân):</td><td>${contract.seller || ''}</td></tr>
+        <tr><td>SĐT Bên Bán:</td><td>${contract.sellerPhone || '0987.654.321'}</td></tr>
+        <tr><td>CCCD Bên Bán:</td><td>${contract.sellerCCCD || '066092008892'}</td></tr>
+        <tr><td>Bên Mua (Vựa / Thương lái):</td><td>${contract.buyer || ''}</td></tr>
+        <tr><td>SĐT Bên Mua:</td><td>${contract.buyerPhone || '0912.345.678'}</td></tr>
+        <tr><td>CCCD/MST Bên Mua:</td><td>${contract.buyerCCCD || '040088009982'}</td></tr>
+        <tr><td>Sản lượng:</td><td>${contract.quantity || ''} Tấn</td></tr>
+        <tr><td>Đơn giá chốt:</td><td>${(contract.price || 0).toLocaleString('vi-VN')} đ/kg</td></tr>
+        <tr><td>Tổng giá trị:</td><td>${(contract.totalVal || 0).toLocaleString('vi-VN')} VNĐ</td></tr>
+        <tr><td>Tiền cọc Escrow 10%:</td><td>${(contract.depositVal || 0).toLocaleString('vi-VN')} VNĐ</td></tr>
+        <tr><td>Tọa độ GPS vườn:</td><td>${contract.gps || ''}</td></tr>
+        <tr><td>Lịch cắt nông sản:</td><td>${contract.harvestSchedule || ''}</td></tr>
+        <tr><td>Thời gian chốt hợp đồng:</td><td>${contract.finalizedTime || 'Chưa chốt'}</td></tr>
+        <tr><td>Trạng thái:</td><td>${contract.status || ''} ${contract.isFinalized ? '(Đã chốt & khóa)' : ''}</td></tr>
+    </table>
+</div>
+
+<div class="section">
+    <h2>✒️ Hình Ảnh Chữ Ký Điện Tử (eKYC)</h2>
+    <div class="signature-box">
+        <img src="${sigDataUrl}" alt="Chữ ký điện tử ngón tay">
+        <p style="margin: 8px 0 0; font-size: 12px; color: #1b5e20; font-weight: bold;">✅ Chữ ký đã được lưu và khóa trên hệ thống DuriTrade</p>
+    </div>
+</div>
+
+<div class="section">
+    <h2>📢 Thông Báo Hệ Thống</h2>
+    <ul style="font-size: 13px; line-height: 1.5;">
+        ${noticesHtml}
+    </ul>
+</div>
+
+<div class="footer">
+    <p>Tài liệu này được xuất tự động từ hệ thống DuriTrade vào thời điểm: ${new Date().toLocaleString('vi-VN')}</p>
+    <p>Dùng để đối soát với cơ quan chức năng. Chữ ký điện tử và dữ liệu được bảo chứng bởi Ví Escrow MBBank.</p>
+    <p style="font-size: 10px; color: #999;">© DuriTrade - Nền tảng B2B Sầu Riêng & Bảo chứng Cọc</p>
+</div>
+</body>
+</html>`;
+
+            const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `ho-so-html-co-quan-chuc-nang-DT-${contract.id}.html`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            alert('🏛️ Đã xuất hồ sơ HTML đầy đủ (kèm ảnh chữ ký nhúng sẵn) cho cơ quan chức năng!\nMở file .html bằng trình duyệt để xem.');
         }
 
         function openWeatherDelayModal() {
